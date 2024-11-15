@@ -3,19 +3,39 @@
 namespace App\Filament\Resources\Administration\Article;
 
 use App\Filament\Resources\Administration\Article\ArticleResource\Pages;
-use App\Filament\Resources\Administration\Article\ArticleResource\RelationManagers;
+use App\Filament\Resources\UserResource;
+use App\Models\Administration\App\Category;
+use App\Models\Administration\App\DefinedSkill;
 use App\Models\Administration\Article\Article;
+use App\Models\Administration\Article\ArticleSkill;
+use App\Traits\StorageHelper;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use FilamentTiptapEditor\TiptapEditor;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Get;
+use Filament\Support\Enums\FontWeight;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Collection;
+use Awcodes\FilamentBadgeableColumn\Components\BadgeableColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Support\Colors\Color;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
+use App\Traits\PublicStyles;
+use Filament\Forms\Components\Placeholder;
+use Illuminate\Support\HtmlString;
 
 class ArticleResource extends Resource
 {
+    use StorageHelper, PublicStyles;
+
     protected static ?string $model = Article::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
@@ -26,22 +46,123 @@ class ArticleResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $skillsData = array_values(DefinedSkill::all()->pluck('name')->toArray());
+        $skillsOptions = array_combine($skillsData, $skillsData);
+
         return $form
             ->schema([
-                Forms\Components\Select::make('category_id')
-                    ->relationship('category', 'name')
-                    ->default(null),
-                Forms\Components\Textarea::make('main_img_url')
-                    ->columnSpanFull(),
+                //Key To help in generating Random key for article (Help in processing article Images)
+                Forms\Components\Hidden::make('random')
+                    ->label("random")
+                    ->default(Str::random(30)),
+                //Creation Info Section (Only on view)
+                Section::make(__("keys.Article Creation Info"))
+                    ->schema([
+                        Placeholder::make("user.name")
+                            ->label(__("keys.created_by"))
+                            ->translateLabel()
+                            ->content(function ($record) {
+                                return new HtmlString('<a href="' . UserResource::getUrl('view', [$record->user_id]) . '">' . $record->user->name . '</a>');
+                            })->extraAttributes(['style' => (new class {
+                                use PublicStyles;
+                            })->getInfolistFieldStyle()]),
+                        Forms\Components\DateTimePicker::make("created_at")
+                            ->label(__("keys.created_at"))
+                            ->translateLabel(),
+                        Forms\Components\DateTimePicker::make("updated_at")
+                            ->label(__(key: "keys.updated_at"))
+                            ->translateLabel(),
+                    ])
+                    ->visibleOn("view")
+                    ->columns(3),
+                //Draft Section
+                Section::make()->schema([
+                    Forms\Components\Toggle::make('is_draft')
+                        ->required()
+                        ->label(__("keys.draft"))
+                        ->translateLabel()
+                        ->columnSpanFull(),
+                ]),
+                //Article Input
+                //Title
                 Forms\Components\TextInput::make('title')
                     ->required()
-                    ->maxLength(255),
-                TiptapEditor::make('body')
+                    ->maxLength(255)
+                    ->label(__(key: "keys.title"))
+                    ->translateLabel(),
+                //Category
+                Forms\Components\Select::make('category_id')
                     ->required()
-                    ->columnSpanFull(),
-                Forms\Components\Toggle::make('is_draft')
+                    ->relationship(name: 'category', titleAttribute: 'name')
+                    ->searchable(['name'])
+                    ->preload()
+                    ->getOptionLabelFromRecordUsing(fn($record) => $record->name)
+                    ->label(__("keys.category"))
+                    ->translateLabel(),
+                //Main Image
+                FileUpload::make('main_img_url')
+                    ->image()
+                    ->maxSize(2048)
+                    ->directory('articles')
+                    ->acceptedFileTypes(['image/png', 'image/jpg', 'image/gif', 'image/jpeg'])
+                    ->imageEditor()
+                    ->moveFiles()
+                    ->imageEditorEmptyFillColor('#333')
+                    ->columnSpanFull()
+                    ->resize(50)
+                    ->label(__("keys.main_image"))
+                    ->translateLabel(),
+                //Skills
+                Forms\Components\Select::make('skills')
+                    ->required()
+                    ->multiple()
+                    ->maxItems(255)
+                    ->options($skillsOptions)
+                    ->searchable()
+                    ->preload()
+                    ->optionsLimit(80)
+                    ->createOptionForm([
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->unique('defined_skills', 'name', ignoreRecord: true)
+                            ->maxLength(255)
+                            ->label(__("keys.name"))
+                            ->translateLabel(),
+                        Forms\Components\TextInput::make('description')
+                            ->maxLength(length: 500)
+                            ->default(null)
+                            ->label(__("keys.description"))
+                            ->translateLabel(),
+                    ])
+                    ->createOptionUsing(function (array $data): string {
+                        $skill = DefinedSkill::create([
+                            "name" => $data["name"],
+                            "description" => $data["description"],
+                        ]);
+                        return $skill["name"];
+                    })
+                    ->label(__("keys.skills"))
+                    ->translateLabel(),
+                //Body
+                TiptapEditor::make('body')
+                    ->profile('article')
+                    ->label(__(key: "keys.text"))
+                    ->directory(function (Get $get) {
+                        return "/temp/articles/" . $get("random");
+                    })
+                    ->translateLabel()
+                    ->columnSpanFull()
+                    ->extraInputAttributes(['style' => 'min-height: 12rem;'])
+                    ->disableFloatingMenus()
                     ->required(),
-                Forms\Components\DateTimePicker::make('published_at'),
+                //Draft (Again)
+                Section::make()->schema([
+                    Forms\Components\Toggle::make('is_draft')
+                        ->required()
+                        ->label(__("keys.draft"))
+                        ->translateLabel()
+                        ->columnSpanFull()
+                ]),
             ]);
     }
 
@@ -49,38 +170,127 @@ class ArticleResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('category.name')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('is_draft')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('published_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\Layout\Grid::make()
+                    ->columns(1)
+                    ->schema([
+                        Tables\Columns\Layout\Split::make([
+                            Tables\Columns\Layout\Grid::make()
+                                ->columns(1)
+                                ->schema([
+                                    Tables\Columns\ImageColumn::make("main_img_url")
+                                        ->width(100)
+                                        ->height(160)
+                                        ->defaultImageUrl(url('/assets/defaults/no-image.jpg'))
+                                        ->extraAttributes(["style" => "border:1px solid gray;border-radius:8px; overflow:hidden"]),
+                                ])->grow(false),
+                            Tables\Columns\Layout\Stack::make([
+                                //Title
+                                TextColumn::make('title')
+                                    ->sortable()
+                                    ->searchable()
+                                    ->label(__("keys.title"))
+                                    ->translateLabel()
+                                    ->weight(FontWeight::Bold)
+                                    ->limit(50)
+                                    ->tooltip(function (TextColumn $column): ?string {
+                                        $state = $column->getState();
+                                        if (strlen($state) <= $column->getCharacterLimit()) {
+                                            return null;
+                                        }
+                                        // Only render the tooltip if the column contents exceeds the length limit.
+                                        return $state;
+                                    }),
+                                //Category
+                                Tables\Columns\TextColumn::make('category.name')
+                                    ->color("gray")
+                                    ->weight(FontWeight::Medium)
+                                    ->icon("heroicon-o-tag")
+                                    ->searchable(),
+                                //Created_at
+                                Tables\Columns\TextColumn::make('created_at')
+                                    ->sortable()
+                                    ->icon('heroicon-o-clock')
+                                    ->dateTime('Y/m/d h:i a')
+                                    ->label(__("keys.created_at"))
+                                    ->translateLabel()
+                                    ->extraAttributes(["style" => 'margin-top:10px']),
+                                //Draft
+                                Tables\Columns\TextColumn::make('is_draft')
+                                    ->prefix(__("keys.status") . ": ")
+                                    ->getStateUsing(function ($record) {
+                                        if (!$record->is_draft)
+                                            return __("keys.published");
+                                        return __("keys.draft");
+                                    })
+                                    ->color(function ($record) {
+                                        if (!$record->is_draft)
+                                            return __("success");
+                                        return __("warning");
+                                    })
+                                    ->extraAttributes(["style" => "margin-top:10px"])
+                                    ->badge(),
+                                //Skills
+                                BadgeableColumn::make("skills.skill")
+                                    ->badge()
+                                    ->extraAttributes(["style" => 'margin-top:10px'])
+                                    ->color(Color::Teal),
+                            ]),
+                        ])
+                    ])
+            ])->contentGrid([
+                'md' => 2,
+                '2xl' => 3
             ])
+            ->defaultSort("created_at", "desc")
             ->filters([
-                //
+                Filter::make('is_draft')
+                    ->toggle()
+                    ->query(fn(Builder $query): Builder => $query->where('is_draft', true))
+                    ->label(__("keys.draft"))
+                    ->translateLabel(),
+                SelectFilter::make('category_id')
+                    ->multiple()
+                    ->searchable()
+                    ->preload()
+                    ->relationship('category', 'name')
+                    ->getOptionLabelFromRecordUsing(fn($record) => $record->name)
+                    ->indicateUsing(function (array $data): array {
+                        return Category::query()->whereIn('id', $data['values'])->get()->pluck('name')->toArray();
+                    })
+                    ->label(__("keys.category"))
+                    ->translateLabel(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->extraAttributes(["style" => (new class {
+                        use PublicStyles;
+                    })->getEditAsPileButton()]),
+                Tables\Actions\DeleteAction::make()
+                    ->after(function (Article $record) {
+                        if ($record->main_img_url && Storage::disk('public')->exists($record->main_img_url)) {
+                            Storage::disk("public")->delete($record->main_img_url);
+                        }
+                        Storage::disk('public')->deleteDirectory("articles/" . $record->id);
+                    })
+                    ->extraAttributes(["style" => (new class {
+                        use PublicStyles;
+                    })->getDeleteAsPileButton()]),
             ])
+            ->paginationPageOptions([9, 18, 27])
+            ->recordUrl(
+                fn(Article $record): string => Pages\ViewArticle::getUrl([$record->id]),
+            )
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->after(function (Collection $records) {
+                            foreach ($records as $record) {
+                                if ($record->main_img_url && Storage::disk('public')->exists($record->main_img_url)) {
+                                    Storage::disk("public")->delete($record->main_img_url);
+                                }
+                                Storage::disk('public')->deleteDirectory("articles/" . $record->id);
+                            }
+                        })
                 ]),
             ]);
     }

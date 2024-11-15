@@ -4,10 +4,8 @@ namespace App\Filament\Resources\System\Info;
 
 use App\Enums\ContactTypes;
 use App\Filament\Resources\System\Info\ContactUsResource\Pages;
-use App\Filament\Resources\System\Info\ContactUsResource\RelationManagers;
 use App\Filament\Resources\UserResource;
 use App\Models\System\Info\ContactUs;
-use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Infolists\Infolist;
@@ -15,10 +13,7 @@ use Filament\Infolists;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Traits\PublicStyles;
-use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 
 class ContactUsResource extends Resource
@@ -144,11 +139,9 @@ class ContactUsResource extends Resource
                     ->label(__("keys.created_by"))
                     ->translateLabel()
                     ->url(fn(ContactUs $record): string => UserResource::getUrl('view', [$record->created_by]))
-                    ->extraAttributes(function (ContactUs $record) {
-                        return ['style' => (new class {
-                            use PublicStyles;
-                        })->getInfolistFieldStyle()];
-                    }),
+                    ->extraAttributes(['style' => (new class {
+                        use PublicStyles;
+                    })->getInfolistFieldStyle()]),
             ]);
     }
 

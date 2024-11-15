@@ -2,6 +2,7 @@
 
 namespace App\Models\Administration\App;
 
+use App\Models\Administration\Article\Article;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;

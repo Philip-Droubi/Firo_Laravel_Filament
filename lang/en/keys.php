@@ -14,6 +14,7 @@ return [
     */
 
     //Public
+    'draft' => 'draft',
     'item' => 'Item',
     'text' => 'Text',
     'lang' => 'Lang',
@@ -23,9 +24,13 @@ return [
     'description' => 'Description',
     'type' => 'Type',
     'link' => 'Link',
+    'title' => 'Title',
+    'main_image' => 'Main image',
     'question' => 'Question',
     'answer' => 'Answer',
     'active' => 'Active',
+    'status' => 'Status',
+    'published' => 'Published',
     'created_by' => 'Created By',
     'updated_by' => 'Updated By',
     'last_updated_by' => 'Updated By',
@@ -84,4 +89,5 @@ return [
     //Articles
     'articles' => 'Articles',
     'article' => 'article',
+    'Article Creation Info' => 'Article Creation Info',
 ];

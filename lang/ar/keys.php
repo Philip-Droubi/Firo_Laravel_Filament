@@ -14,6 +14,7 @@ return [
     */
 
     //Public
+    'draft' => 'مسودة',
     'item' => 'عنصر',
     'text' => 'النص',
     'lang' => 'اللغة',
@@ -22,10 +23,14 @@ return [
     'name_ar' => 'اسم عربي',
     'description' => 'الوصف',
     'type' => 'النوع',
-    'link'  => 'الرابط',
+    'link' => 'الرابط',
+    'title' => 'العنوان',
+    'main_image' => 'الصورة الرئيسية',
     'question' => 'سؤال',
     'answer' => 'إجابة',
     'active' => 'فعّال',
+    'status' => 'الحالة',
+    'published' => 'منشور',
     'created_by' => 'أنشء بواسطة',
     'updated_by' => 'عُدل بواسطة',
     'last_updated_by' => 'عُدل بواسطة',
@@ -84,4 +89,5 @@ return [
     //Articles
     'articles' => 'مقالات',
     'article' => 'مقالة',
+    'Article Creation Info' => 'معلومات إنشاء المقالة',
 ];
