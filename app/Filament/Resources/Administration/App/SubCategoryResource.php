@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Administration\App;
 
 use App\Filament\Resources\Administration\App\SubCategoryResource\Pages;
-use App\Filament\Resources\Administration\App\SubCategoryResource\RelationManagers;
 use App\Models\Administration\App\Category;
 use App\Models\Administration\App\SubCategory;
 use CodeZero\UniqueTranslation\UniqueTranslationRule;
@@ -15,8 +14,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SubCategoryResource extends Resource
 {
@@ -32,7 +29,7 @@ class SubCategoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Textarea::make('name')
+                Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255)
                     ->rules([
@@ -45,6 +42,7 @@ class SubCategoryResource extends Resource
                     ->relationship(name: 'category', titleAttribute: 'name')
                     ->searchable(['name'])
                     ->preload()
+                    ->getOptionLabelFromRecordUsing(fn($record) => $record->name)
                     ->label(__("keys.category"))
                     ->translateLabel(),
             ]);

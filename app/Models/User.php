@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Administration\App\AppFeature;
+use App\Models\Administration\Article\Article;
 use App\Models\System\Info\AboutUs;
 use App\Models\System\Info\ContactUs;
 use App\Models\System\Info\Country;
@@ -114,6 +115,11 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar
     public function appPrivacies()
     {
         return $this->hasMany(PrivacyPolicy::class, 'last_update_by');
+    }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class, 'user_id');
     }
 
     //

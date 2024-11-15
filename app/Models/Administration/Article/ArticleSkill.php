@@ -17,6 +17,6 @@ class ArticleSkill extends Model
 
     public function article(): BelongsTo
     {
-        return $this->belongsTo(Article::class, 'article_id');
+        return $this->belongsTo(Article::class);
     }
 }
