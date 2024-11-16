@@ -90,4 +90,9 @@ return [
     'articles' => 'Articles',
     'article' => 'article',
     'Article Creation Info' => 'Article Creation Info',
+
+    //Roles
+    'role' => 'Role',
+    'roles' => 'Roles',
+    'abilities' => 'Abilities',
 ];

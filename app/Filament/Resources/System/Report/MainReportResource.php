@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\System\Report;
 
 use App\Filament\Resources\System\Report\MainReportResource\Pages;
-use App\Filament\Resources\System\Report\MainReportResource\RelationManagers;
 use App\Models\System\Report\MainReport;
 use CodeZero\UniqueTranslation\UniqueTranslationRule;
 use Filament\Forms;
@@ -13,8 +12,6 @@ use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class MainReportResource extends Resource
 {
@@ -23,7 +20,7 @@ class MainReportResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {

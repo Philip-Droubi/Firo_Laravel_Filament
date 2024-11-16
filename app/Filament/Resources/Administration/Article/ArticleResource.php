@@ -7,7 +7,6 @@ use App\Filament\Resources\UserResource;
 use App\Models\Administration\App\Category;
 use App\Models\Administration\App\DefinedSkill;
 use App\Models\Administration\Article\Article;
-use App\Models\Administration\Article\ArticleSkill;
 use App\Traits\StorageHelper;
 use Filament\Forms;
 use Filament\Forms\Form;

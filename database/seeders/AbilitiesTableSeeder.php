@@ -22,7 +22,7 @@ class AbilitiesTableSeeder extends Seeder
             0 =>
             array(
                 'id' => 1,
-                'name' => 'All',
+                'name' => 'All Abilities',
                 'description' => 'All abilities in the system.',
                 'created_at' => '2023-12-14 22:50:20',
                 'updated_at' => '2023-12-14 22:50:20',

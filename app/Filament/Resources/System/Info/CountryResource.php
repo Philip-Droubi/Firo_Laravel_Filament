@@ -3,15 +3,12 @@
 namespace App\Filament\Resources\System\Info;
 
 use App\Filament\Resources\System\Info\CountryResource\Pages;
-use App\Filament\Resources\System\Info\CountryResource\RelationManagers;
 use App\Models\System\Info\Country;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CountryResource extends Resource
 {
@@ -25,7 +22,7 @@ class CountryResource extends Resource
 
     // protected static ?string $navigationGroup = 'System Info';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {

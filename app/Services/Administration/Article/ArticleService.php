@@ -4,7 +4,6 @@ namespace App\Services\Administration\Article;
 
 use App\Models\Administration\Article\ArticleImage;
 use App\Services\MainService;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Carbon\Carbon;

@@ -23,7 +23,7 @@ class SubCategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-tag';
 
-    protected static ?int $navigationSort = 6;
+    protected static ?int $navigationSort = 7;
 
     public static function form(Form $form): Form
     {
