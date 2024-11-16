@@ -90,4 +90,9 @@ return [
     'articles' => 'مقالات',
     'article' => 'مقالة',
     'Article Creation Info' => 'معلومات إنشاء المقالة',
+
+    //Roles
+    'role' => 'دور',
+    'roles' => 'الأدوار',
+    'abilities' => 'الصلاحيات',
 ];
