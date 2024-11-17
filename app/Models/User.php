@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Administration\Account\AdminProfile;
 use App\Models\Administration\App\AppFeature;
 use App\Models\Administration\Article\Article;
 use App\Models\System\Info\AboutUs;
@@ -75,6 +76,18 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class, "role_id");
+    }
+
+    public function adminProfile()
+    {
+        return $this->hasOne(AdminProfile::class, "user_id");
+    }
+
+    public function createdAdmins()
+    {
+        if (auth()->user()->role_id != 3)
+            return $this->hasMany(AdminProfile::class, "created_by");
+        return null;
     }
 
     public function country(): BelongsTo
@@ -186,7 +199,7 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar
     //Filament
     public function canAccessPanel(Panel $panel): bool
     {
-        return str_ends_with($this->account_name, 'admin') && $this->role_id != 3;
+        return str_ends_with($this->account_name, 'admin') && $this->role_id != 3 && $this->deactive_at == null;
     }
 
     public function getFilamentName(): string

@@ -33,7 +33,9 @@ class StateResource extends Resource
                     ->relationship(name: 'country', titleAttribute: 'name_' . app()->getLocale())
                     ->searchable(['name_ar', 'name_en'])
                     ->optionsLimit(500)
-                    ->preload(),
+                    ->preload()
+                    ->label(__("keys.country"))
+                    ->translateLabel(),
                 Forms\Components\TextInput::make('name_en')
                     ->required()
                     ->maxLength(255)

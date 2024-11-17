@@ -30,6 +30,7 @@ return [
     'answer' => 'Answer',
     'active' => 'Active',
     'status' => 'Status',
+    'image' => 'Image',
     'published' => 'Published',
     'created_by' => 'Created By',
     'updated_by' => 'Updated By',
@@ -40,6 +41,7 @@ return [
     //Navigation Groups
     'system info' => 'System Info',
     'system management' => 'System Management',
+    'system users' => 'System Users',
 
     //Country & State
     'country' => 'Country',
@@ -95,4 +97,15 @@ return [
     'role' => 'Role',
     'roles' => 'Roles',
     'abilities' => 'Abilities',
+
+    //Users
+    'users' => 'Users',
+    'user' => 'User',
+    'admin' => 'Admin',
+    'admins' => 'Admins',
+    'about user' => 'About user',
+    'account name' => 'Account name',
+    'email' => 'Email',
+    'phone number' => 'Phone number',
+    'last seen' => 'Last seen',
 ];

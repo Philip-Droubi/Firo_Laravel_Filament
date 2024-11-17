@@ -38,6 +38,9 @@ class AdminPanelProvider extends PanelProvider
             // ->unsavedChangesAlerts()
             ->navigationGroups([
                 NavigationGroup::make()
+                    ->label(fn(): string => __('keys.system users'))
+                    ->collapsed(),
+                NavigationGroup::make()
                     ->label(fn(): string => __('keys.system info'))
                     ->collapsed(),
                 NavigationGroup::make()

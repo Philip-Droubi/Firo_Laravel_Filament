@@ -30,6 +30,7 @@ return [
     'answer' => 'إجابة',
     'active' => 'فعّال',
     'status' => 'الحالة',
+    'image' => 'الصورة',
     'published' => 'منشور',
     'created_by' => 'أنشء بواسطة',
     'updated_by' => 'عُدل بواسطة',
@@ -40,6 +41,7 @@ return [
     //Navigation Groups
     'system info' => 'معلومات النظام',
     'system management' => 'إدارة النظام',
+    'system users' => 'مستخدمي النظام',
 
     //Country & State
     'country' => 'دولة',
@@ -95,4 +97,15 @@ return [
     'role' => 'دور',
     'roles' => 'الأدوار',
     'abilities' => 'الصلاحيات',
+
+    //Users
+    'users' => 'مستخدمين',
+    'user' => 'مستخدم',
+    'admin' => 'مدير',
+    'admins' => 'مدراء',
+    'about user' => 'حول المستخدم',
+    'account name' => 'اسم الحساب',
+    'email' => 'البريد الالكتروني',
+    'phone number' => 'رقم الهاتف',
+    'last seen' => 'آخر ظهور',
 ];
