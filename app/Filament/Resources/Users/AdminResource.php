@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Users;
 use App\Filament\Resources\Users\AdminResource\Pages;
 use App\Models\System\Roles\Role;
 use App\Models\User;
+use App\Traits\PublicStyles;
 use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
@@ -16,6 +17,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\Rules\Password  as PasswordRules;
 use Rawilk\FilamentPasswordInput\Password as PasswordFiled;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Placeholder;
+use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Support\HtmlString;
 
 class AdminResource extends Resource
 {
@@ -27,6 +31,31 @@ class AdminResource extends Resource
 
     protected static ?string $slug = 'admins';
 
+    // public static function canViewAny(): bool
+    // {
+    //     return !empty(array_intersect(Auth()->user()->role->abilities->pluck('id')->toArray(), [1, 3]));;
+    // }
+
+    public static function canView($user): bool
+    {
+        return !empty(array_intersect(Auth()->user()->role->abilities->pluck('id')->toArray(), [1, 3]));
+    }
+
+    public static function canCreate(): bool
+    {
+        return !empty(array_intersect(Auth()->user()->role->abilities->pluck('id')->toArray(), [1, 3]));
+    }
+
+    public static function canEdit($user): bool
+    {
+        return !empty(array_intersect(Auth()->user()->role->abilities->pluck('id')->toArray(), [1, 3]));
+    }
+
+    public static function canDelete($user): bool
+    {
+        return !empty(array_intersect(Auth()->user()->role->abilities->pluck('id')->toArray(), [1, 3]));
+    }
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()->whereNot('role_id', 3);
@@ -36,6 +65,42 @@ class AdminResource extends Resource
     {
         return $form
             ->schema([
+                Section::make(__("keys.User Creation Info"))
+                    ->schema([
+                        Placeholder::make("user.name")
+                            ->label(__("keys.created_by"))
+                            ->translateLabel()
+                            ->content(function ($record) {
+                                if ($record->adminProfile->created_by)
+                                    return new HtmlString('<a href="' . AdminResource::getUrl('view', [$record->adminProfile?->created_by]) . '">' . $record->adminProfile?->creator?->name . '</a>');
+                                return "N/A";
+                            })->extraAttributes(['style' => (new class {
+                                use PublicStyles;
+                            })->getInfolistFieldStyle()]),
+                        Forms\Components\DateTimePicker::make("created_at")
+                            ->label(__("keys.created_at"))
+                            ->translateLabel(),
+                        Forms\Components\DateTimePicker::make("updated_at")
+                            ->label(__(key: "keys.updated_at"))
+                            ->translateLabel(),
+                    ])
+                    ->visibleOn("view")
+                    ->columns(3),
+                Section::make(__("keys.Account Status"))
+                    ->schema([
+                        Forms\Components\Toggle::make('deactive_at_toggle')
+                            ->disabled(function ($record) {
+                                return $record->id == 1 || $record->role_id == 1;
+                            })
+                            ->label(__("keys.status"))
+                            ->translateLabel(),
+                        Forms\Components\TextInput::make("deactive_at_time")
+                            ->visibleOn('view')
+                            ->label(__("keys.deactive_at"))
+                            ->translateLabel(),
+                    ])
+                    ->visibleOn(["view", "edit"])
+                    ->columns(2),
                 Section::make(__("keys.User personal info"))
                     ->schema([
                         Forms\Components\TextInput::make("first_name")
@@ -59,7 +124,7 @@ class AdminResource extends Resource
                             ->required()
                             ->relationship("role", "name")
                             ->options(function () {
-                                return Role::whereNot('id', 3)->pluck("name", "id")->toArray();
+                                return Role::whereNot('id', 3)->orderBy("id")->pluck("name", "id")->toArray();
                             })
                             ->preload()
                             ->searchable()
@@ -68,14 +133,14 @@ class AdminResource extends Resource
                         Forms\Components\TextInput::make("email")
                             ->required()
                             ->email()
-                            ->unique("users", "email")
+                            ->unique("users", "email", ignoreRecord: true)
                             ->label(__("keys.email"))
                             ->translateLabel(),
                         Forms\Components\TextInput::make("phone_number")
                             ->required()
                             ->tel()
                             ->telRegex("/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,8}$/")
-                            ->unique("users", "phone_number")
+                            ->unique("users", "phone_number", ignoreRecord: true)
                             ->label(__("keys.phone number"))
                             ->translateLabel(),
                         Forms\Components\Select::make('country_id')
@@ -95,6 +160,7 @@ class AdminResource extends Resource
                             ->translateLabel(),
                         Forms\Components\DatePicker::make("birth_date")
                             ->required()
+                            ->beforeOrEqual(Carbon::now()->subYears(18)->format("Y-m-d"))
                             ->label(__("keys.birth date"))
                             ->translateLabel(),
                     ])
@@ -106,12 +172,12 @@ class AdminResource extends Resource
                             ->minLength(5)
                             ->maxLength(50)
                             ->hint("user-admin")
-                            ->unique('users', 'account_name')
+                            ->unique('users', 'account_name', ignoreRecord: true)
                             ->regex("/^[A-Za-z](?!.*?[-_]{2})[A-Za-z0-9_-]{4,30}[A-Za-z0-9]$/")
                             ->label(__("keys.account name"))
                             ->translateLabel(),
                         PasswordFiled::make("password")
-                            ->required()
+                            ->required(fn($operation) => $operation === 'create')
                             ->minLength(8)
                             ->maxLength(255)
                             ->rules(function () {
@@ -122,7 +188,7 @@ class AdminResource extends Resource
                             ->label(__("keys.password"))
                             ->translateLabel(),
                         PasswordFiled::make("password_confirmation")
-                            ->required()
+                            ->required(fn($operation) => $operation === 'create')
                             ->password()
                             ->autocomplete(false)
                             ->same('password')
@@ -130,12 +196,10 @@ class AdminResource extends Resource
                             ->translateLabel(),
                     ])
                     ->columns(3),
-                FileUpload::make('main_img_url')
+                FileUpload::make('img_url')
                     ->image()
                     ->maxSize(2048)
-                    ->directory(directory: function ($record) {
-                        return "users/profiles/" . $record->id;
-                    })
+                    ->directory("users/profiles-images/admins/")
                     ->acceptedFileTypes(['image/png', 'image/jpg', 'image/gif', 'image/jpeg'])
                     ->imageEditor()
                     ->moveFiles()
@@ -144,7 +208,7 @@ class AdminResource extends Resource
                     ->resize(50)
                     ->label(__("keys.main_image"))
                     ->translateLabel(),
-                Forms\Components\Textarea::make('about user')
+                Forms\Components\Textarea::make('about_user')
                     ->columnSpanFull()
                     ->maxLength(1000)
                     ->rows(4)
@@ -180,16 +244,19 @@ class AdminResource extends Resource
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('account_name')
                     ->searchable()
+                    ->copyable()
                     ->label(__("keys.account name"))
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable()
                     ->label(__("keys.email"))
+                    ->copyable()
                     ->icon('eos-email')
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('phone_number')
                     ->toggleable()
                     ->icon('eos-phone')
+                    ->copyable()
                     ->label(__("keys.phone number"))
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('last_seen')
@@ -203,7 +270,7 @@ class AdminResource extends Resource
                     ->translateLabel()
                     ->url(function (User $record): string {
                         return
-                            $record->adminProfile->created_by ?
+                            $record->adminProfile?->created_by ?
                             AdminResource::getUrl('view', [$record->adminProfile->created_by])
                             : "";
                     }),
@@ -222,7 +289,7 @@ class AdminResource extends Resource
                         return true;
                     })
                     ->disabled(function ($record) {
-                        return $record->id == 1 || $record->role_id == 1;
+                        return $record->id == 1 || $record->role_id == 1 || empty(array_intersect(Auth()->user()->role->abilities->pluck('id')->toArray(), [1, 3]));
                     })
                     ->label(__("keys.active"))
                     ->translateLabel(),
@@ -240,16 +307,29 @@ class AdminResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('active')
+                    ->options([
+                        1 => __("keys.active"),
+                        2 => __("keys.inactive"),
+                    ])
+                    ->query(function (Builder $query, $state) {
+                        if ($state["value"] == 1) return $query->whereNull("deactive_at");
+                        if ($state["value"] == 2) return $query->whereNotNull("deactive_at");
+                    })
+                    ->label(__("keys.Account Status"))
+                    ->translateLabel(),
+                SelectFilter::make(name: 'role_id')
+                    ->preload()
+                    ->relationship(name: 'role', titleAttribute: 'name', modifyQueryUsing: fn(Builder $query) => $query->whereNot("id", 3))
+                    ->searchable()
+                    ->multiple()
+                    ->optionsLimit('50')
+                    ->label(__("keys.roles"))
+                    ->translateLabel(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
             ]);
     }
 

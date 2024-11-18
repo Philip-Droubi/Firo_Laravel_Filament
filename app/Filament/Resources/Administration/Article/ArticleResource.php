@@ -71,6 +71,9 @@ class ArticleResource extends Resource
                         Forms\Components\DateTimePicker::make("updated_at")
                             ->label(__(key: "keys.updated_at"))
                             ->translateLabel(),
+                        Forms\Components\DateTimePicker::make("published_at")
+                            ->label(__(key: "keys.published_at"))
+                            ->translateLabel(),
                     ])
                     ->visibleOn("view")
                     ->columns(3),
