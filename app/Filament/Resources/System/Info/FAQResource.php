@@ -3,8 +3,7 @@
 namespace App\Filament\Resources\System\Info;
 
 use App\Filament\Resources\System\Info\FAQResource\Pages;
-use App\Filament\Resources\System\Info\FAQResource\RelationManagers;
-use App\Filament\Resources\UserResource;
+use App\Filament\Resources\Users\UserResource;
 use App\Models\System\Info\FAQ;
 use CodeZero\UniqueTranslation\UniqueTranslationRule;
 use Filament\Forms;
@@ -14,8 +13,6 @@ use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class FAQResource extends Resource
 {

@@ -3,16 +3,13 @@
 namespace App\Filament\Resources\System\Info;
 
 use App\Filament\Resources\System\Info\PrivacyPolicyResource\Pages;
-use App\Filament\Resources\System\Info\PrivacyPolicyResource\RelationManagers;
-use App\Filament\Resources\UserResource;
+use App\Filament\Resources\Users\UserResource;
 use App\Models\System\Info\PrivacyPolicy;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\HtmlString;
 
 class PrivacyPolicyResource extends Resource

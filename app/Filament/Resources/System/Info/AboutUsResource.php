@@ -3,16 +3,13 @@
 namespace App\Filament\Resources\System\Info;
 
 use App\Filament\Resources\System\Info\AboutUsResource\Pages;
-use App\Filament\Resources\System\Info\AboutUsResource\RelationManagers;
-use App\Filament\Resources\UserResource;
+use App\Filament\Resources\Users\UserResource;
 use App\Models\System\Info\AboutUs;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\HtmlString;
 
 class AboutUsResource extends Resource

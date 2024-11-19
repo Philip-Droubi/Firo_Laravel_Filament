@@ -2,7 +2,6 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Resources\Users\AdminResource;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -31,7 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->favicon(asset(path: 'assets/logo/logo_ico.png'))
             ->brandLogo(fn() => view('brand'))
-            ->profile(isSimple: false)
+            ->profile(false)
             ->login()
             ->sidebarCollapsibleOnDesktop()
             ->spa()

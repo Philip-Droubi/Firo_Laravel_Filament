@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Models\Administration\Account\AdminProfile;
 use App\Models\Administration\App\AppFeature;
 use App\Models\Administration\Article\Article;
+use App\Models\Administration\Log\BanLog;
 use App\Models\System\Info\AboutUs;
 use App\Models\System\Info\ContactUs;
 use App\Models\System\Info\Country;
@@ -14,7 +15,13 @@ use App\Models\System\Info\FAQ;
 use App\Models\System\Info\PrivacyPolicy;
 use App\Models\System\Info\State;
 use App\Models\System\Info\Tos;
+use App\Models\System\Report\UserReport;
 use App\Models\System\Roles\Role;
+use App\Models\Users\Account\LoginHistory;
+use App\Models\Users\Account\UserFcmToken;
+use App\Models\Users\Account\UserPoint;
+use App\Models\Users\Account\UserProfile;
+use App\Models\Users\Account\UserSkill;
 use App\Traits\ImagesHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -133,6 +140,55 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar
     public function articles()
     {
         return $this->hasMany(Article::class, 'user_id');
+    }
+
+    public function bans()
+    {
+        return $this->hasMany(BanLog::class, "banned_id");
+    }
+
+    public function bannedByMe()
+    {
+        return $this->hasMany(BanLog::class, "banned_by_id");
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(UserReport::class, "reported_id");
+    }
+
+    public function profileReports()
+    {
+        return $this->morphMany(UserReport::class, "reportable");
+    }
+
+    public function reportsFrom()
+    {
+        return $this->hasMany(UserReport::class, "reporter_id");
+    }
+
+    public function fcmTokens()
+    {
+        return $this->hasMany(UserFcmToken::class, "user_id");
+    }
+
+    public function loginHistory()
+    {
+        return $this->hasMany(LoginHistory::class, "user_id");
+    }
+    public function skills()
+    {
+        return $this->hasMany(UserSkill::class, "user_id");
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class, "user_id");
+    }
+
+    public function points()
+    {
+        return $this->hasMany(UserPoint::class, "user_id");
     }
 
     //

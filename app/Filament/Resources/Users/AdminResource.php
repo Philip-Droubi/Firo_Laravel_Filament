@@ -31,10 +31,10 @@ class AdminResource extends Resource
 
     protected static ?string $slug = 'admins';
 
-    // public static function canViewAny(): bool
-    // {
-    //     return !empty(array_intersect(Auth()->user()->role->abilities->pluck('id')->toArray(), [1, 3]));;
-    // }
+    public static function canViewAny(): bool
+    {
+        return !empty(array_intersect(Auth()->user()->role->abilities->pluck('id')->toArray(), [1, 3]));;
+    }
 
     public static function canView($user): bool
     {
