@@ -3,16 +3,11 @@
 namespace App\Filament\Resources\Administration\App;
 
 use App\Filament\Resources\Administration\App\AppFeatureResource\Pages;
-use App\Filament\Resources\Administration\App\AppFeatureResource\RelationManagers;
-use App\Filament\Resources\UserResource;
+use App\Filament\Resources\Users\UserResource;
 use App\Models\Administration\App\AppFeature;
-use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AppFeatureResource extends Resource
 {
@@ -44,7 +39,7 @@ class AppFeatureResource extends Resource
                     ->translateLabel()
                     ->url(function (AppFeature $record): string {
                         return
-                            $record->created_by ?
+                            $record->updated_by ?
                             UserResource::getUrl('view', [$record->updated_by])
                             : "";
                     }),

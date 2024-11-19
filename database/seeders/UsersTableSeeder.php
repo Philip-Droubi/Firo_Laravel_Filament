@@ -14,15 +14,15 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('users')->delete();
-
-        \DB::table('users')->insert(array(
-            0 =>
-            array(
+        
+        \DB::table('users')->insert(array (
+            0 => 
+            array (
                 'id' => 1,
-                'role_id' => 1,
+                'role_id' => 6,
                 'first_name' => 'Philip',
                 'mid_name' => 'Marwan',
                 'last_name' => 'Droubi',
@@ -32,14 +32,79 @@ class UsersTableSeeder extends Seeder
                 'phone_number' => '+963959773659',
                 'country_id' => 15,
                 'state_id' => 1,
-                'birth_date' => '2001-08-29',
+                'birth_date' => NULL,
                 'img_url' => NULL,
                 'deactive_at' => NULL,
-                'last_seen' => '2024-10-07 21:43:47',
-                'remember_token' => NULL,
+                'last_seen' => '2024-11-18 18:14:09',
+                'remember_token' => 'aCNoA241yNNWR7SREuej9f4lTqxXcdp6SARVT1DtT99bjqR1bubcMt5ROVU6',
                 'created_at' => '2024-10-07 21:45:33',
-                'updated_at' => '2024-10-07 21:45:33',
+                'updated_at' => '2024-11-17 01:08:28',
+            ),
+            1 => 
+            array (
+                'id' => 2,
+                'role_id' => 2,
+                'first_name' => 'Test',
+                'mid_name' => 'Test',
+                'last_name' => 'Test',
+                'account_name' => 'test-admin',
+                'email' => 'test@email.com',
+                'password' => 'test',
+                'phone_number' => '+96388465132',
+                'country_id' => 15,
+                'state_id' => 2,
+                'birth_date' => '1999-09-09',
+                'img_url' => 'users/profiles-images/admins//01JCXSYK25XZT9K4ZTPT5QDYFA.jpg',
+                'deactive_at' => '2024-11-17 19:35:49',
+                'last_seen' => NULL,
+                'remember_token' => NULL,
+                'created_at' => '2024-11-16 04:09:25',
+                'updated_at' => '2024-11-17 19:35:49',
+            ),
+            2 => 
+            array (
+                'id' => 10,
+                'role_id' => 2,
+                'first_name' => 'Sami',
+                'mid_name' => 'Shadi',
+                'last_name' => 'Fadi',
+                'account_name' => 'sami-admin',
+                'email' => 'sami@email.com',
+                'password' => '$2y$12$3Yxm0lpe0x5v7be3SUBJI./rxHosvsNQyEBF9r1NQ3.JO3Vk3yrE2',
+                'phone_number' => '+963851445698',
+                'country_id' => 15,
+                'state_id' => 1,
+                'birth_date' => '2003-03-06',
+                'img_url' => NULL,
+                'deactive_at' => NULL,
+                'last_seen' => NULL,
+                'remember_token' => NULL,
+                'created_at' => '2024-11-17 18:02:44',
+                'updated_at' => '2024-11-18 01:38:42',
+            ),
+            3 => 
+            array (
+                'id' => 11,
+                'role_id' => 3,
+                'first_name' => 'Omar',
+                'mid_name' => 'Samer',
+                'last_name' => 'Murad',
+                'account_name' => 'Omar-1234',
+                'email' => 'Omar@email.com',
+                'password' => '$2y$12$3Yxm0lpe0x5v7be3SUBJI./rxHosvsNQyEBF9r1NQ3.JO3Vk3yrE2',
+                'phone_number' => '+96385274193',
+                'country_id' => 15,
+                'state_id' => 1,
+                'birth_date' => '2005-11-10',
+                'img_url' => NULL,
+                'deactive_at' => NULL,
+                'last_seen' => '2024-11-17 20:48:36',
+                'remember_token' => NULL,
+                'created_at' => '2024-11-07 20:48:36',
+                'updated_at' => '2024-11-07 20:48:36',
             ),
         ));
+        
+        
     }
 }

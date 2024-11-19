@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Administration\Article;
 
 use App\Filament\Resources\Administration\Article\ArticleResource\Pages;
-use App\Filament\Resources\UserResource;
+use App\Filament\Resources\Users\UserResource;
 use App\Models\Administration\App\Category;
 use App\Models\Administration\App\DefinedSkill;
 use App\Models\Administration\Article\Article;

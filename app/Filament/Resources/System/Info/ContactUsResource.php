@@ -4,7 +4,7 @@ namespace App\Filament\Resources\System\Info;
 
 use App\Enums\ContactTypes;
 use App\Filament\Resources\System\Info\ContactUsResource\Pages;
-use App\Filament\Resources\UserResource;
+use App\Filament\Resources\Users\UserResource;
 use App\Models\System\Info\ContactUs;
 use Filament\Forms;
 use Filament\Forms\Form;

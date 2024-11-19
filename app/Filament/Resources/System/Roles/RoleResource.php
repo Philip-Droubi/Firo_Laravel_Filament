@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\System\Roles;
 
 use App\Filament\Resources\System\Roles\RoleResource\Pages;
-use App\Filament\Resources\UserResource;
+use App\Filament\Resources\Users\UserResource;
 use App\Models\System\Roles\Role;
 use App\Models\User;
 use Awcodes\FilamentBadgeableColumn\Components\BadgeableColumn;
