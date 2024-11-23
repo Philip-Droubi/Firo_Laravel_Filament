@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Users\AdminResource\Pages;
 
 use App\Filament\Resources\Users\AdminResource;
+use App\Filament\Resources\Users\LoginHistoryResource;
 use App\Models\Administration\Account\AdminProfile;
 use Carbon\Carbon;
 use Filament\Actions;
@@ -29,6 +30,11 @@ class ViewAdmin extends ViewRecord
     {
         return [
             Actions\EditAction::make(),
+            Actions\Action::make("login_history")
+                ->url(fn($record): string => LoginHistoryResource::getUrl("index", ["user" => $record->account_name]))
+                ->color("success")
+                ->label(__("keys.login history"))
+                ->translateLabel(),
         ];
     }
 }

@@ -25,6 +25,8 @@ return [
     'type' => 'النوع',
     'link' => 'الرابط',
     'title' => 'العنوان',
+    'device_name' => 'الجهاز',
+    'ip_address' => 'عنوان ال IP',
     'main_image' => 'الصورة الرئيسية',
     'question' => 'سؤال',
     'answer' => 'إجابة',
@@ -52,6 +54,7 @@ return [
     'countries' => 'الدول',
     'state' => 'المحافظة/ولاية',
     'states' => 'المحافظات/الولايات',
+    'city' => 'المدينة',
     'country code' => 'رمز الدولة',
     'dial code' => 'رمز الهاتف',
 
@@ -123,4 +126,11 @@ return [
     'User Creation Info' => 'معلومات إنشاء المستخدم',
     'Account Status' => 'حالة الحساب',
     'Account is active' => 'الحساب فعال',
+
+    //Login History
+    'login history page title' => ' :user_name سجل تسجيل الدخول لـ',
+    'login history' => 'سجل تسجيل الدخول',
+
+    //Auth
+    'Email / Username' => 'البريد الالكتروني / اسم المستخدم',
 ];

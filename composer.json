@@ -7,10 +7,16 @@
         "framework"
     ],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Philip-Droubi/filament-tiptap-editor"
+        }
+    ],
     "require": {
         "php": "^8.1",
         "awcodes/filament-badgeable-column": "^2.3",
-        "awcodes/filament-tiptap-editor": "^3.4",
+        "awcodes/filament-tiptap-editor": "dev-image-editor",
         "bezhansalleh/filament-language-switch": "^3.1",
         "codeat3/blade-eos-icons": "^1.14",
         "codezero/laravel-unique-translation": "^4.3",
@@ -23,6 +29,7 @@
         "laravel/tinker": "^2.8",
         "orangehill/iseed": "^3.0",
         "rawilk/filament-password-input": "^2.0",
+        "stevebauman/location": "*",
         "timwassenburg/laravel-service-generator": "^1.0"
     },
     "require-dev": {
