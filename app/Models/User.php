@@ -38,6 +38,8 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar
 {
     use HasApiTokens, HasFactory, Notifiable, ImagesHelper;
 
+    protected $with = ["role"];
+
     /**
      * The attributes that are mass assignable.
      *

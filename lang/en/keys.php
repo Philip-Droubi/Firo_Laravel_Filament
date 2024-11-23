@@ -25,6 +25,8 @@ return [
     'type' => 'Type',
     'link' => 'Link',
     'title' => 'Title',
+    'device_name' => 'Device name',
+    'ip_address' => 'IP address',
     'main_image' => 'Main image',
     'question' => 'Question',
     'answer' => 'Answer',
@@ -52,6 +54,7 @@ return [
     'countries' => 'Countries',
     'state' => 'State',
     'states' => 'States',
+    'city' => 'City',
     'country code' => 'Country code',
     'dial code' => 'Dial code',
 
@@ -123,4 +126,11 @@ return [
     'User Creation Info' => 'User Creation Info',
     'Account Status' => 'Account Status',
     'Account is active' => 'Account is active',
+
+    //Login History
+    'login history page title' => 'Login history for :user_name',
+    'login history' => 'Login history',
+
+    //Auth
+    'Email / Username' => 'Email / Username',
 ];
