@@ -6,11 +6,11 @@ use App\Filament\Resources\System\Info\CountryResource\Pages;
 use App\Models\System\Info\Country;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Filament\Classes\BaseResource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class CountryResource extends Resource
+class CountryResource extends BaseResource
 {
     protected static ?string $model = Country::class;
 
@@ -83,18 +83,8 @@ class CountryResource extends Resource
                     ->sortable()
                     ->label(__("keys.dial code"))
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label(__('keys.created_at'))
-                    ->translateLabel()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->label(__('keys.updated_at'))
-                    ->translateLabel()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                self::getDateTableComponent(),
+                self::getDateTableComponent('updated_at', 'updated_at')
             ])
             ->filters([
                 //

@@ -2,21 +2,18 @@
 
 namespace App\Filament\Resources\Administration\App;
 
+use App\Filament\Classes\BaseResource;
 use App\Filament\Resources\Administration\App\CategoryResource\Pages;
-use App\Filament\Resources\Administration\App\CategoryResource\RelationManagers;
 use App\Models\Administration\App\Category;
 use CodeZero\UniqueTranslation\UniqueTranslationRule;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Concerns\Translatable;
-use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class CategoryResource extends Resource
+class CategoryResource extends BaseResource
 {
     use Translatable;
     protected static ?string $model = Category::class;
@@ -49,18 +46,8 @@ class CategoryResource extends Resource
                     ->searchable()
                     ->label(__("keys.name"))
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label(__('keys.created_at'))
-                    ->translateLabel()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->label(__('keys.updated_at'))
-                    ->translateLabel()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                self::getDateTableComponent(),
+                self::getDateTableComponent('updated_at', 'updated_at')
             ])
             ->filters([
                 //

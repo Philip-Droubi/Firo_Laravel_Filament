@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Filament\Classes\BaseResource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -21,7 +21,7 @@ use Filament\Forms\Components\Placeholder;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Support\HtmlString;
 
-class AdminResource extends Resource
+class AdminResource extends BaseResource
 {
     protected static ?string $model = User::class;
 
@@ -259,12 +259,7 @@ class AdminResource extends Resource
                     ->copyable()
                     ->label(__("keys.phone number"))
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('last_seen')
-                    ->toggleable()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
-                    ->label(__("keys.last seen"))
-                    ->translateLabel(),
+                self::getDateTableComponent('last_seen', 'last seen', isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('adminProfile.creator.name')
                     ->label(__("keys.created_by"))
                     ->translateLabel()
@@ -293,18 +288,8 @@ class AdminResource extends Resource
                     })
                     ->label(__("keys.active"))
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label(__('keys.created_at'))
-                    ->translateLabel()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->label(__('keys.updated_at'))
-                    ->translateLabel()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                self::getDateTableComponent(),
+                self::getDateTableComponent('updated_at', 'updated_at'),
             ])
             ->filters([
                 SelectFilter::make('active')

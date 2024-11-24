@@ -7,12 +7,12 @@ use App\Filament\Resources\Users\UserResource;
 use App\Models\System\Info\AboutUs;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Filament\Classes\BaseResource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\HtmlString;
 
-class AboutUsResource extends Resource
+class AboutUsResource extends BaseResource
 {
     protected static ?string $model = AboutUs::class;
 
@@ -68,18 +68,8 @@ class AboutUsResource extends Resource
                     ->formatStateUsing(fn(string $state): HtmlString => new HtmlString($state))
                     ->label(__("keys.text"))
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label(__('keys.created_at'))
-                    ->translateLabel()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->label(__('keys.updated_at'))
-                    ->translateLabel()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                self::getDateTableComponent(),
+                self::getDateTableComponent('updated_at', 'updated_at')
             ])
             ->filters([
                 //
