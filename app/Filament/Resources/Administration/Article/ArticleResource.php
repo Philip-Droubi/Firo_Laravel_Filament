@@ -10,7 +10,7 @@ use App\Models\Administration\Article\Article;
 use App\Traits\StorageHelper;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Filament\Classes\BaseResource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use FilamentTiptapEditor\TiptapEditor;
@@ -31,7 +31,7 @@ use App\Traits\PublicStyles;
 use Filament\Forms\Components\Placeholder;
 use Illuminate\Support\HtmlString;
 
-class ArticleResource extends Resource
+class ArticleResource extends BaseResource
 {
     use StorageHelper, PublicStyles;
 
@@ -209,12 +209,8 @@ class ArticleResource extends Resource
                                     ->icon("heroicon-o-tag")
                                     ->searchable(),
                                 //Created_at
-                                Tables\Columns\TextColumn::make('created_at')
-                                    ->sortable()
+                                self::getDateTableComponent(dateTime: 'Y/m/d h:i a')
                                     ->icon('heroicon-o-clock')
-                                    ->dateTime('Y/m/d h:i a')
-                                    ->label(__("keys.created_at"))
-                                    ->translateLabel()
                                     ->extraAttributes(["style" => 'margin-top:10px']),
                                 //Draft
                                 Tables\Columns\TextColumn::make('is_draft')

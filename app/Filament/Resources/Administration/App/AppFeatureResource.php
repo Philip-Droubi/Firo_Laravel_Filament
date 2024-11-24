@@ -5,11 +5,11 @@ namespace App\Filament\Resources\Administration\App;
 use App\Filament\Resources\Administration\App\AppFeatureResource\Pages;
 use App\Filament\Resources\Users\UserResource;
 use App\Models\Administration\App\AppFeature;
-use Filament\Resources\Resource;
+use App\Filament\Classes\BaseResource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class AppFeatureResource extends Resource
+class AppFeatureResource extends BaseResource
 {
     protected static ?string $model = AppFeature::class;
 
@@ -43,11 +43,7 @@ class AppFeatureResource extends Resource
                             UserResource::getUrl('view', [$record->updated_by])
                             : "";
                     }),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->label(__('keys.updated_at'))
-                    ->translateLabel()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
+                self::getDateTableComponent('updated_at', 'updated_at', isToggledHiddenByDefault: false)
             ])->paginated(false)
             ->defaultSort('name');
     }

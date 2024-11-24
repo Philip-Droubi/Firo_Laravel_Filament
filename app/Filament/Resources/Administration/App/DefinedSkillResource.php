@@ -3,17 +3,14 @@
 namespace App\Filament\Resources\Administration\App;
 
 use App\Filament\Resources\Administration\App\DefinedSkillResource\Pages;
-use App\Filament\Resources\Administration\App\DefinedSkillResource\RelationManagers;
 use App\Models\Administration\App\DefinedSkill;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Filament\Classes\BaseResource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class DefinedSkillResource extends Resource
+class DefinedSkillResource extends BaseResource
 {
     protected static ?string $model = DefinedSkill::class;
 
@@ -52,18 +49,8 @@ class DefinedSkillResource extends Resource
                     ->searchable()
                     ->label(__("keys.description"))
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label(__('keys.created_at'))
-                    ->translateLabel()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->label(__('keys.updated_at'))
-                    ->translateLabel()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                self::getDateTableComponent(),
+                self::getDateTableComponent('updated_at', 'updated_at')
             ])
             ->filters([
                 //

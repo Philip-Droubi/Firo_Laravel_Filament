@@ -9,11 +9,11 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Concerns\Translatable;
-use Filament\Resources\Resource;
+use App\Filament\Classes\BaseResource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class MainReportResource extends Resource
+class MainReportResource extends BaseResource
 {
     use Translatable;
     protected static ?string $model = MainReport::class;
@@ -47,18 +47,8 @@ class MainReportResource extends Resource
                     ->searchable()
                     ->label(__("keys.text"))
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label(__('keys.created_at'))
-                    ->translateLabel()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->label(__('keys.updated_at'))
-                    ->translateLabel()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                self::getDateTableComponent(),
+                self::getDateTableComponent('updated_at', 'updated_at')
             ])
             ->filters([
                 //

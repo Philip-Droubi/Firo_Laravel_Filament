@@ -27,9 +27,10 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "matomo/device-detector": "^6.4",
         "orangehill/iseed": "^3.0",
         "rawilk/filament-password-input": "^2.0",
-        "stevebauman/location": "*",
+        "stevebauman/location": "^7.4",
         "timwassenburg/laravel-service-generator": "^1.0"
     },
     "require-dev": {

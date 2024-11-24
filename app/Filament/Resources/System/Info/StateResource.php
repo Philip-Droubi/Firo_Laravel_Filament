@@ -3,20 +3,16 @@
 namespace App\Filament\Resources\System\Info;
 
 use App\Filament\Resources\System\Info\StateResource\Pages;
-use App\Filament\Resources\System\Info\StateResource\RelationManagers;
-use App\Models\System\Info\Country;
 use App\Models\System\Info\State;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Filament\Classes\BaseResource;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Validation\Rules\Unique;
 
-class StateResource extends Resource
+class StateResource extends BaseResource
 {
     protected static ?string $model = State::class;
 
@@ -78,18 +74,8 @@ class StateResource extends Resource
                     ->sortable()
                     ->label(__("keys.name_ar"))
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label(__('keys.created_at'))
-                    ->translateLabel()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->label(__('keys.updated_at'))
-                    ->translateLabel()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                self::getDateTableComponent(),
+                self::getDateTableComponent('updated_at', 'updated_at')
             ])
             ->filters([
                 SelectFilter::make('country.name_' . app()->getLocale())

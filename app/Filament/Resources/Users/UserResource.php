@@ -5,16 +5,15 @@ namespace App\Filament\Resources\Users;
 use App\Filament\Resources\Users\UserResource\Pages;
 use App\Models\User;
 use App\Models\Users\Account\UserSkill;
-use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Filament\Classes\BaseResource;
 use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Awcodes\FilamentBadgeableColumn\Components\BadgeableColumn;
 
-class UserResource extends Resource
+class UserResource extends BaseResource
 {
     protected static ?string $model = User::class;
 
@@ -101,43 +100,23 @@ class UserResource extends Resource
                     ->copyable()
                     ->label(__("keys.phone number"))
                     ->translateLabel(),
-                    //Skills
+                //Skills
                 BadgeableColumn::make("skills.skill")
-                    ->getStateUsing(function($record){
+                    ->getStateUsing(function ($record) {
                         $limit = 5;
-                        $data = UserSkill::query()->where(["user_id"=>$record->id])->limit($limit)->pluck('skill')->toArray();
-                        if(($count = UserSkill::query()->where(["user_id"=>$record->id])->count()) > $limit){
-                            array_push($data,"+" .$count. " more");
+                        $data = UserSkill::query()->where(["user_id" => $record->id])->limit($limit)->pluck('skill')->toArray();
+                        if (($count = UserSkill::query()->where(["user_id" => $record->id])->count()) > $limit) {
+                            array_push($data, "+" . $count . " more");
                         }
                         return $data;
                     })
                     ->badge()
                     ->extraAttributes(["style" => 'width:200px'])
                     ->color(Color::Teal),
-                Tables\Columns\TextColumn::make('last_seen')
-                    ->toggleable()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
-                    ->label(__("keys.last seen"))
-                    ->translateLabel(),
-                Tables\Columns\TextColumn::make('deactive_at')
-                    ->label(__('keys.deactive_at'))
-                    ->translateLabel()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
-                    ->toggleable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label(__('keys.created_at'))
-                    ->translateLabel()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->label(__('keys.updated_at'))
-                    ->translateLabel()
-                    ->dateTime('Y-m-d h:i a')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                self::getDateTableComponent('last_seen', 'last seen', isToggledHiddenByDefault: false),
+                self::getDateTableComponent('deactive_at', 'deactive_at', isToggledHiddenByDefault: false),
+                self::getDateTableComponent(),
+                self::getDateTableComponent('updated_at', 'updated_at')
             ])
             ->filters([
                 //
