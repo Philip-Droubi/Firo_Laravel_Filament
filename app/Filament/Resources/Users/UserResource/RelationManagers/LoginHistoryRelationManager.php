@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Users\UserResource\RelationManagers;
 
+use App\Traits\FilamentComponentsTrait;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -9,14 +10,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class LoginHistoryRelationManager extends RelationManager
 {
+    use FilamentComponentsTrait;
     protected static string $relationship = 'loginHistory';
 
-    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    public static function getTitle(Model $ownerRecord, string $pageClass) : string
     {
         return __('keys.login history');
     }
 
-    public function table(Table $table): Table
+    public function table(Table $table) : Table
     {
         return $table
             ->recordTitleAttribute('ip_address')
@@ -39,12 +41,7 @@ class LoginHistoryRelationManager extends RelationManager
                     ->toggleable()
                     ->label(__("keys.ip_address"))
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label(__("keys.created_at"))
-                    ->translateLabel()
-                    ->dateTime('Y-m-d g:i a')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: false),
+                self::getDateTableComponent(isToggledHiddenByDefault: false),
             ])->defaultSort('created_at', 'desc');
     }
 }

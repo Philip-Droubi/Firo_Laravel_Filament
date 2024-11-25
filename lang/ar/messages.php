@@ -91,4 +91,8 @@ return [
     "Removed from favorites list" => "تمت الإزالة من قائمة المفضلة",
     "deleted item" => "عنصر محذوف",
     "Can not deactive your account!" => "لا يمكنك تعطيل حسابك",
+
+    //Ban
+    "user has been unbanned" => "تم إلغاء حظر المستخدم",
+    "user has been banned" => "تم حظر المستخدم",
 ];

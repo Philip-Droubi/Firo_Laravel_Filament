@@ -14,6 +14,8 @@ return [
     */
 
     //Public
+    'yes' => 'نعم',
+    'no' => 'لا',
     'draft' => 'مسودة',
     'item' => 'عنصر',
     'text' => 'النص',
@@ -133,4 +135,15 @@ return [
 
     //Auth
     'Email / Username' => 'البريد الالكتروني / اسم المستخدم',
+
+    //Ban System
+    'ban log' => 'سجل الحظر',
+    'reason' => 'السبب',
+    'auto ban' => 'حظر آلي',
+    'banned_until' => 'حظر لغاية',
+    'ban user' => 'حظر المستخدم',
+    'unban user' => 'إلغاء حظر المستخدم',
+
+    //User Points
+    'points' => 'النقاط',
 ];
