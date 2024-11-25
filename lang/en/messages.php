@@ -91,4 +91,8 @@ return [
     "Removed from favorites list" => "Removed from favorites list",
     "deleted item" => "Deleted item",
     "Can not deactive your account!" => "Can not deactive your account!",
+
+    //Ban
+    "user has been unbanned" => "User has been unbanned",
+    "user has been banned" => "User has been banned",
 ];

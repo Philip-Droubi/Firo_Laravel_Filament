@@ -14,6 +14,8 @@ return [
     */
 
     //Public
+    'yes' => 'Yes',
+    'no' => 'No',
     'draft' => 'draft',
     'item' => 'Item',
     'text' => 'Text',
@@ -133,4 +135,15 @@ return [
 
     //Auth
     'Email / Username' => 'Email / Username',
+
+    //Ban System
+    'ban log' => 'Ban log',
+    'reason' => 'Reason',
+    'auto ban' => 'Auto ban',
+    'banned_until' => 'Banned until',
+    'ban user' => 'Ban user',
+    'unban user' => 'Unban user',
+
+    //User Points
+    'points' => 'Points',
 ];

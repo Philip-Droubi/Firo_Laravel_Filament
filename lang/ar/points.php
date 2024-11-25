@@ -24,6 +24,6 @@ return [
     UserPointsCases::TWO_STARS_PLUS->value      => "تقييم بأكثر من نجمتين",
     UserPointsCases::TWO_STARS_LESS->value      => "تقييم بأقل من نجمتين",
 
-    UserPointsCases::AUTO_BAN->value     => "لقد تمَّ حظرك آلياً",
-    UserPointsCases::BAN->value          => "لقد تمَّ حظرك",
+    UserPointsCases::AUTO_BAN->value     => "حظر آلي",
+    UserPointsCases::BAN->value          => "حالة حظر",
 ];

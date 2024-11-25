@@ -24,6 +24,6 @@ return [
     UserPointsCases::TWO_STARS_PLUS->value      => "Received a rating higher than 2 stars",
     UserPointsCases::TWO_STARS_LESS->value      => "Received a rating less than 2 stars",
 
-    UserPointsCases::AUTO_BAN->value     => "You were auto banned",
-    UserPointsCases::BAN->value          => "You were banned",
+    UserPointsCases::AUTO_BAN->value     => "Auto ban case",
+    UserPointsCases::BAN->value          => "Ban case",
 ];
