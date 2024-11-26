@@ -73,8 +73,10 @@ class UserResource extends BaseResource
                     ->label(__("keys.image"))
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make(name: 'name')
+                    ->searchable(query: function (Builder $query, $search): Builder {
+                        return $query->searchName($search);
+                    })
                     ->sortable()
-                    ->searchable()
                     ->label(__("keys.name"))
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('profile.bio')

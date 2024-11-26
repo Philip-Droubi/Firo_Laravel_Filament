@@ -51,7 +51,7 @@ class ViewUser extends ViewRecord
                     ];
                 })
                 ->action(function ($data, $record) {
-                    (new UserBanService())->ban($data, $record);
+                    (new UserBanService())->ban($data, $record->account_name);
                     $this->record->refresh();
                     Notification::make()
                         ->title(__("messages.user has been banned"))

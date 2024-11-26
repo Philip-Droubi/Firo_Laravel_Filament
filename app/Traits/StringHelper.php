@@ -25,8 +25,26 @@ trait StringHelper
     public function arToEnNum(String $string): String
     {
         return strtr($string, array(
-            '۰' => '0', '۱' => '1', '۲' => '2', '۳' => '3', '۴' => '4', '۵' => '5', '۶' => '6', '۷' => '7', '۸' => '8', '۹' => '9',
-            '٠' => '0', '١' => '1', '٢' => '2', '٣' => '3', '٤' => '4', '٥' => '5', '٦' => '6', '٧' => '7', '٨' => '8', '٩' => '9'
+            '۰' => '0',
+            '۱' => '1',
+            '۲' => '2',
+            '۳' => '3',
+            '۴' => '4',
+            '۵' => '5',
+            '۶' => '6',
+            '۷' => '7',
+            '۸' => '8',
+            '۹' => '9',
+            '٠' => '0',
+            '١' => '1',
+            '٢' => '2',
+            '٣' => '3',
+            '٤' => '4',
+            '٥' => '5',
+            '٦' => '6',
+            '٧' => '7',
+            '٨' => '8',
+            '٩' => '9'
         ));
     }
 
@@ -40,7 +58,7 @@ trait StringHelper
         return $text;
     }
 
-    public function subStringBetweenTwoChars($string, $firstChar, $lastChar): string
+    public function subStringBetweenTwoChars($string, $firstChar, $lastChar): string|bool
     {
         $firstPos = mb_stripos($string, $firstChar);
         $lastPos = mb_stripos($string, $lastChar);

@@ -8,6 +8,7 @@ use App\Models\Administration\App\AppFeature;
 use App\Models\Administration\App\Category;
 use App\Models\Administration\App\SubCategory;
 use App\Models\Administration\Article\Article;
+use App\Models\Administration\Log\BanLog;
 use App\Models\System\Info\AboutUs;
 use App\Models\System\Info\ContactUs;
 use App\Models\System\Info\Country;
@@ -19,6 +20,7 @@ use App\Models\System\Report\MainReport;
 use App\Models\System\Roles\Role;
 use App\Policies\Administration\App\AppFeaturePolicy;
 use App\Policies\Administration\Article\ArticlePolicy;
+use App\Policies\Administration\Log\BanLogPolicy;
 use App\Policies\System\Info\SystemInfoPolicy;
 use App\Policies\System\Roles\RolePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -46,6 +48,8 @@ class AuthServiceProvider extends ServiceProvider
         Category::class => SystemInfoPolicy::class,
         SubCategory::class => SystemInfoPolicy::class,
         //End System Info Policies
+        //Users Pages Policies
+        BanLog::class => BanLogPolicy::class,
     ];
 
     /**

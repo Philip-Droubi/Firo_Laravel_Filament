@@ -18,6 +18,8 @@ return [
     'no' => 'No',
     'draft' => 'draft',
     'item' => 'Item',
+    'items' => 'Items',
+    'logs' => 'Logs',
     'text' => 'Text',
     'lang' => 'Lang',
     'name' => 'Name',
@@ -143,7 +145,10 @@ return [
     'banned_until' => 'Banned until',
     'ban user' => 'Ban user',
     'unban user' => 'Unban user',
+    'ban' => 'Ban',
+    'banned_user' => 'Banned user',
 
     //User Points
     'points' => 'Points',
+    'case' => 'Case'
 ];

@@ -12,8 +12,8 @@ class DeviceDetectorService extends MainService
 {
     public function getName(string $userAgent): string
     {
-        $dd = new DeviceDetector($userAgent);
-        $dd->parse();
-        return "{$dd->getDeviceName()}-{$dd->getOs('name')}{$dd->getOs('version')}/{$dd->getClient('name')} {$dd->getClient('type')}";
+        $device = new DeviceDetector($userAgent);
+        $device->parse();
+        return "{$device->getDeviceName()}-{$device->getOs('name')}{$device->getOs('version')}/{$device->getClient('name')} {$device->getClient('type')}";
     }
 }
