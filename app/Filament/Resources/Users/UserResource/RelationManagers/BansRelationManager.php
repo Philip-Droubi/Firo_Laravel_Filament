@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Users\UserResource\RelationManagers;
 
+use App\Filament\Resources\Administration\Log\BanLogResource;
 use App\Filament\Resources\Users\AdminResource;
 use App\Models\Administration\Log\BanLog;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -33,47 +34,7 @@ class BansRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Section::make()
-                    ->schema([
-                        Placeholder::make("user.name")
-                            ->label(__("keys.created_by"))
-                            ->translateLabel()
-                            ->content(function ($record): HtmlString|string {
-                                if ($record->banned_by_id)
-                                    return new HtmlString('<a href="' . AdminResource::getUrl('view', [$record->banned_by_id]) . '">' . $record->banningUser?->name . '</a>');
-                                return "N/A";
-                            })->extraAttributes(['style' => (new class {
-                                use PublicStyles;
-                            })->getInfolistFieldStyle()]),
-                        Forms\Components\DateTimePicker::make("created_at")
-                            ->label(__("keys.created_at"))
-                            ->translateLabel(),
-                        Forms\Components\DateTimePicker::make("updated_at")
-                            ->label(__(key: "keys.updated_at"))
-                            ->translateLabel(),
-                    ])
-                    ->visibleOn("view")
-                    ->columns(3),
-                Forms\Components\TextInput::make("reason")
-                    ->required()
-                    ->minLength(1)
-                    ->maxLength(600)
-                    ->columnSpanFull()
-                    ->label(__("keys.reason"))
-                    ->translateLabel(),
-                DateTimePicker::make('banned_until')
-                    ->required()
-                    ->native(false)
-                    ->before(Carbon::now()->addYears(500)->format("Y-m-d"))
-                    ->after(Carbon::now()->format('Y-m-d'))
-                    ->label(__("keys.banned_until"))
-                    ->translateLabel(),
-                Forms\Components\TextInput::make('is_auto')
-                    ->label(__("keys.auto ban"))
-                    ->translateLabel(),
-            ]);
+        return BanLogResource::form($form);
     }
 
     public function table(Table $table): Table
@@ -105,13 +66,8 @@ class BansRelationManager extends RelationManager
             ])->defaultSort('updated_at', 'desc')
             ->actions([
                 Tables\Actions\ViewAction::make()->fillForm(function ($record) {
-                    return [
-                        "created_at" => Carbon::parse($record->created_at)->format("Y-m-d H:i:s"),
-                        "updated_at" => Carbon::parse($record->updated_at)->format("Y-m-d H:i:s"),
-                        "reason" => $record->reason,
-                        "banned_until" => Carbon::parse($record->updated_at)->format("Y-m-d H:i"),
-                        "is_auto" => $record->is_auto ? __("keys.yes") : __("keys.no"),
-                    ];
+                    $record["is_auto"] = $record->is_auto ? __("keys.yes") : __("keys.no");
+                    return $record->toArray();
                 }),
             ]);
     }
@@ -119,5 +75,10 @@ class BansRelationManager extends RelationManager
     public static function getModelLabel(): string
     {
         return __('keys.ban log');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('keys.items');
     }
 }

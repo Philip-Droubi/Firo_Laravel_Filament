@@ -33,6 +33,7 @@ use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Filament\Models\Contracts\HasName;
 use Filament\Models\Contracts\HasAvatar;
+use Illuminate\Database\Eloquent\Builder;
 
 class User extends Authenticatable implements FilamentUser, HasName, HasAvatar
 {
@@ -268,5 +269,20 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar
     public function getFilamentAvatarUrl(): ?string
     {
         return asset($this->getProfileImage($this));
+    }
+
+    //Scopes
+    public function scopeSearchName(Builder $query, string|null $search): void
+    {
+        is_null($search) ? $search = '' : null;
+        $query->where(function ($query) use ($search) {
+            if (substr($search, 0, 1)  == "@") {
+                $query->where("account_name", 'like', substr($search, 1) . '%');
+            } else
+                $query->whereAny(["first_name", "last_name"], 'like', strtolower($search) . '%')
+                    ->orWhereRaw("concat(first_name,' ',mid_name,' ', last_name) like '%$search%' ")
+                    ->orWhereRaw("concat(first_name,' ', last_name) like '%$search%' ")
+                    ->orWhere("account_name", $search);
+        });;
     }
 }

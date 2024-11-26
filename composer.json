@@ -29,6 +29,7 @@
         "laravel/tinker": "^2.8",
         "matomo/device-detector": "^6.4",
         "orangehill/iseed": "^3.0",
+        "owenvoke/blade-fontawesome": "^2.8",
         "rawilk/filament-password-input": "^2.0",
         "stevebauman/location": "^7.4",
         "timwassenburg/laravel-service-generator": "^1.0"

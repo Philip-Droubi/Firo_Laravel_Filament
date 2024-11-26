@@ -13,12 +13,12 @@ class LoginHistoryRelationManager extends RelationManager
     use FilamentComponentsTrait;
     protected static string $relationship = 'loginHistory';
 
-    public static function getTitle(Model $ownerRecord, string $pageClass) : string
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
     {
         return __('keys.login history');
     }
 
-    public function table(Table $table) : Table
+    public function table(Table $table): Table
     {
         return $table
             ->recordTitleAttribute('ip_address')
@@ -43,5 +43,16 @@ class LoginHistoryRelationManager extends RelationManager
                     ->translateLabel(),
                 self::getDateTableComponent(isToggledHiddenByDefault: false),
             ])->defaultSort('created_at', 'desc');
+    }
+
+
+    public static function getModelLabel(): string
+    {
+        return __('keys.login history');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('keys.items');
     }
 }

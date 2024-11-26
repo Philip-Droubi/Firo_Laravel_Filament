@@ -22,11 +22,13 @@ class UserBanService extends MainService
         $this->pointService = new UserPointService();
     }
 
-    public function ban($data, $record): bool
+    public function ban($data, $account_name): bool
     {
         DB::beginTransaction();
 
-        $user = User::where("account_name", $record->account_name)->with('profile')->first();
+        $user = User::query()->where("account_name", $account_name)
+            ->with('profile')
+            ->first();
         $profile = $user->profile;
 
         $noBanToBan = false; //To check if user already banned then this is ban update or it's first time ban
@@ -43,7 +45,7 @@ class UserBanService extends MainService
             "banned_until" => Carbon::parse($profile->banned_until)->format("Y-m-d H:i"),
             "is_auto" => false,
         ]);
-        $noBanToBan ? $this->pointService->addPoints($user->id, UserPointsCases::BAN->value):null;
+        $noBanToBan ? $this->pointService->addPoints($user->id, UserPointsCases::BAN->value) : null;
 
         DB::commit();
         //Send Email & Notification

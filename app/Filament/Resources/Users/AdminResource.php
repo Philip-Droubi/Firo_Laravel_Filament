@@ -231,7 +231,9 @@ class AdminResource extends BaseResource
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make(name: 'name')
                     ->sortable()
-                    ->searchable()
+                    ->searchable(query: function (Builder $query, $search): Builder {
+                        return $query->searchName($search);
+                    })
                     ->label(__("keys.name"))
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('role.name')

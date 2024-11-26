@@ -29,7 +29,7 @@ trait StorageHelper
         return $path . "/" . $file_name;
     }
 
-    public function createFileObject($url)
+    public function createFileObject($url): UploadedFile
     {
         $path_parts = pathinfo($url);
 
