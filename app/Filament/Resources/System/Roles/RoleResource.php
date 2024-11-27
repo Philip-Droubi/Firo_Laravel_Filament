@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\System\Roles;
 
 use App\Filament\Resources\System\Roles\RoleResource\Pages;
-use App\Filament\Resources\Users\UserResource;
+use App\Filament\Resources\Users\AdminResource;
 use App\Models\System\Roles\Role;
 use App\Models\User;
 use Awcodes\FilamentBadgeableColumn\Components\BadgeableColumn;
@@ -65,7 +65,7 @@ class RoleResource extends BaseResource
                     ->url(function (Role $record): string {
                         return
                             $record->created_by ?
-                            UserResource::getUrl('view', [$record->created_by])
+                            AdminResource::getUrl('view', [$record->created_by])
                             : "";
                     }),
                 Tables\Columns\TextColumn::make('description')

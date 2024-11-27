@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Users;
 use App\Filament\Resources\Users\UserResource\Pages;
 use App\Models\User;
 use App\Models\Users\Account\UserSkill;
+use Filament\Forms;
 use Filament\Forms\Form;
 use App\Filament\Classes\BaseResource;
 use Filament\Support\Colors\Color;
@@ -12,6 +13,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Awcodes\FilamentBadgeableColumn\Components\BadgeableColumn;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\FileUpload;
 
 class UserResource extends BaseResource
 {
@@ -57,7 +60,108 @@ class UserResource extends BaseResource
     {
         return $form
             ->schema([
-                //
+                Section::make(__("keys.Account Status"))
+                    ->schema([
+                        Section::make("")->schema([
+                            Forms\Components\Toggle::make('deactive_at_toggle')
+                                ->label(__("keys.status"))
+                                ->translateLabel(),
+                            Forms\Components\Toggle::make('is_freelancer')
+                                ->label(__("keys.freelancer"))
+                                ->translateLabel(),
+                            Forms\Components\Toggle::make('is_stakeholder')
+                                ->label(__("keys.stakeholder"))
+                                ->translateLabel(),
+                            Forms\Components\Toggle::make('tfa')
+                                ->label(__("keys.tfa"))
+                                ->translateLabel(),
+                        ])->columns(4),
+                        Forms\Components\TextInput::make("deactive_at_time")
+                            ->label(__("keys.deactive_at"))
+                            ->translateLabel(),
+                        Forms\Components\DateTimePicker::make("last_seen")
+                            ->label(__("keys.last seen"))
+                            ->translateLabel(),
+                        Forms\Components\DateTimePicker::make("created_at")
+                            ->label(__("keys.created_at"))
+                            ->translateLabel(),
+                        Forms\Components\DateTimePicker::make("updated_at")
+                            ->label(__("keys.updated_at"))
+                            ->translateLabel(),
+                    ])
+                    ->columns(3),
+                Section::make("")->schema([
+                    FileUpload::make('img_url')
+                        ->columnSpanFull()
+                        ->label(__("keys.main_image"))
+                        ->translateLabel(),
+                    FileUpload::make('bg_img_url')
+                        ->columnSpanFull()
+                        ->label(__("keys.bg_image"))
+                        ->translateLabel(),
+                ]),
+                Section::make(__("keys.User personal info"))
+                    ->schema([
+                        Forms\Components\TextInput::make("first_name")
+                            ->label(__("keys.first name"))
+                            ->translateLabel(),
+                        Forms\Components\TextInput::make("mid_name")
+                            ->label(__("keys.middle name"))
+                            ->translateLabel(),
+                        Forms\Components\TextInput::make("last_name")
+                            ->label(__("keys.last name"))
+                            ->translateLabel(),
+                        Forms\Components\TextInput::make("account_name")
+                            ->suffixIcon('eos-alternate-email-o')
+                            ->suffixIconColor('warning')
+                            ->label(__("keys.account name"))
+                            ->translateLabel(),
+                        Forms\Components\TextInput::make("email")
+                            ->prefixIcon('eos-email')
+                            ->prefixIconColor('warning')
+                            ->label(__("keys.email"))
+                            ->translateLabel(),
+                        Forms\Components\TextInput::make("phone_number")
+                            ->prefixIcon('eos-phone')
+                            ->prefixIconColor('warning')
+                            ->label(__("keys.phone number"))
+                            ->translateLabel(),
+                        Forms\Components\Select::make('country_id')
+                            ->relationship(name: 'country', titleAttribute: 'name_' . app()->getLocale())
+                            ->prefixIcon('heroicon-o-flag')
+                            ->prefixIconColor('warning')
+                            ->label(__("keys.country"))
+                            ->translateLabel(),
+                        Forms\Components\Select::make('state_id')
+                            ->relationship(name: 'state', titleAttribute: 'name_' . app()->getLocale())
+                            ->prefixIcon('heroicon-o-building-office-2')
+                            ->prefixIconColor('warning')
+                            ->label(__("keys.state"))
+                            ->translateLabel(),
+                        Forms\Components\DatePicker::make("birth_date")
+                            ->prefixIcon('fas-birthday-cake')
+                            ->prefixIconColor('warning')
+                            ->label(__("keys.birth date"))
+                            ->translateLabel(),
+                        //Skills
+                        Forms\Components\Select::make("user_skills")
+                            ->prefix(function ($record): int {
+                                return UserSkill::where('user_id', $record->id)->count();
+                            })
+                            ->prefixIcon('heroicon-o-academic-cap')
+                            ->prefixIconColor('warning')
+                            ->multiple()
+                            ->columnSpanFull()
+                            ->label(__("keys.skills"))
+                            ->translateLabel(),
+                    ])
+                    ->columns(3),
+                //Bio
+                Forms\Components\Textarea::make('bio')
+                    ->columnSpanFull()
+                    ->rows(4)
+                    ->label(__("keys.about user"))
+                    ->translateLabel(),
             ]);
     }
 
@@ -125,7 +229,6 @@ class UserResource extends BaseResource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -147,7 +250,6 @@ class UserResource extends BaseResource
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
             'view' => Pages\ViewUser::route('/{record}'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
 

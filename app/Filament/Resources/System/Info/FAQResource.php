@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\System\Info;
 
 use App\Filament\Resources\System\Info\FAQResource\Pages;
-use App\Filament\Resources\Users\UserResource;
+use App\Filament\Resources\Users\AdminResource;
 use App\Models\System\Info\FAQ;
 use CodeZero\UniqueTranslation\UniqueTranslationRule;
 use Filament\Forms;
@@ -70,7 +70,7 @@ class FAQResource extends BaseResource
                     ->url(function (FAQ $record): string {
                         return
                             $record->last_update_by ?
-                            UserResource::getUrl('view', [$record->last_update_by])
+                            AdminResource::getUrl('view', [$record->last_update_by])
                             : "";
                     }),
                 self::getDateTableComponent(),

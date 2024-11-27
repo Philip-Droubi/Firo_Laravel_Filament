@@ -6,79 +6,47 @@ use App\Filament\Resources\Users\UserResource;
 use App\Filament\Resources\Users\UserResource\RelationManagers\BansRelationManager;
 use App\Filament\Resources\Users\UserResource\RelationManagers\LoginHistoryRelationManager;
 use App\Filament\Resources\Users\UserResource\RelationManagers\PointsRelationManager;
-use App\Services\System\Report\UserBanService;
+use App\Models\Users\Account\UserProfile;
+use App\Models\Users\Account\UserSkill;
+use App\Traits\Actions\UserBanActions;
 use Carbon\Carbon;
 use Filament\Actions;
-use Filament\Forms\Components\DateTimePicker;
 use Filament\Resources\Pages\ViewRecord;
-use Filament\Forms\Components\TextInput;
-use Filament\Notifications\Notification;
-use Filament\Support\Colors\Color;
 
 class ViewUser extends ViewRecord
 {
+    use UserBanActions;
     protected static string $resource = UserResource::class;
+
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+
+        $userProfile = UserProfile::where("user_id", $data["id"])->first();
+
+        $data += [
+            'bio' => $userProfile->bio,
+            'bg_img_url' => $userProfile->bg_img_url,
+            'is_freelancer' => $userProfile->is_freelancer,
+            'is_stakeholder' => $userProfile->is_stakeholder,
+            'tfa' => $userProfile->TFA,
+        ];
+
+        $data["user_skills"] = UserSkill::query()->where('user_id', $data['id'])->pluck("skill")->toArray();
+
+        $data["deactive_at"] ? $data["deactive_at_time"]  = Carbon::parse($data["deactive_at"])->translatedFormat('Y/m/d g:i a')
+            : $data["deactive_at_time"] = __("keys.Account is active");
+
+        $data["deactive_at"] ? $data["deactive_at_toggle"] = false
+            : $data["deactive_at_toggle"] = true;
+
+        return $data;
+    }
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\EditAction::make(),
-            Actions\Action::make('ban_user')
-                ->label(__("keys.ban user"))
-                ->translateLabel()
-                ->color('danger')
-                ->form([
-                    DateTimePicker::make('banned_until')
-                        ->required()
-                        ->native(false)
-                        ->before(Carbon::now()->addYears(500)->format("Y-m-d"))
-                        ->after(Carbon::now()->format('Y-m-d'))
-                        ->label(__("keys.banned_until"))
-                        ->translateLabel(),
-                    TextInput::make("reason")
-                        ->required()
-                        ->minLength(1)
-                        ->maxLength(600)
-                        ->label(__("keys.reason"))
-                        ->translateLabel(),
-                ])->fillForm(function ($record) {
-                    if (!$record->profile->banned_until)
-                        return [];
-                    $lastBan = $record->bans()->latest()->first();
-                    return [
-                        "reason" => $lastBan->reason,
-                        "banned_until" => $lastBan->banned_until,
-                    ];
-                })
-                ->action(function ($data, $record) {
-                    (new UserBanService())->ban($data, $record->account_name);
-                    $this->record->refresh();
-                    Notification::make()
-                        ->title(__("messages.user has been banned"))
-                        ->warning()
-                        ->send();
-                })
-                ->after(function ($livewire) {
-                    $livewire->dispatch('refreshBanLog');
-                })
-                ->requiresConfirmation(),
-            Actions\Action::make('unban_user')
-                ->label(__("keys.unban user"))
-                ->translateLabel()
-                ->color('danger')
-                ->visible(fn($record): bool => !is_null($record->profile->banned_until))
-                ->action(function ($data, $record) {
-                    (new UserBanService())->unBan($record->account_name);
-                    $this->record->refresh();
-                    Notification::make()
-                        ->title(__(key: "messages.user has been unbanned"))
-                        ->color(Color::Amber)
-                        ->send();
-                })
-                ->after(function ($livewire) {
-                    $livewire->dispatch('refreshRelation');
-                })
-                ->requiresConfirmation(),
+            $this->banUser(),
+            $this->unBanUser(),
         ];
     }
 

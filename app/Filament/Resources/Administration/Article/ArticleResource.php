@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Administration\Article;
 
 use App\Filament\Resources\Administration\Article\ArticleResource\Pages;
-use App\Filament\Resources\Users\UserResource;
+use App\Filament\Resources\Users\AdminResource;
 use App\Models\Administration\App\Category;
 use App\Models\Administration\App\DefinedSkill;
 use App\Models\Administration\Article\Article;
@@ -61,7 +61,7 @@ class ArticleResource extends BaseResource
                             ->label(__("keys.created_by"))
                             ->translateLabel()
                             ->content(function ($record) {
-                                return new HtmlString('<a href="' . UserResource::getUrl('view', [$record->user_id]) . '">' . $record->user->name . '</a>');
+                                return new HtmlString('<a href="' . AdminResource::getUrl('view', [$record->user_id]) . '">' . $record->user->name . '</a>');
                             })->extraAttributes(['style' => (new class {
                                 use PublicStyles;
                             })->getInfolistFieldStyle()]),
