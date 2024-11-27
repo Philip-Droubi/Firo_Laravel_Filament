@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\System\Info;
 
 use App\Filament\Resources\System\Info\PrivacyPolicyResource\Pages;
-use App\Filament\Resources\Users\UserResource;
+use App\Filament\Resources\Users\AdminResource;
 use App\Models\System\Info\PrivacyPolicy;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -59,7 +59,7 @@ class PrivacyPolicyResource extends BaseResource
                     ->url(function (PrivacyPolicy $record): string {
                         return
                             $record->last_update_by ?
-                            UserResource::getUrl('view', [$record->last_update_by])
+                            AdminResource::getUrl('view', [$record->last_update_by])
                             : "";
                     }),
                 Tables\Columns\TextColumn::make('text')

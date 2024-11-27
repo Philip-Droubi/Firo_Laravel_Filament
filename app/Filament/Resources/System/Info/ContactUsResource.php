@@ -4,7 +4,7 @@ namespace App\Filament\Resources\System\Info;
 
 use App\Enums\ContactTypes;
 use App\Filament\Resources\System\Info\ContactUsResource\Pages;
-use App\Filament\Resources\Users\UserResource;
+use App\Filament\Resources\Users\AdminResource;
 use App\Models\System\Info\ContactUs;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -62,7 +62,7 @@ class ContactUsResource extends BaseResource
                     ->url(function (ContactUs $record): string {
                         return
                             $record->created_by ?
-                            UserResource::getUrl('view', [$record->created_by])
+                            AdminResource::getUrl('view', [$record->created_by])
                             : "";
                     }),
                 Tables\Columns\TextColumn::make('link')
@@ -128,7 +128,7 @@ class ContactUsResource extends BaseResource
                 Infolists\Components\TextEntry::make('creator.name')
                     ->label(__("keys.created_by"))
                     ->translateLabel()
-                    ->url(fn(ContactUs $record): string => UserResource::getUrl('view', [$record->created_by]))
+                    ->url(fn(ContactUs $record): string => AdminResource::getUrl('view', [$record->created_by]))
                     ->extraAttributes(['style' => (new class {
                         use PublicStyles;
                     })->getInfolistFieldStyle()]),

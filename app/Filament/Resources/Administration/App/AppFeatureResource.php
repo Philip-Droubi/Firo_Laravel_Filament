@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Administration\App;
 
 use App\Filament\Resources\Administration\App\AppFeatureResource\Pages;
-use App\Filament\Resources\Users\UserResource;
+use App\Filament\Resources\Users\AdminResource;
 use App\Models\Administration\App\AppFeature;
 use App\Filament\Classes\BaseResource;
 use Filament\Tables;
@@ -40,7 +40,7 @@ class AppFeatureResource extends BaseResource
                     ->url(function (AppFeature $record): string {
                         return
                             $record->updated_by ?
-                            UserResource::getUrl('view', [$record->updated_by])
+                            AdminResource::getUrl('view', [$record->updated_by])
                             : "";
                     }),
                 self::getDateTableComponent('updated_at', 'updated_at', isToggledHiddenByDefault: false)

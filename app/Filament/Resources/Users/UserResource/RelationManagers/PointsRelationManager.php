@@ -52,7 +52,7 @@ class PointsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('points')
                     ->sortable()
-                    ->label(__("keys.points"))
+                    ->label(__("keys.user_points"))
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('case')
                     ->wrap()

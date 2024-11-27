@@ -130,6 +130,11 @@ return [
     'User Creation Info' => 'معلومات إنشاء المستخدم',
     'Account Status' => 'حالة الحساب',
     'Account is active' => 'الحساب فعال',
+    'bg_image' => 'صورة الغلاف',
+    'freelancer' => 'مستقل',
+    'stakeholder' => 'صاحب عمل',
+    'tfa' => 'مصادقة ثنائية',
+    'logout all' => 'تسجيل الخؤوج من جميع الأجهزة',
 
     //Login History
     'login history page title' => ' :user_name سجل تسجيل الدخول لـ',
@@ -150,5 +155,6 @@ return [
 
     //User Points
     'points' => 'النقاط',
+    'user_points' => 'نقاط المستخدم',
     'case' => 'الحالة'
 ];

@@ -130,6 +130,11 @@ return [
     'User Creation Info' => 'User Creation Info',
     'Account Status' => 'Account Status',
     'Account is active' => 'Account is active',
+    'bg_image' => 'Background image',
+    'freelancer' => 'Freelancer',
+    'stakeholder' => 'Stakeholder',
+    'tfa' => 'Two Factor Authentication',
+    'logout all' => 'Log out all devices',
 
     //Login History
     'login history page title' => 'Login history for :user_name',
@@ -150,5 +155,6 @@ return [
 
     //User Points
     'points' => 'Points',
-    'case' => 'Case'
+    'user_points' => 'User points',
+    'case' => 'Case',
 ];

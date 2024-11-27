@@ -8,6 +8,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class EditAdmin extends EditRecord
@@ -29,7 +30,7 @@ class EditAdmin extends EditRecord
         return $data;
     }
 
-    protected function handleRecordUpdate($record, array $data): User
+    protected function handleRecordUpdate(Model $record, array $data): Model
     {
         if (empty($data['password']))
             unset($data['password']);

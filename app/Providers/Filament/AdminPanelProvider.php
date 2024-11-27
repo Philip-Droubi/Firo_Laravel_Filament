@@ -3,9 +3,11 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Classes\Auth\Login;
+use App\Filament\Resources\Users\AdminResource;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
 use Filament\Navigation\NavigationGroup;
 use Filament\Pages;
 use Filament\Panel;
@@ -31,7 +33,16 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->favicon(asset(path: 'assets/logo/logo_ico.png'))
             ->brandLogo(fn() => view('brand'))
-            ->profile(false)
+            ->profile(isSimple: false)
+            ->userMenuItems([
+                'profile' => MenuItem::make()
+                    ->url(fn(): string => AdminResource::getUrl('view', [auth()->id()])),
+                'logout' => MenuItem::make(),
+                MenuItem::make()
+                    ->label(__("keys.logout all"))
+                    ->icon('eos-devices')
+                    ->postAction(function () {}),
+            ])
             ->login(Login::class)
             ->sidebarCollapsibleOnDesktop()
             ->spa()
@@ -39,8 +50,8 @@ class AdminPanelProvider extends PanelProvider
             // ->unsavedChangesAlerts()
             ->navigationGroups([
                 NavigationGroup::make()
-                ->label(fn(): string => __('keys.system users'))
-                ->collapsed(),
+                    ->label(fn(): string => __('keys.system users'))
+                    ->collapsed(),
                 NavigationGroup::make()
                     ->label(fn(): string => __('keys.logs'))
                     ->collapsed(),
