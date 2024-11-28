@@ -134,7 +134,7 @@ return [
     'freelancer' => 'مستقل',
     'stakeholder' => 'صاحب عمل',
     'tfa' => 'مصادقة ثنائية',
-    'logout all' => 'تسجيل الخؤوج من جميع الأجهزة',
+    'logout all' => 'تسجيل الخروج لكل أجهزتي',
 
     //Login History
     'login history page title' => ' :user_name سجل تسجيل الدخول لـ',

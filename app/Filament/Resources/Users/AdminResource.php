@@ -11,6 +11,7 @@ use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use App\Filament\Classes\BaseResource;
+use App\Models\System\Info\State;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,7 +19,12 @@ use Illuminate\Validation\Rules\Password  as PasswordRules;
 use Rawilk\FilamentPasswordInput\Password as PasswordFiled;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
+use Filament\GlobalSearch\Actions\Action;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 
 class AdminResource extends BaseResource
@@ -59,6 +65,21 @@ class AdminResource extends BaseResource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()->whereNot('role_id', 3);
+    }
+
+    public static function getGlobalSearchResultTitle(Model $record): string | Htmlable
+    {
+        return "{$record->first_name} {$record->last_name}";
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['first_name', 'last_name'];
+    }
+
+    public static function getGlobalSearchResultUrl(Model $record): string
+    {
+        return AdminResource::getUrl('view', ['record' => $record]);
     }
 
     public static function form(Form $form): Form
@@ -146,13 +167,22 @@ class AdminResource extends BaseResource
                         Forms\Components\Select::make('country_id')
                             ->required()
                             ->relationship(name: 'country', titleAttribute: 'name_' . app()->getLocale())
+                            ->afterStateUpdated(function (Set $set) {
+                                $set('state_id', null);
+                            })
+                            ->live()
                             ->searchable(['name_ar', 'name_en'])
                             ->optionsLimit(500)
                             ->preload()
                             ->label(__("keys.country"))
                             ->translateLabel(),
                         Forms\Components\Select::make('state_id')
-                            ->relationship(name: 'state', titleAttribute: 'name_' . app()->getLocale())
+                            ->options(function (Get $get) {
+                                return State::query()->where('country_id', $get('country_id'))
+                                    ->pluck('name_' . app()->getLocale(), 'id')
+                                    ->toArray() ?? [];
+                            })
+                            ->disabled(fn(Get $get): bool =>  empty($get('country_id')))
                             ->searchable(['name_ar', 'name_en'])
                             ->optionsLimit(500)
                             ->preload()

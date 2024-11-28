@@ -14,6 +14,7 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\SpatieLaravelTranslatablePlugin;
 use Filament\Support\Colors\Color;
+use Filament\Support\Enums\Platform;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -39,7 +40,8 @@ class AdminPanelProvider extends PanelProvider
                     ->url(fn(): string => AdminResource::getUrl('view', [auth()->id()])),
                 'logout' => MenuItem::make(),
                 MenuItem::make()
-                    ->label(__("keys.logout all"))
+                    ->url("/admin/logoutAll")
+                    ->label(fn(): string => __("keys.logout all"))
                     ->icon('eos-devices')
                     ->postAction(function () {}),
             ])
@@ -47,6 +49,14 @@ class AdminPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop()
             ->spa()
             ->databaseTransactions()
+            ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
+            ->globalSearchDebounce('750ms')
+            ->globalSearchFieldKeyBindingSuffix()
+            ->globalSearchFieldSuffix(fn(): ?string => match (Platform::detect()) {
+                Platform::Windows, Platform::Linux => 'CTRL+K',
+                Platform::Mac => '⌘K',
+                default => null,
+            })
             // ->unsavedChangesAlerts()
             ->navigationGroups([
                 NavigationGroup::make()
