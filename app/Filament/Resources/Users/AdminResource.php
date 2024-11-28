@@ -21,10 +21,11 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Filament\GlobalSearch\Actions\Action;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
-use Livewire\Component as Livewire;
-
 
 class AdminResource extends BaseResource
 {
@@ -64,6 +65,21 @@ class AdminResource extends BaseResource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()->whereNot('role_id', 3);
+    }
+
+    public static function getGlobalSearchResultTitle(Model $record): string | Htmlable
+    {
+        return "{$record->first_name} {$record->last_name}";
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['first_name', 'last_name'];
+    }
+
+    public static function getGlobalSearchResultUrl(Model $record): string
+    {
+        return AdminResource::getUrl('view', ['record' => $record]);
     }
 
     public static function form(Form $form): Form

@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Awcodes\FilamentBadgeableColumn\Components\BadgeableColumn;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\FileUpload;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Model;
 
 class UserResource extends BaseResource
 {
@@ -54,6 +56,21 @@ class UserResource extends BaseResource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()->where('role_id', 3);
+    }
+
+    public static function getGlobalSearchResultTitle(Model $record): string | Htmlable
+    {
+        return "{$record->first_name} {$record->last_name}";
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['first_name', 'last_name'];
+    }
+
+    public static function getGlobalSearchResultUrl(Model $record): string
+    {
+        return UserResource::getUrl('view', ['record' => $record]);
     }
 
     public static function form(Form $form): Form
