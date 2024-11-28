@@ -39,7 +39,8 @@ class AdminPanelProvider extends PanelProvider
                     ->url(fn(): string => AdminResource::getUrl('view', [auth()->id()])),
                 'logout' => MenuItem::make(),
                 MenuItem::make()
-                    ->label(__("keys.logout all"))
+                    ->url("/admin/logoutAll")
+                    ->label(fn(): string => __("keys.logout all"))
                     ->icon('eos-devices')
                     ->postAction(function () {}),
             ])
