@@ -29,6 +29,8 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use App\Traits\PublicStyles;
 use Filament\Forms\Components\Placeholder;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 
 class ArticleResource extends BaseResource
@@ -42,6 +44,34 @@ class ArticleResource extends BaseResource
     protected static ?int $navigationSort = 6;
 
     protected static ?string $slug = 'articles';
+
+    public static function getGlobalSearchResultTitle(Model $record): string | Htmlable
+    {
+        return $record->title;
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['title'];
+    }
+
+    public static function getGlobalSearchResultUrl(Model $record): string
+    {
+        return ArticleResource::getUrl('view', ['record' => $record]);
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        return [
+            __('keys.author') => $record->user->name,
+            __('keys.category') => $record->category->name,
+        ];
+    }
+
+    public static function getGlobalSearchEloquentQuery(): Builder
+    {
+        return parent::getGlobalSearchEloquentQuery()->with(['user', 'category']);
+    }
 
     public static function form(Form $form): Form
     {

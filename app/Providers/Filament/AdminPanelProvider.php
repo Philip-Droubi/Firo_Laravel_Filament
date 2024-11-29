@@ -38,12 +38,12 @@ class AdminPanelProvider extends PanelProvider
             ->userMenuItems([
                 'profile' => MenuItem::make()
                     ->url(fn(): string => AdminResource::getUrl('view', [auth()->id()])),
-                'logout' => MenuItem::make(),
                 MenuItem::make()
                     ->url("/admin/logoutAll")
                     ->label(fn(): string => __("keys.logout all"))
                     ->icon('eos-devices')
                     ->postAction(function () {}),
+                'logout' => MenuItem::make(),
             ])
             ->login(Login::class)
             ->sidebarCollapsibleOnDesktop()

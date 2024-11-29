@@ -22,6 +22,7 @@ return [
     'logs' => 'سجلات',
     'text' => 'النص',
     'lang' => 'اللغة',
+    'author' => 'المؤلف',
     'name' => 'الاسم',
     'name_en' => 'اسم إنكليزي',
     'name_ar' => 'اسم عربي',
@@ -156,5 +157,13 @@ return [
     //User Points
     'points' => 'النقاط',
     'user_points' => 'نقاط المستخدم',
-    'case' => 'الحالة'
+    'case' => 'الحالة',
+
+    //User Reports
+    "reporter name" => 'اسم المُبَلِغ',
+    "reported name" => 'اسم المُبَلَغ عنه',
+    "report case" => 'نوعية البلاغ',
+    "report on" => 'بلاغ على',
+    "reports on" => 'بلاغات على',
+    "report type" => 'نوع البلاغ',
 ];

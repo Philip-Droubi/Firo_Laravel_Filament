@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Awcodes\FilamentBadgeableColumn\Components\BadgeableColumn;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -235,14 +237,35 @@ class UserResource extends BaseResource
                     })
                     ->badge()
                     ->extraAttributes(["style" => 'width:200px'])
-                    ->color(Color::Teal),
+                    ->color(Color::Teal)
+                    ->label(__("keys.skills"))
+                    ->translateLabel(),
                 self::getDateTableComponent('last_seen', 'last seen', isToggledHiddenByDefault: false),
                 self::getDateTableComponent('deactive_at', 'deactive_at', isToggledHiddenByDefault: false),
                 self::getDateTableComponent(),
                 self::getDateTableComponent('updated_at', 'updated_at')
             ])
             ->filters([
-                //
+                SelectFilter::make('active')
+                    ->options([
+                        1 => __("keys.active"),
+                        2 => __("keys.inactive"),
+                    ])
+                    ->query(function (Builder $query, $state) {
+                        if ($state["value"] == 1) return $query->whereNull("deactive_at");
+                        if ($state["value"] == 2) return $query->whereNotNull("deactive_at");
+                    })
+                    ->label(__("keys.Account Status"))
+                    ->translateLabel(),
+                Filter::make("banned")
+                    ->query(function (Builder $query, $state) {
+                        return $query->withWhereHas('profile', function (Builder $q) {
+                            return $q->BannedUser();
+                        });
+                    })
+                    ->default(false)
+                    ->label(__("keys.banned only"))
+                    ->translateLabel(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
