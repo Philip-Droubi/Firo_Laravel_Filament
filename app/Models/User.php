@@ -283,6 +283,6 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar
                     ->orWhereRaw("concat(first_name,' ',mid_name,' ', last_name) like '%$search%' ")
                     ->orWhereRaw("concat(first_name,' ', last_name) like '%$search%' ")
                     ->orWhere("account_name", $search);
-        });;
+        });
     }
 }
