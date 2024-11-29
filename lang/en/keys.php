@@ -23,6 +23,7 @@ return [
     'text' => 'Text',
     'lang' => 'Lang',
     'name' => 'Name',
+    'author' => 'Auther',
     'name_en' => 'English Name',
     'name_ar' => 'Arabic Name',
     'description' => 'Description',
