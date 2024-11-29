@@ -158,4 +158,12 @@ return [
     'points' => 'Points',
     'user_points' => 'User points',
     'case' => 'Case',
+
+    //User Reports
+    "reporter name" => 'Reporter name',
+    "reported name" => 'Reported name',
+    "report case" => 'Report type',
+    "report on" => 'Report on',
+    "reports on" => 'Reports on',
+    "report type" => 'Report type',
 ];

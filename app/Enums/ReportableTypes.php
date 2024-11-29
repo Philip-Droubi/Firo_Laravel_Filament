@@ -10,4 +10,13 @@ enum ReportableTypes: string
     {
         return array_column(self::cases(), 'value');
     }
+
+    public static function getStatusSelectionItems(): array
+    {
+        $statusSelectionItems = [
+            self::PROFILE->value => __('reports.' . self::PROFILE->value),
+        ];
+
+        return $statusSelectionItems;
+    }
 }
