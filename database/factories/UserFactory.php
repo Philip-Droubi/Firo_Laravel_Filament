@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\System\Info\Country;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -23,11 +24,24 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $countryID = Country::inRandomOrder()->first()->id;
+
         return [
-            'name' => fake()->name(),
+            'role_id' => 3,
+            'first_name' => fake()->firstName(),
+            'mid_name' => random_int(0, 10000) % 3 == 0 ? fake()->firstName() : null,
+            'last_name' => fake()->lastName(),
+            'account_name' => fake()->unique()->userName(),
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
+            'phone_number' => fake()->phoneNumber(),
+            'country_id' => $countryID,
+            'state_id' => $countryID == 15 ? function () {
+                return Country::inRandomOrder()->first()->id;
+            } : null,
+            'birth_date' => fake()->date(max: '2016-01-01'),
+            'img_url' => fake()->imageUrl(),
+            'last_seen' => fake()->dateTimeBetween('-1 years'),
             'remember_token' => Str::random(10),
         ];
     }
@@ -37,7 +51,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }
