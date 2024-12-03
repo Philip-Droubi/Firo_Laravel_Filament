@@ -2,6 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
+use App\Models\Users\Account\UserPoint;
+use App\Models\Users\Account\UserProfile;
+use App\Models\Users\Account\UserSkill;
+use Database\Factories\Users\Account\UserSkillFactory;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -14,15 +19,15 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('users')->delete();
-        
-        \DB::table('users')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('users')->insert(array(
+            0 =>
+            array(
                 'id' => 1,
-                'role_id' => 6,
+                'role_id' => 1,
                 'first_name' => 'Philip',
                 'mid_name' => 'Marwan',
                 'last_name' => 'Droubi',
@@ -40,8 +45,8 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2024-10-07 21:45:33',
                 'updated_at' => '2024-11-17 01:08:28',
             ),
-            1 => 
-            array (
+            1 =>
+            array(
                 'id' => 2,
                 'role_id' => 2,
                 'first_name' => 'Test',
@@ -61,8 +66,8 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2024-11-16 04:09:25',
                 'updated_at' => '2024-11-17 19:35:49',
             ),
-            2 => 
-            array (
+            2 =>
+            array(
                 'id' => 10,
                 'role_id' => 2,
                 'first_name' => 'Sami',
@@ -82,29 +87,12 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2024-11-17 18:02:44',
                 'updated_at' => '2024-11-18 01:38:42',
             ),
-            3 => 
-            array (
-                'id' => 11,
-                'role_id' => 3,
-                'first_name' => 'Omar',
-                'mid_name' => 'Samer',
-                'last_name' => 'Murad',
-                'account_name' => 'Omar-1234',
-                'email' => 'Omar@email.com',
-                'password' => '$2y$12$3Yxm0lpe0x5v7be3SUBJI./rxHosvsNQyEBF9r1NQ3.JO3Vk3yrE2',
-                'phone_number' => '+96385274193',
-                'country_id' => 15,
-                'state_id' => 1,
-                'birth_date' => '2005-11-10',
-                'img_url' => NULL,
-                'deactive_at' => NULL,
-                'last_seen' => '2024-11-17 20:48:36',
-                'remember_token' => NULL,
-                'created_at' => '2024-11-07 20:48:36',
-                'updated_at' => '2024-11-07 20:48:36',
-            ),
         ));
-        
-        
+
+        User::factory()->count(30)
+            ->has(UserSkill::factory()->count(random_int(2, 10)), 'skills')
+            ->has(UserProfile::factory(), 'profile')
+            ->has(UserPoint::factory()->count(random_int(1, 10)), 'points')
+            ->create();
     }
 }
