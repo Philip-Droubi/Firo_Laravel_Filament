@@ -8,6 +8,7 @@ use App\Models\Users\Account\UserSkill;
 use Filament\Forms;
 use Filament\Forms\Form;
 use App\Filament\Classes\BaseResource;
+use App\Traits\PublicStyles;
 use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -19,6 +20,7 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\HtmlString;
 
 class UserResource extends BaseResource
 {
@@ -29,6 +31,11 @@ class UserResource extends BaseResource
     protected static ?int $navigationSort = 1;
 
     protected static ?string $slug = 'users';
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::where('role_id', 3)->count();
+    }
 
     public static function canViewAny(): bool
     {
@@ -161,6 +168,18 @@ class UserResource extends BaseResource
                             ->prefixIcon('fas-birthday-cake')
                             ->prefixIconColor('warning')
                             ->label(__("keys.birth date"))
+                            ->translateLabel(),
+                        Forms\Components\Placeholder::make("portfolio")
+                            ->hintIcon('heroicon-s-link')
+                            ->content(function ($record) {
+                                if ($record->profile->portfolio)
+                                    return new HtmlString('<a dir="ltr" target="_blank" rel="noopener noreferrer" href="' . $record->profile->portfolio . '">' . $record->profile->portfolio . '</a>');
+                                return "";
+                            })->extraAttributes(['style' => (new class {
+                                use PublicStyles;
+                            })->getInfolistFieldStyle()])
+                            ->columnSpanFull()
+                            ->label(__("keys.portfolio"))
                             ->translateLabel(),
                         //Skills
                         Forms\Components\Select::make("user_skills")
