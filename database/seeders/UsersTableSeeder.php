@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Users\Account\UserPoint;
 use App\Models\Users\Account\UserProfile;
 use App\Models\Users\Account\UserSkill;
-use Database\Factories\Users\Account\UserSkillFactory;
+use App\Models\Users\Service\UserService;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -93,6 +93,7 @@ class UsersTableSeeder extends Seeder
             ->has(UserSkill::factory()->count(random_int(2, 10)), 'skills')
             ->has(UserProfile::factory(), 'profile')
             ->has(UserPoint::factory()->count(random_int(1, 10)), 'points')
+            ->has(UserService::factory()->count(5), 'services')
             ->create();
     }
 }

@@ -52,13 +52,14 @@ class UserServiceResource extends BaseResource
                     ->label(__("keys.created_by"))
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('category.name')
+                    ->sortable()
                     ->icon("heroicon-o-tag")
                     ->label(__("keys.category"))
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('title')
+                    ->sortable()
                     ->searchable(isIndividual: true)
                     ->limit(40)
-                    ->extraAttributes(["style" => 'width:140px'])
                     ->label(__("keys.title"))
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('body')
@@ -73,6 +74,7 @@ class UserServiceResource extends BaseResource
                     ->label(__("keys.visible"))
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('reports_count')
+                    ->sortable()
                     ->badge()
                     ->color(fn($record) => $record->reports_count > 0 ? "danger" : "success")
                     ->label(__("keys.reports count"))
