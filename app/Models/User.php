@@ -22,6 +22,7 @@ use App\Models\Users\Account\UserFcmToken;
 use App\Models\Users\Account\UserPoint;
 use App\Models\Users\Account\UserProfile;
 use App\Models\Users\Account\UserSkill;
+use App\Models\Users\Service\UserService;
 use App\Traits\ImagesHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -34,6 +35,9 @@ use Filament\Panel;
 use Filament\Models\Contracts\HasName;
 use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class User extends Authenticatable implements FilamentUser, HasName, HasAvatar
 {
@@ -88,12 +92,12 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar
         return $this->belongsTo(Role::class, "role_id");
     }
 
-    public function adminProfile()
+    public function adminProfile(): HasOne
     {
         return $this->hasOne(AdminProfile::class, "user_id");
     }
 
-    public function createdAdmins()
+    public function createdAdmins(): HasMany|null
     {
         if (auth()->user()->role_id != 3)
             return $this->hasMany(AdminProfile::class, "created_by");
@@ -110,88 +114,93 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar
         return $this->belongsTo(State::class, "state_id");
     }
 
-    public function appFeaturesUpdates()
+    public function appFeaturesUpdates(): HasMany
     {
         return $this->hasMany(AppFeature::class, "updated_by");
     }
 
-    public function appAbouts()
+    public function appAbouts(): HasMany
     {
         return $this->hasMany(AboutUs::class, 'last_update_by');
     }
 
-    public function appFAQs()
+    public function appFAQs(): HasMany
     {
         return $this->hasMany(FAQ::class, 'last_update_by');
     }
 
-    public function appTos()
+    public function appTos(): HasMany
     {
         return $this->hasMany(Tos::class, 'last_update_by');
     }
 
-    public function appContacts()
+    public function appContacts(): HasMany
     {
         return $this->hasMany(ContactUs::class, 'created_by');
     }
 
-    public function appPrivacies()
+    public function appPrivacies(): HasMany
     {
         return $this->hasMany(PrivacyPolicy::class, 'last_update_by');
     }
 
-    public function articles()
+    public function articles(): HasMany
     {
         return $this->hasMany(Article::class, 'user_id');
     }
 
-    public function bans()
+    public function bans(): HasMany
     {
         return $this->hasMany(BanLog::class, "banned_id");
     }
 
-    public function bannedByMe()
+    public function bannedByMe(): HasMany
     {
         return $this->hasMany(BanLog::class, "banned_by_id");
     }
 
-    public function reports()
+    public function reports(): HasMany
     {
         return $this->hasMany(UserReport::class, "reported_id");
     }
 
-    public function profileReports()
+    public function profileReports(): MorphMany
     {
         return $this->morphMany(UserReport::class, "reportable");
     }
 
-    public function reportsFrom()
+    public function reportsFrom(): HasMany
     {
         return $this->hasMany(UserReport::class, "reporter_id");
     }
 
-    public function fcmTokens()
+    public function fcmTokens(): HasMany
     {
         return $this->hasMany(UserFcmToken::class, "user_id");
     }
 
-    public function loginHistory()
+    public function loginHistory(): HasMany
     {
         return $this->hasMany(LoginHistory::class, "user_id");
     }
-    public function skills()
+    public function skills(): HasMany
     {
         return $this->hasMany(UserSkill::class, "user_id");
     }
 
-    public function profile()
+    public function profile(): HasOne
     {
         return $this->hasOne(UserProfile::class, "user_id");
     }
 
-    public function points()
+    public function points(): HasMany
     {
         return $this->hasMany(UserPoint::class, "user_id");
+    }
+
+    public function services(): HasMany
+    {
+        return $this->hasMany(UserService::class);
     }
 
     //
@@ -227,12 +236,12 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar
         else $this->attributes['account_name'] = null;
     }
 
-    public function getNameAttribute()
+    public function getNameAttribute(): string
     {
         return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
     }
 
-    public function getFullNameAttribute()
+    public function getFullNameAttribute(): string
     {
         $str = ucfirst($this->first_name);
         if ($this->mid_name)

@@ -20,6 +20,8 @@ return [
 
     "Unknown" => "Unknown",
     ReportableTypes::PROFILE->value . " case" => "Report on user account",
+    ReportableTypes::USER_SERVICE->value . " case" => "Report on user service",
 
     ":name profile" => ":name profile",
+    ":name user service" => "user service: :name",
 ];
