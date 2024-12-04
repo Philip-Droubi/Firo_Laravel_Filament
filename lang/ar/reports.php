@@ -21,6 +21,8 @@ return [
 
     "Unknown" => "غير محدد",
     ReportableTypes::PROFILE->value . " case" => "إبلاغ على حساب المستخدم",
+    ReportableTypes::USER_SERVICE->value . " case" => "إبلاغ على خدمة خاصة بالمستخدم",
 
     ":name profile" => "حساب :name",
+    ":name user service" => "خدمة باسم :name",
 ];

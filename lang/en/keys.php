@@ -35,6 +35,9 @@ return [
     'main_image' => 'Main image',
     'question' => 'Question',
     'answer' => 'Answer',
+    'visible' => 'Visible',
+    'invisible' => 'Invisible',
+    'visibility' => 'Visibility',
     'active' => 'Active',
     'status' => 'Status',
     'image' => 'Image',
@@ -53,6 +56,7 @@ return [
     'system info' => 'System Info',
     'system management' => 'System Management',
     'system users' => 'System Users',
+    'system services' => 'System Services',
 
     //Country & State
     'country' => 'Country',
@@ -166,4 +170,9 @@ return [
     "report on" => 'Report on',
     "reports on" => 'Reports on',
     "report type" => 'Report type',
+    'reports count' => 'Reports count',
+
+    //User Service
+    'users services' => 'Users services',
+    'user service' => 'User service',
 ];

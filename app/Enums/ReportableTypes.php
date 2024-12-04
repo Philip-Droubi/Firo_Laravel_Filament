@@ -5,6 +5,7 @@ namespace App\Enums;
 enum ReportableTypes: string
 {
     case PROFILE = 'App\Models\User';
+    case USER_SERVICE = 'App\Models\Users\Service\UserService';
 
     public static function values(): array
     {
@@ -15,6 +16,7 @@ enum ReportableTypes: string
     {
         $statusSelectionItems = [
             self::PROFILE->value => __('reports.' . self::PROFILE->value),
+            self::USER_SERVICE->value => __('reports.' . self::USER_SERVICE->value),
         ];
 
         return $statusSelectionItems;

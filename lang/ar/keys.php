@@ -35,6 +35,9 @@ return [
     'main_image' => 'الصورة الرئيسية',
     'question' => 'سؤال',
     'answer' => 'إجابة',
+    'visible' => 'مرئي',
+    'invisible' => 'غير مرئي',
+    'visibility' => 'الرؤية',
     'active' => 'فعّال',
     'all' => 'الكل',
     'inactive' => 'غير فعال',
@@ -53,6 +56,7 @@ return [
     'system info' => 'معلومات النظام',
     'system management' => 'إدارة النظام',
     'system users' => 'مستخدمي النظام',
+    'system services' => 'خدمات النظام',
 
     //Country & State
     'country' => 'دولة',
@@ -98,7 +102,7 @@ return [
 
     //App Features
     'feature' => 'ميزة',
-    'app features' => 'ميزات الظام',
+    'app features' => 'ميزات النظام',
 
     //Articles
     'articles' => 'مقالات',
@@ -166,4 +170,9 @@ return [
     "report on" => 'بلاغ على',
     "reports on" => 'بلاغات على',
     "report type" => 'نوع البلاغ',
+    'reports count' => 'عدد البلاغات',
+
+    //User Service
+    'users services' => 'خدمات المستخدمين',
+    'user service' => 'خدمات المستخدم',
 ];

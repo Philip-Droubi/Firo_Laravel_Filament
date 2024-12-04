@@ -63,6 +63,9 @@ class AdminPanelProvider extends PanelProvider
                     ->label(fn(): string => __('keys.system users'))
                     ->collapsed(),
                 NavigationGroup::make()
+                    ->label(fn(): string => __('keys.system services'))
+                    ->collapsed(),
+                NavigationGroup::make()
                     ->label(fn(): string => __('keys.logs'))
                     ->collapsed(),
                 NavigationGroup::make()
