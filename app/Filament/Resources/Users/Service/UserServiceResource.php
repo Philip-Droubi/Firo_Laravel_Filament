@@ -9,11 +9,15 @@ use Filament\Forms\Form;
 use App\Filament\Classes\BaseResource;
 use App\Filament\Resources\Users\UserResource;
 use App\Models\Administration\App\Category;
+use App\Traits\PublicStyles;
+use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Section;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Support\HtmlString;
 
 class UserServiceResource extends BaseResource
 {
@@ -29,8 +33,51 @@ class UserServiceResource extends BaseResource
     public static function form(Form $form): Form
     {
         return $form
+            ->disabled()
             ->schema([
-                //
+                Section::make()
+                    ->schema([
+                        Placeholder::make("user.name")
+                            ->label(__("keys.created_by"))
+                            ->translateLabel()
+                            ->content(function ($record): HtmlString|string {
+                                return new HtmlString('<a href="' . UserResource::getUrl('view', [$record->user_id]) . '">' . $record->user->name . '</a>');
+                            })->extraAttributes(['style' => (new class {
+                                use PublicStyles;
+                            })->getInfolistFieldStyle()]),
+                        Forms\Components\DateTimePicker::make("created_at")
+                            ->label(__("keys.created_at"))
+                            ->translateLabel(),
+                        Forms\Components\DateTimePicker::make("updated_at")
+                            ->label(__(key: "keys.updated_at"))
+                            ->translateLabel(),
+                    ])
+                    ->columns(3),
+                Section::make()
+                    ->schema([
+                        Forms\Components\Select::make('category_id')
+                            ->relationship(name: 'category', titleAttribute: 'name')
+                            ->getOptionLabelFromRecordUsing(fn($record) => $record->name)
+                            ->label(__("keys.category"))
+                            ->translateLabel(),
+                        Forms\Components\Toggle::make('is_visible')
+                            ->hintIcon('heroicon-o-eye')
+                            ->hintColor('warning')
+                            ->label(__("keys.visibility"))
+                            ->translateLabel(),
+                    ])->columns(2),
+                Section::make()
+                    ->schema([
+                        Forms\Components\Textarea::make('title')
+                            ->autosize()
+                            ->rows(1)
+                            ->label(__("keys.title"))
+                            ->translateLabel(),
+                        Forms\Components\Textarea::make('body')
+                            ->autosize()
+                            ->label(__("keys.text"))
+                            ->translateLabel(),
+                    ]),
             ]);
     }
 
