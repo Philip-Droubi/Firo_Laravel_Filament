@@ -174,5 +174,6 @@ return [
 
     //User Service
     'users services' => 'خدمات المستخدمين',
-    'user service' => 'خدمات المستخدم',
+    'user service' => 'خدمة المستخدم',
+    'user services' => 'خدمة المستخدم',
 ];

@@ -10,12 +10,10 @@ use App\Filament\Classes\BaseResource;
 use App\Filament\Resources\Users\UserResource;
 use App\Models\Administration\App\Category;
 use Filament\Tables;
-use Filament\Tables\Columns\Summarizers\Count;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class UserServiceResource extends BaseResource
 {

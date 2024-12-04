@@ -6,6 +6,7 @@ use App\Filament\Resources\Users\UserResource;
 use App\Filament\Resources\Users\UserResource\RelationManagers\BansRelationManager;
 use App\Filament\Resources\Users\UserResource\RelationManagers\LoginHistoryRelationManager;
 use App\Filament\Resources\Users\UserResource\RelationManagers\PointsRelationManager;
+use App\Filament\Resources\Users\UserResource\RelationManagers\UserServicesRelationManager;
 use App\Models\Users\Account\UserProfile;
 use App\Models\Users\Account\UserSkill;
 use App\Traits\Actions\UserBanActions;
@@ -56,6 +57,7 @@ class ViewUser extends ViewRecord
             PointsRelationManager::class,
             LoginHistoryRelationManager::class,
             BansRelationManager::class,
+            UserServicesRelationManager::class,
         ];
     }
 }
