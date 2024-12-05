@@ -15,7 +15,8 @@ use Filament\Forms\Components\Section;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
+// use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Support\HtmlString;
 
@@ -90,7 +91,7 @@ class UserServiceResource extends BaseResource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
-                    ->searchable(isIndividual: true, query: function (QueryBuilder $query, $search): QueryBuilder {
+                    ->searchable(isIndividual: true, query: function (Builder $query, $search): Builder {
                         return $query->whereHas('user', function ($q) use ($search) {
                             return $q->searchName($search);
                         });

@@ -27,6 +27,16 @@ class UserReportResource extends BaseResource
 
     protected static ?string $slug = 'users-reports';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->with(['reportable',]);
+    }
+
     public static function table(Table $table): Table
     {
         return $table
@@ -96,10 +106,12 @@ class UserReportResource extends BaseResource
                     ->translateLabel(),
             ])
             ->actions([
-                //
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                //
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
     }
 
@@ -116,7 +128,7 @@ class UserReportResource extends BaseResource
             case ReportableTypes::PROFILE->value:
                 return UserResource::getUrl('view', [$record->reported_id]);
             case ReportableTypes::USER_SERVICE->value:
-                return UserServiceResource::getUrl('view', [$record->reported_id]);
+                return UserServiceResource::getUrl('view', [$record->reportable_id]);
             default:
                 return "#";
         }
