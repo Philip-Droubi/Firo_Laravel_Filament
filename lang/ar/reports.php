@@ -18,6 +18,7 @@ return [
 
     //Types
     ReportableTypes::PROFILE->value => "حسابات المستخدمين",
+    ReportableTypes::USER_SERVICE->value => "خدمات المستخدمين",
 
     "Unknown" => "غير محدد",
     ReportableTypes::PROFILE->value . " case" => "إبلاغ على حساب المستخدم",

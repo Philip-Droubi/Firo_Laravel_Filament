@@ -20,6 +20,8 @@ class StateResource extends BaseResource
 
     protected static ?int $navigationSort = 4;
 
+    protected static ?string $slug = 'states';
+
     public static function form(Form $form): Form
     {
         return $form

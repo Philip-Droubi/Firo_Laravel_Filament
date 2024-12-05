@@ -18,6 +18,8 @@ class DefinedSkillResource extends BaseResource
 
     protected static ?int $navigationSort = 5;
 
+    protected static ?string $slug = 'system-skills';
+
     public static function form(Form $form): Form
     {
         return $form

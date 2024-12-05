@@ -22,6 +22,8 @@ class CategoryResource extends BaseResource
 
     protected static ?int $navigationSort = 6;
 
+    protected static ?string $slug = 'categories';
+
     public static function form(Form $form): Form
     {
         return $form

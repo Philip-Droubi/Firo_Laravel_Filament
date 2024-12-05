@@ -9,13 +9,13 @@ use App\Models\System\Report\UserReport;
 use Filament\Forms;
 use Filament\Forms\Form;
 use App\Filament\Classes\BaseResource;
+use App\Filament\Resources\Users\Service\UserServiceResource;
 use App\Filament\Resources\Users\UserResource;
 use App\Models\System\Report\MainReport;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class UserReportResource extends BaseResource
 {
@@ -24,6 +24,8 @@ class UserReportResource extends BaseResource
     protected static ?string $navigationIcon = 'eos-report';
 
     protected static ?int $navigationSort = 3;
+
+    protected static ?string $slug = 'users-reports';
 
     public static function table(Table $table): Table
     {
@@ -69,6 +71,7 @@ class UserReportResource extends BaseResource
                 Tables\Columns\TextColumn::make('reportable_id')
                     ->getStateUsing(fn($record) => self::getReportableLabel($record))
                     ->url(fn($record) => self::getReportableUrl($record))
+                    ->wrap()
                     ->label(__("keys.report on"))
                     ->searchable(),
                 self::getDateTableComponent(),
@@ -112,6 +115,8 @@ class UserReportResource extends BaseResource
         switch ($record->reportable_type) {
             case ReportableTypes::PROFILE->value:
                 return UserResource::getUrl('view', [$record->reported_id]);
+            case ReportableTypes::USER_SERVICE->value:
+                return UserServiceResource::getUrl('view', [$record->reported_id]);
             default:
                 return "#";
         }
@@ -122,6 +127,8 @@ class UserReportResource extends BaseResource
         switch ($record->reportable_type) {
             case ReportableTypes::PROFILE->value:
                 return __("reports.:name profile", ["name" => $record->reporter->first_name]);
+            case ReportableTypes::USER_SERVICE->value:
+                return __("reports.:name user service", ["name" => $record->reportable->title]);
             default:
                 return __("reports.Unknown");
         }

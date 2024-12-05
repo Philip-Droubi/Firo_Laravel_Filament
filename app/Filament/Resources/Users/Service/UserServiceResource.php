@@ -25,6 +25,10 @@ class UserServiceResource extends BaseResource
 
     protected static ?string $navigationIcon = 'heroicon-o-pencil-square';
 
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $slug = 'users-services';
+
     public static function getEloquentQuery(): EloquentBuilder
     {
         return parent::getEloquentQuery()->with(['user', 'category'])->withCount('reports');
@@ -173,6 +177,7 @@ class UserServiceResource extends BaseResource
     {
         return [
             'index' => Pages\ListUserServices::route('/'),
+            'view' => Pages\ViewUserServices::route('/{record}'),
         ];
     }
 

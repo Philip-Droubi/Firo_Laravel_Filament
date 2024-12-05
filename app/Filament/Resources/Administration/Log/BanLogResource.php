@@ -32,6 +32,8 @@ class BanLogResource extends BaseResource
 
     protected static ?int $navigationSort = 1;
 
+    protected static ?string $slug = 'ban-log';
+
     public static function form(Form $form): Form
     {
         return $form
