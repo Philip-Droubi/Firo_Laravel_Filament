@@ -91,6 +91,15 @@ class AbilitiesTableSeeder extends Seeder
                 'created_at' => '2024-08-26 00:18:13',
                 'updated_at' => '2024-08-26 00:18:13',
             ),
+
+            9 =>
+            array(
+                'id' => 10,
+                'name' => 'Manage user services',
+                'description' => 'User can control users services in the system.',
+                'created_at' => '2024-08-26 00:18:13',
+                'updated_at' => '2024-08-26 00:18:13',
+            ),
         ));
     }
 }
