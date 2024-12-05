@@ -64,7 +64,7 @@ class UserResource extends BaseResource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->where('role_id', 3);
+        return parent::getEloquentQuery()->with(['profile'])->where('role_id', 3);
     }
 
     public static function getGlobalSearchResultTitle(Model $record): string | Htmlable

@@ -17,6 +17,8 @@ class AppFeatureResource extends BaseResource
 
     protected static ?int $navigationSort = 8;
 
+    protected static ?string $slug = 'app-features';
+
     public static function table(Table $table): Table
     {
         return $table

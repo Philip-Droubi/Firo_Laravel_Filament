@@ -16,7 +16,8 @@ return [
     |
     */
     //Types
-    ReportableTypes::PROFILE->value => "User profiles",
+    ReportableTypes::PROFILE->value => "Users profiles",
+    ReportableTypes::USER_SERVICE->value => "Users services",
 
     "Unknown" => "Unknown",
     ReportableTypes::PROFILE->value . " case" => "Report on user account",

@@ -25,6 +25,8 @@ class SubCategoryResource extends BaseResource
 
     protected static ?int $navigationSort = 7;
 
+    protected static ?string $slug = 'sub-categories';
+
     public static function form(Form $form): Form
     {
         return $form

@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesAbilitiesTableSeeder::class);
         $this->call(CountriesTableSeeder::class);
         $this->call(StatesTableSeeder::class);
+        $this->call(CategoriesTableSeeder::class);
+        $this->call(SubCategoriesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(AdminProfilesTableSeeder::class);
         $this->call(AboutUsTableSeeder::class);
@@ -32,8 +34,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FAQTableSeeder::class);
         $this->call(MainReportsTableSeeder::class);
         $this->call(DefinedSkillsTableSeeder::class);
-        $this->call(CategoriesTableSeeder::class);
-        $this->call(SubCategoriesTableSeeder::class);
         $this->call(AppFeaturesTableSeeder::class);
         $this->call(LoginHistoryTableSeeder::class);
     }

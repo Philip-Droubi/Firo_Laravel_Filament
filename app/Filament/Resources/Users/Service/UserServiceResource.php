@@ -9,19 +9,26 @@ use Filament\Forms\Form;
 use App\Filament\Classes\BaseResource;
 use App\Filament\Resources\Users\UserResource;
 use App\Models\Administration\App\Category;
+use App\Traits\PublicStyles;
+use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Section;
 use Filament\Tables;
-use Filament\Tables\Columns\Summarizers\Count;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
+// use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\HtmlString;
 
 class UserServiceResource extends BaseResource
 {
     protected static ?string $model = UserService::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-pencil-square';
+
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $slug = 'users-services';
 
     public static function getEloquentQuery(): EloquentBuilder
     {
@@ -31,8 +38,51 @@ class UserServiceResource extends BaseResource
     public static function form(Form $form): Form
     {
         return $form
+            ->disabled()
             ->schema([
-                //
+                Section::make()
+                    ->schema([
+                        Placeholder::make("user.name")
+                            ->label(__("keys.created_by"))
+                            ->translateLabel()
+                            ->content(function ($record): HtmlString|string {
+                                return new HtmlString('<a href="' . UserResource::getUrl('view', [$record->user_id]) . '">' . $record->user->name . '</a>');
+                            })->extraAttributes(['style' => (new class {
+                                use PublicStyles;
+                            })->getInfolistFieldStyle()]),
+                        Forms\Components\DateTimePicker::make("created_at")
+                            ->label(__("keys.created_at"))
+                            ->translateLabel(),
+                        Forms\Components\DateTimePicker::make("updated_at")
+                            ->label(__(key: "keys.updated_at"))
+                            ->translateLabel(),
+                    ])
+                    ->columns(3),
+                Section::make()
+                    ->schema([
+                        Forms\Components\Select::make('category_id')
+                            ->relationship(name: 'category', titleAttribute: 'name')
+                            ->getOptionLabelFromRecordUsing(fn($record) => $record->name)
+                            ->label(__("keys.category"))
+                            ->translateLabel(),
+                        Forms\Components\Toggle::make('is_visible')
+                            ->hintIcon('heroicon-o-eye')
+                            ->hintColor('warning')
+                            ->label(__("keys.visibility"))
+                            ->translateLabel(),
+                    ])->columns(2),
+                Section::make()
+                    ->schema([
+                        Forms\Components\Textarea::make('title')
+                            ->autosize()
+                            ->rows(1)
+                            ->label(__("keys.title"))
+                            ->translateLabel(),
+                        Forms\Components\Textarea::make('body')
+                            ->autosize()
+                            ->label(__("keys.text"))
+                            ->translateLabel(),
+                    ]),
             ]);
     }
 
@@ -41,7 +91,7 @@ class UserServiceResource extends BaseResource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
-                    ->searchable(isIndividual: true, query: function (QueryBuilder $query, $search): QueryBuilder {
+                    ->searchable(isIndividual: true, query: function (Builder $query, $search): Builder {
                         return $query->whereHas('user', function ($q) use ($search) {
                             return $q->searchName($search);
                         });
@@ -52,13 +102,14 @@ class UserServiceResource extends BaseResource
                     ->label(__("keys.created_by"))
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('category.name')
+                    ->sortable()
                     ->icon("heroicon-o-tag")
                     ->label(__("keys.category"))
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('title')
+                    ->sortable()
                     ->searchable(isIndividual: true)
                     ->limit(40)
-                    ->extraAttributes(["style" => 'width:140px'])
                     ->label(__("keys.title"))
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('body')
@@ -73,6 +124,7 @@ class UserServiceResource extends BaseResource
                     ->label(__("keys.visible"))
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('reports_count')
+                    ->sortable()
                     ->badge()
                     ->color(fn($record) => $record->reports_count > 0 ? "danger" : "success")
                     ->label(__("keys.reports count"))
@@ -126,6 +178,7 @@ class UserServiceResource extends BaseResource
     {
         return [
             'index' => Pages\ListUserServices::route('/'),
+            'view' => Pages\ViewUserServices::route('/{record}'),
         ];
     }
 

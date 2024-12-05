@@ -63,7 +63,7 @@ class AdminResource extends BaseResource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->whereNot('role_id', 3);
+        return parent::getEloquentQuery()->with(['adminProfile',])->whereNot('role_id', 3);
     }
 
     public static function getGlobalSearchResultTitle(Model $record): string | Htmlable

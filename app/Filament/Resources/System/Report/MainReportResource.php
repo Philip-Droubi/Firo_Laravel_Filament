@@ -22,6 +22,8 @@ class MainReportResource extends BaseResource
 
     protected static ?int $navigationSort = 2;
 
+    protected static ?string $slug = 'main-reports';
+
     public static function form(Form $form): Form
     {
         return $form

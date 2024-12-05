@@ -175,4 +175,5 @@ return [
     //User Service
     'users services' => 'Users services',
     'user service' => 'User service',
+    'user services' => 'User service',
 ];

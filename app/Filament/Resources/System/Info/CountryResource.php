@@ -22,6 +22,8 @@ class CountryResource extends BaseResource
 
     // protected static ?string $navigationGroup = 'System Info';
 
+    protected static ?string $slug = 'countries';
+
     protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
