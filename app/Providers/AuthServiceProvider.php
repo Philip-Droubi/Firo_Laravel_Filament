@@ -17,12 +17,14 @@ use App\Models\System\Info\PrivacyPolicy;
 use App\Models\System\Info\State;
 use App\Models\System\Info\Tos;
 use App\Models\System\Report\MainReport;
+use App\Models\System\Report\UserReport;
 use App\Models\System\Roles\Role;
 use App\Models\Users\Service\UserService;
 use App\Policies\Administration\App\AppFeaturePolicy;
 use App\Policies\Administration\Article\ArticlePolicy;
 use App\Policies\Administration\Log\BanLogPolicy;
 use App\Policies\System\Info\SystemInfoPolicy;
+use App\Policies\System\Report\UserReportPolicy;
 use App\Policies\System\Roles\RolePolicy;
 use App\Policies\Users\Service\UserServicePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -53,6 +55,7 @@ class AuthServiceProvider extends ServiceProvider
         //Users Pages Policies
         BanLog::class => BanLogPolicy::class,
         UserService::class => UserServicePolicy::class,
+        UserReport::class => UserReportPolicy::class,
     ];
 
     /**

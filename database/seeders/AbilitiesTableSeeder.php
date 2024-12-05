@@ -91,12 +91,19 @@ class AbilitiesTableSeeder extends Seeder
                 'created_at' => '2024-08-26 00:18:13',
                 'updated_at' => '2024-08-26 00:18:13',
             ),
-
             9 =>
             array(
                 'id' => 10,
                 'name' => 'Manage user services',
                 'description' => 'User can control users services in the system.',
+                'created_at' => '2024-08-26 00:18:13',
+                'updated_at' => '2024-08-26 00:18:13',
+            ),
+            10 =>
+            array(
+                'id' => 11,
+                'name' => 'Manage user reports',
+                'description' => 'User can control users reports in the system.',
                 'created_at' => '2024-08-26 00:18:13',
                 'updated_at' => '2024-08-26 00:18:13',
             ),

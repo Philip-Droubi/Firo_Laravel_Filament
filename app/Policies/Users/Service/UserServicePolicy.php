@@ -13,7 +13,8 @@ class UserServicePolicy
      */
     public function viewAny(User $user): bool
     {
-        return !empty(array_intersect($user->role->abilities->pluck('id')->toArray(), [1, 10]));
+        return $user->role_id == 3 ||
+            !empty(array_intersect($user->role->abilities->pluck('id')->toArray(), [1, 10]));
     }
 
     /**
@@ -21,7 +22,8 @@ class UserServicePolicy
      */
     public function view(User $user, UserService $userService): bool
     {
-        return !empty(array_intersect($user->role->abilities->pluck('id')->toArray(), [1, 10]));
+        return $user->role_id == 3 ||
+            !empty(array_intersect($user->role->abilities->pluck('id')->toArray(), [1, 10]));
     }
 
     /**
@@ -29,7 +31,7 @@ class UserServicePolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->role_id == 3;
     }
 
     /**
@@ -37,7 +39,7 @@ class UserServicePolicy
      */
     public function update(User $user, UserService $userService): bool
     {
-        return false;
+        return $user->role_id == 3;
     }
 
     /**
@@ -45,7 +47,8 @@ class UserServicePolicy
      */
     public function delete(User $user, UserService $userService): bool
     {
-        return !empty(array_intersect($user->role->abilities->pluck('id')->toArray(), [1, 10]));
+        return $user->role_id == 3 ||
+            !empty(array_intersect($user->role->abilities->pluck('id')->toArray(), [1, 10]));
     }
 
     /**
