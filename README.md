@@ -1,3 +1,6 @@
+<p align="center"><img src="/public/assets/logo/full_logo.png" alt="Firo Logo"></p>
+<p align="center">Logo was generated on <a href="https://myfreelogomaker.com" target="_blank">myfreelogomaker</a></p>
+
 # Firo, Filament Training Project
 
 This project is a training exercise to learn and implement Filament in a Laravel application, which is a powerful admin panel and form builder for Laravel.
