@@ -40,22 +40,29 @@ Firo is a Laravel-based project designed to serve as the admin panel for a small
    composer install
    ```
 
-3. Copy `.env.example` to `.env`.
+3. Run
+
+   ```bash
+   npm install
+   ```
+
+4. Copy `.env.example` to `.env`.
 
    Or you can type `copy .env.example .env` if you're using Windows command prompt or `cp .env.example .env` if you're using Ubuntu.
-4. Run
+
+5. Run
 
    ```bash
    php artisan key:generate
    ```
 
-5. Run
+6. Run
 
    ``` bash
    php artisan migrate:fresh --seed
     ```
 
-6. Run
+7. Run
 
     ```bash
     php artisan storage:link
