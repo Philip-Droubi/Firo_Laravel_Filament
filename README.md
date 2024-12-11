@@ -9,11 +9,12 @@ Firo is a Laravel-based project designed to serve as the admin panel for a small
 
 ## Table of Contents
 
-- [Key Objectives](#key-objectives)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Features](#features)
-- [License](#license)
+- [Firo, Filament Training Project](#firo-filament-training-project)
+  - [Table of Contents](#table-of-contents)
+  - [Key Objectives](#key-objectives)
+  - [Installation](#installation)
+  - [Features](#features)
+  - [License](#license)
 
 ## Key Objectives
 
@@ -24,28 +25,38 @@ Firo is a Laravel-based project designed to serve as the admin panel for a small
 ## Installation
 
 1. Clone the repository:
+
     ```bash
     git clone https://github.com/Philip-Droubi/Firo_Laravel_Filament.git
     ```
+
      ```bash
     cd Firo_Laravel_Filament
     ```
+
 2. Run
+
    ```bash
    composer install
    ```
-4. Copy `.env.example` to `.env`.
+
+3. Copy `.env.example` to `.env`.
 
    Or you can type `copy .env.example .env` if you're using Windows command prompt or `cp .env.example .env` if you're using Ubuntu.
-5. Run
+4. Run
+
    ```bash
    php artisan key:generate
    ```
-7. Run
+
+5. Run
+
    ``` bash
    php artisan migrate:fresh --seed
     ```
-11. Run
+
+6. Run
+
     ```bash
     php artisan storage:link
     ```
@@ -53,6 +64,7 @@ Firo is a Laravel-based project designed to serve as the admin panel for a small
 ## Usage
 
 To start the development server, run:
+
 ```bash
 php artisan serve
 ```
