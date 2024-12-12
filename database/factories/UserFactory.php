@@ -41,8 +41,9 @@ class UserFactory extends Factory
             } : null,
             'birth_date' => fake()->date(max: '2016-01-01'),
             'img_url' => fake()->imageUrl(),
-            'last_seen' => fake()->dateTimeBetween('-1 years'),
+            'last_seen' => fake()->dateTimeBetween('-1 month'),
             'remember_token' => Str::random(10),
+            'created_at' => fake()->dateTimeBetween('-2 years'),
         ];
     }
 

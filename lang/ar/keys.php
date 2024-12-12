@@ -176,4 +176,10 @@ return [
     'users services' => 'خدمات المستخدمين',
     'user service' => 'خدمة المستخدم',
     'user services' => 'خدمة المستخدم',
+
+    //DashBoard
+    'this week' => ' لهذا الاسبوع',
+    'this month' => ' لهذا الشهر',
+    'all time' => 'في كل الأوقات',
+    'new users' => 'المستخدمين الجدد',
 ];
