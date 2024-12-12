@@ -24,6 +24,7 @@ class UserServiceFactory extends Factory
             'title' => fake()->text(100),
             'body' => fake()->realTextBetween(160, 500),
             'is_visible' => fake()->randomElement([0, 1]),
+            'created_at' => fake()->dateTimeBetween('-14 month'),
         ];
     }
 }
