@@ -182,4 +182,5 @@ return [
     'this month' => 'This Month',
     'all time' => 'All Time',
     'new users' => 'New Users',
+    'active admins' => 'Active admins',
 ];

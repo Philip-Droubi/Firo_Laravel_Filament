@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\DB;
 
 class UsersServicesOverview extends BaseWidget
 {
+    protected static ?string $pollingInterval = '120s';
+
+    protected static ?int $sort = 2;
+
     protected function getHeading(): ?string
     {
         return __('keys.users services');
