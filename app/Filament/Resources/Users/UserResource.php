@@ -39,7 +39,7 @@ class UserResource extends BaseResource
 
     public static function canViewAny(): bool
     {
-        return !empty(array_intersect(Auth()->user()->role->abilities->pluck('id')->toArray(), [1, 4]));;
+        return !empty(array_intersect(Auth()->user()->role->abilities->pluck('id')->toArray(), [1, 4]));
     }
 
     public static function canView($user): bool

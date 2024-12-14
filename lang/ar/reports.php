@@ -19,11 +19,14 @@ return [
     //Types
     ReportableTypes::PROFILE->value => "حسابات المستخدمين",
     ReportableTypes::USER_SERVICE->value => "خدمات المستخدمين",
+    ReportableTypes::CUSTOMER_SERVICE_CARD->value => "بطاقات خدمة العملاء",
 
     "Unknown" => "غير محدد",
     ReportableTypes::PROFILE->value . " case" => "إبلاغ على حساب المستخدم",
     ReportableTypes::USER_SERVICE->value . " case" => "إبلاغ على خدمة خاصة بالمستخدم",
+    ReportableTypes::CUSTOMER_SERVICE_CARD->value . " case" => "إبلاغ على بطاقة خدمة عملاء",
 
     ":name profile" => "حساب :name",
     ":name user service" => "خدمة باسم :name",
+    ":name customer service card" => "بطاقة خدمة عملاء بعنوان :title",
 ];

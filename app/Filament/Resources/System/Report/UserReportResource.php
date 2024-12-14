@@ -9,6 +9,7 @@ use App\Models\System\Report\UserReport;
 use Filament\Forms;
 use Filament\Forms\Form;
 use App\Filament\Classes\BaseResource;
+use App\Filament\Resources\System\CustomerService\CustomerCardResource;
 use App\Filament\Resources\Users\Service\UserServiceResource;
 use App\Filament\Resources\Users\UserResource;
 use App\Models\System\Report\MainReport;
@@ -129,6 +130,8 @@ class UserReportResource extends BaseResource
                 return UserResource::getUrl('view', [$record->reported_id]);
             case ReportableTypes::USER_SERVICE->value:
                 return UserServiceResource::getUrl('view', [$record->reportable_id]);
+            case ReportableTypes::CUSTOMER_SERVICE_CARD->value:
+                return CustomerCardResource::getUrl('view', [$record->reportable_id]);
             default:
                 return "#";
         }
@@ -141,6 +144,8 @@ class UserReportResource extends BaseResource
                 return __("reports.:name profile", ["name" => $record->reporter->first_name]);
             case ReportableTypes::USER_SERVICE->value:
                 return __("reports.:name user service", ["name" => $record->reportable->title]);
+            case ReportableTypes::CUSTOMER_SERVICE_CARD->value:
+                return __("reports.:name customer service card", ["title" => $record->reportable->title]);
             default:
                 return __("reports.Unknown");
         }

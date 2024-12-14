@@ -12,6 +12,15 @@ use Illuminate\Support\Facades\DB;
 
 class UsersServicesOverview extends BaseWidget
 {
+    protected static ?string $pollingInterval = '120s';
+
+    protected static ?int $sort = 2;
+
+    public static function canView(): bool
+    {
+        return !empty(array_intersect(Auth()->user()->role->abilities->pluck('id')->toArray(), [1, 10]));
+    }
+
     protected function getHeading(): ?string
     {
         return __('keys.users services');

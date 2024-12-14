@@ -8,6 +8,8 @@ use App\Models\Administration\Account\AdminProfile;
 use App\Models\Administration\App\AppFeature;
 use App\Models\Administration\Article\Article;
 use App\Models\Administration\Log\BanLog;
+use App\Models\System\CustomerService\CustomerCard;
+use App\Models\System\CustomerService\CustomerCardMessage;
 use App\Models\System\Info\AboutUs;
 use App\Models\System\Info\ContactUs;
 use App\Models\System\Info\Country;
@@ -201,6 +203,16 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar
     public function services(): HasMany
     {
         return $this->hasMany(UserService::class);
+    }
+
+    public function CustomerServiceCard()
+    {
+        return $this->hasMany(CustomerCard::class, "user_id");
+    }
+
+    public function CustomerServiceCardMessages()
+    {
+        return $this->hasMany(CustomerCardMessage::class, "user_id");
     }
 
     //
