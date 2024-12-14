@@ -16,6 +16,11 @@ class UsersOverview extends BaseWidget
 
     protected static ?int $sort = 1;
 
+    public static function canView(): bool
+    {
+        return !empty(array_intersect(Auth()->user()->role->abilities->pluck('id')->toArray(), [1, 4]));
+    }
+
     protected function getHeading(): ?string
     {
         return __('keys.new users');

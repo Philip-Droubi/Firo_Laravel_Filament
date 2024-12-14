@@ -21,6 +21,11 @@ class AdminsOverview extends BaseWidget
 
     protected static ?int $sort = 3;
 
+    public static function canView(): bool
+    {
+        return !empty(array_intersect(Auth()->user()->role->abilities->pluck('id')->toArray(), [1, 3]));
+    }
+
     protected function getTableHeading(): string
     {
         return __('keys.active admins');
