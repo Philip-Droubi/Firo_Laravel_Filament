@@ -15,7 +15,11 @@ class ViewCustomerCard extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()
+                ->after(function ($record) {
+                    $record->status = CustomerServiceCardStatus::CLOSED->value;
+                    $record->save();
+                }),
             Actions\ForceDeleteAction::make(),
             Actions\RestoreAction::make(),
             Actions\Action::make('close')

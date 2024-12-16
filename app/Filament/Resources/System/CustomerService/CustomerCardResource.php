@@ -74,7 +74,6 @@ class CustomerCardResource extends BaseResource
                     ->schema([
                         Forms\Components\Toggle::make('is_private')
                             ->onColor('danger')
-                            ->offColor('success')
                             ->label(__("keys.private"))
                             ->translateLabel(),
                         Forms\Components\TextInput::make('status')
@@ -224,13 +223,22 @@ class CustomerCardResource extends BaseResource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->after(function ($record) {
+                        $record->status = CustomerServiceCardStatus::CLOSED->value;
+                        $record->save();
+                    }),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->after(function ($records) {
+                            CustomerCard::query()->withTrashed()->whereIn('id', $records->pluck('id')->toArray())->update([
+                                'status' => CustomerServiceCardStatus::CLOSED->value,
+                            ]);
+                        }),
                     Tables\Actions\ForceDeleteBulkAction::make(),
                     Tables\Actions\RestoreBulkAction::make(),
                 ]),
