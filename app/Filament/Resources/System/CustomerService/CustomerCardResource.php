@@ -110,6 +110,8 @@ class CustomerCardResource extends BaseResource
                     ->extraAttributes(["style" => 'margin:auto'])
                     ->trueIcon('heroicon-o-lock-closed')
                     ->falseIcon('heroicon-o-lock-open')
+                    ->tooltip(fn($record) => $record->is_private ? __("keys.private") : __("keys.public"))
+                    ->color(fn($record) => $record->is_private ? 'danger' : 'success')
                     ->label(__("keys.private"))
                     ->translateLabel(),
                 //Deleted
