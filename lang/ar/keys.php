@@ -1,5 +1,8 @@
 <?php
 
+use App\Enums\CustomerServiceCardStatus;
+use App\Enums\CustomerServiceTypes;
+
 return [
 
     /*
@@ -183,4 +186,15 @@ return [
     'all time' => 'في كل الأوقات',
     'new users' => 'المستخدمين الجدد',
     'active admins' => 'المدراء النشطين',
+
+    //Customer card
+    CustomerServiceCardStatus::PENDING->value => 'باللإنتظار',
+    CustomerServiceCardStatus::OPEN->value => 'مفتوح',
+    CustomerServiceCardStatus::CLOSED->value => 'مغلق',
+    CustomerServiceTypes::INQUIRY->value => 'استفسار',
+    CustomerServiceTypes::BUG->value  => 'مشكلة تقنية',
+    'customer cards' => 'بطاقات خدمة العميل',
+    'customers cards' => 'بطاقات خدمة العملا',
+    'customer card' => 'بطاقة خدمة العميل',
+
 ];

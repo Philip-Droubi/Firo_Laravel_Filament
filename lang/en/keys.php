@@ -1,5 +1,8 @@
 <?php
 
+use App\Enums\CustomerServiceCardStatus;
+use App\Enums\CustomerServiceTypes;
+
 return [
 
     /*
@@ -183,4 +186,14 @@ return [
     'all time' => 'All Time',
     'new users' => 'New Users',
     'active admins' => 'Active admins',
+
+    //Customer card
+    CustomerServiceCardStatus::PENDING->value => 'Pending',
+    CustomerServiceCardStatus::OPEN->value => 'Open',
+    CustomerServiceCardStatus::CLOSED->value => 'Closed',
+    CustomerServiceTypes::INQUIRY->value => 'Inquiry',
+    CustomerServiceTypes::BUG->value  => 'Technical problem',
+    'customer cards' => 'Customer cards',
+    'customers cards' => 'Customers cards',
+    'customer card' => 'Customer card',
 ];

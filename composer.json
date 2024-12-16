@@ -15,6 +15,7 @@
     ],
     "require": {
         "php": "^8.1",
+        "andreiio/blade-remix-icon": "^3.5",
         "awcodes/filament-badgeable-column": "^2.3",
         "awcodes/filament-tiptap-editor": "dev-image-editor",
         "bezhansalleh/filament-language-switch": "^3.1",

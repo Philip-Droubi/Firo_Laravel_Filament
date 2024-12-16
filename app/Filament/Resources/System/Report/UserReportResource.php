@@ -24,7 +24,7 @@ class UserReportResource extends BaseResource
 
     protected static ?string $navigationIcon = 'eos-report';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 4;
 
     protected static ?string $slug = 'users-reports';
 
