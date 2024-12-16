@@ -68,7 +68,7 @@ class UsersTableSeeder extends Seeder
             ),
             2 =>
             array(
-                'id' => 10,
+                'id' => 3,
                 'role_id' => 2,
                 'first_name' => 'Sami',
                 'mid_name' => 'Shadi',
@@ -89,7 +89,7 @@ class UsersTableSeeder extends Seeder
             ),
         ));
 
-        User::factory()->count(256)
+        User::factory()->count(294)
             ->has(UserSkill::factory()->count(6), 'skills')
             ->has(UserProfile::factory(), 'profile')
             ->has(UserPoint::factory()->count(5), 'points')
