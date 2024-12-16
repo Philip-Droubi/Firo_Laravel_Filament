@@ -7,10 +7,13 @@ use App\Enums\CustomerServiceTypes;
 use App\Filament\Resources\System\CustomerService\CustomerCardResource\Pages;
 use App\Filament\Resources\System\CustomerService\CustomerCardResource\RelationManagers;
 use App\Models\System\CustomerService\CustomerCard;
+use App\Traits\PublicStyles;
 use Filament\Forms;
 use Filament\Forms\Form;
 use App\Filament\Classes\BaseResource;
 use App\Filament\Resources\Users\UserResource;
+use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Section;
 use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -19,6 +22,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\HtmlString;
 
 class CustomerCardResource extends BaseResource
 {
@@ -43,7 +47,60 @@ class CustomerCardResource extends BaseResource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([]);
+            ->schema([
+                Section::make(__("keys.Creation Info"))->schema([
+                    Placeholder::make("user.name")
+                        ->label(__("keys.created_by"))
+                        ->translateLabel()
+                        ->content(
+                            fn($record): HtmlString => new HtmlString('<a href="' . UserResource::getUrl('view', [$record->user_id]) . '">' . $record->user->name . '</a>')
+                        )->extraAttributes(['style' => (new class {
+                            use PublicStyles;
+                        })->getInfolistFieldStyle()]),
+                    Forms\Components\DateTimePicker::make("created_at")
+                        ->label(__("keys.created_at"))
+                        ->translateLabel(),
+                    Forms\Components\DateTimePicker::make("updated_at")
+                        ->label(__(key: "keys.updated_at"))
+                        ->translateLabel(),
+                    Forms\Components\DateTimePicker::make("deleted_at")
+                        ->visible(fn($record): bool => $record->deleted_at != null)
+                        ->label(__(key: "keys.deleted_at"))
+                        ->translateLabel(),
+                ])
+                    ->collapsible()
+                    ->columns(3),
+                Section::make(__("keys.status info"))
+                    ->schema([
+                        Forms\Components\Toggle::make('is_private')
+                            ->onColor('danger')
+                            ->offColor('success')
+                            ->label(__("keys.private"))
+                            ->translateLabel(),
+                        Forms\Components\TextInput::make('status')
+                            ->label(__("keys.status"))
+                            ->translateLabel(),
+                        Forms\Components\TextInput::make('type')
+                            ->label(__("keys.type"))
+                            ->translateLabel(),
+                    ])
+                    ->columns(3)
+                    ->collapsible(),
+                Section::make(__("keys.title & description"))
+                    ->schema([
+                        Forms\Components\Textarea::make('title')
+                            ->autosize()
+                            ->rows(1)
+                            ->label(__("keys.title"))
+                            ->translateLabel(),
+                        Forms\Components\Textarea::make('description')
+                            ->autosize()
+                            ->label(__("keys.description"))
+                            ->translateLabel(),
+                    ])
+                    ->collapsible(),
+
+            ]);
     }
 
     public static function table(Table $table): Table
