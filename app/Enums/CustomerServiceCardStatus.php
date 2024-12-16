@@ -23,4 +23,13 @@ enum CustomerServiceCardStatus: string
 
         return $statusSelectionItems;
     }
+
+    public static function transValues(): array
+    {
+        $statuses = self::cases();
+        foreach ($statuses as $status) {
+            $data[] = __("keys." . $status->value);
+        }
+        return $data;
+    }
 }

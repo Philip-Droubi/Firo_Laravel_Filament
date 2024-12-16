@@ -10,15 +10,7 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Tables\Table;
 use App\Traits\FilamentComponentsTrait;
-use App\Traits\PublicStyles;
-use Carbon\Carbon;
-use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
-use Filament\Forms;
-use Filament\Forms\Components\DateTimePicker;
-use Illuminate\Queue\Jobs\DatabaseJob;
-use Illuminate\Support\HtmlString;
 
 class BansRelationManager extends RelationManager
 {

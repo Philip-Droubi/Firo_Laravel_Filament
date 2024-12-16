@@ -13,6 +13,8 @@ use App\Filament\Classes\BaseResource;
 use App\Filament\Resources\Users\UserResource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -59,6 +61,7 @@ class CustomerCardResource extends BaseResource
                     ->translateLabel(),
                 //Title
                 Tables\Columns\TextColumn::make('title')
+                    ->searchable()
                     ->limit(40)
                     ->tooltip(function (TextColumn $column): ?string {
                         $state = $column->getState();
@@ -120,6 +123,40 @@ class CustomerCardResource extends BaseResource
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
+                SelectFilter::make('type')
+                    ->options(CustomerServiceTypes::transValues())
+                    ->query(function (Builder $query, $state): void {
+                        if (!is_null($state['value']) && $state['value'] != "") {
+                            $type = CustomerServiceTypes::transValues()[$state['value']];
+                            $query->where(function ($q) use ($type) {
+                                $q->where("type", array_search($type, trans(key: 'keys', locale: "en")))
+                                    ->orWhere("type", array_search($type, trans(key: 'keys', locale: "ar")));
+                            });
+                        }
+                    })
+                    ->label(__("keys.type"))
+                    ->translateLabel(),
+                SelectFilter::make('status')
+                    ->multiple()
+                    ->options(CustomerServiceCardStatus::transValues())
+                    ->query(function (Builder $query, $state): void {
+                        if (!empty($state['values'])) {
+                            $statuses = [];
+                            foreach ($state['values'] as $value) {
+                                $status = CustomerServiceCardStatus::transValues()[$value];
+                                $statusVal = array_search($status, trans(key: 'keys', locale: "en"));
+                                if (!$statusVal) $statusVal = array_search($status, trans(key: 'keys', locale: "ar"));
+                                $statuses[] = $statusVal;
+                            }
+                        }
+                        $query->whereIn('status', $statuses);
+                    })
+                    ->label(__("keys.status"))
+                    ->translateLabel(),
+                Filter::make('is_private')
+                    ->query(fn(Builder $query): Builder => $query->where('is_private', true))
+                    ->label(__("keys.private"))
+                    ->translateLabel(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
