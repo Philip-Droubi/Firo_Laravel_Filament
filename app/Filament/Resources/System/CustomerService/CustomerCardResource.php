@@ -11,6 +11,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use App\Filament\Classes\BaseResource;
 use App\Filament\Resources\Users\UserResource;
+use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
@@ -31,7 +32,7 @@ class CustomerCardResource extends BaseResource
 
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::count() . " / " . static::getModel()::withTrashed()->count();
+        return static::getModel()::whereNot('status', CustomerServiceCardStatus::CLOSED->value)->count() . " / " . static::getModel()::withTrashed()->count();
     }
 
     public static function getEloquentQuery(): Builder
@@ -98,6 +99,8 @@ class CustomerCardResource extends BaseResource
                 //Messages Count
                 Tables\Columns\TextColumn::make('messages_count')
                     ->badge()
+                    ->color(Color::Blue)
+                    ->icon('eos-email-o')
                     ->extraAttributes(["style" => 'display:flex; align-items:center; justify-content:center'])
                     ->label(__("keys.messages"))
                     ->translateLabel(),
@@ -105,6 +108,8 @@ class CustomerCardResource extends BaseResource
                 Tables\Columns\IconColumn::make('is_private')
                     ->boolean()
                     ->extraAttributes(["style" => 'margin:auto'])
+                    ->trueIcon('heroicon-o-lock-closed')
+                    ->falseIcon('heroicon-o-lock-open')
                     ->label(__("keys.private"))
                     ->translateLabel(),
                 //Deleted
@@ -148,8 +153,8 @@ class CustomerCardResource extends BaseResource
                                 if (!$statusVal) $statusVal = array_search($status, trans(key: 'keys', locale: "ar"));
                                 $statuses[] = $statusVal;
                             }
+                            $query->whereIn('status', $statuses);
                         }
-                        $query->whereIn('status', $statuses);
                     })
                     ->label(__("keys.status"))
                     ->translateLabel(),

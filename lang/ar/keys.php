@@ -46,6 +46,11 @@ return [
     'inactive' => 'غير فعال',
     'status' => 'الحالة',
     'image' => 'الصورة',
+    'messages' => 'الرسائل',
+    'message' => 'رسالة',
+    'private' => 'خاص',
+    'deleted' => 'محذوف',
+    'deleted_at' => 'تاريخ الحذف',
     'published' => 'منشور',
     'published_at' => 'تاريخ النشر',
     'deactive_at' => 'تاريخ إلغاء التفعيل',
@@ -196,5 +201,4 @@ return [
     'customer cards' => 'بطاقات خدمة العميل',
     'customers cards' => 'بطاقات خدمة العملا',
     'customer card' => 'بطاقة خدمة العميل',
-
 ];
