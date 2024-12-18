@@ -38,6 +38,8 @@ return [
     'main_image' => 'Main image',
     'status info' => 'Status info',
     'title & description' => 'Title & Description',
+    'your-message' => 'Your message',
+    'send' => 'Send',
     'question' => 'Question',
     'answer' => 'Answer',
     'visible' => 'Visible',

@@ -1,6 +1,7 @@
 @vite('resources/css/filament/admin/theme.css')
-<div class="{{ $message['is_admin'] ? 'flex' : 'flex flex-row-reverse ms-auto' }}
-    relative
+<div
+    class=" flex relative
+    {{ $message['is_admin'] ? (app()->getLocale() == 'ar' ? '' : 'flex-row-reverse ms-auto') : (app()->getLocale() == 'ar' ? 'flex-row-reverse ms-auto' : 'me-auto') }}
     ">
     {{-- Avatar --}}
     <div class="{{ $message['is_admin'] ? 'ml-2' : 'mr-2' }}">
@@ -16,9 +17,9 @@
         rounded-xl max-w-[250px] xsm:max-w-[320px] sm:max-w-[390px] mdp:max-w-[500px]
         w-fit">
         {{-- User Name --}}
-        <div>
+        <div class="w-fit {{ $message['is_admin'] ? '' : 'text-left' }}">
             <a href="/admin/{{ $message['is_admin'] ? 'admin' : 'users' }}/{{ $message['user_id'] }}">
-                <p class="text-purple-800 font-bold {{ $message['is_admin'] ? '' : 'text-left' }}">
+                <p class="text-purple-800 font-bold">
                     {{ $message['user_name'] }} {{ $message['is_admin'] ? ' (Admin)' : '' }}
                 </p>
             </a>
@@ -26,7 +27,7 @@
         {{-- Message Date --}}
         <div>
             <p class="{{ $message['is_admin'] ? '' : 'text-left' }}
-        text-neutral-600 text-xs mb-3">
+                text-neutral-600 text-xs mb-3">
                 {{ $message['created_at'] }}
             </p>
         </div>

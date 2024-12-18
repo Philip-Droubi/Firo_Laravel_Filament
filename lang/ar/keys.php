@@ -38,6 +38,8 @@ return [
     'main_image' => 'الصورة الرئيسية',
     'status info' => 'معلومات الحالة',
     'title & description' => 'العنوان والوصف',
+    'your-message' => 'رسالتك',
+    'send' => 'إرسال',
     'question' => 'سؤال',
     'answer' => 'إجابة',
     'visible' => 'مرئي',

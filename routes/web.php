@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\System\CustomerService\CustomerServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +25,7 @@ Route::get('/login', function () {
 
 
 Route::get('/admin/logoutAll', [AdminAuthController::class, 'logoutAll']);
+
+Route::prefix('/admin/customer-service')->controller(CustomerServiceController::class)->group(function () {
+    Route::post('/', 'store');
+});
