@@ -1,0 +1,14 @@
+@import '/vendor/filament/filament/resources/css/theme.css';
+
+@config 'tailwind.config.js';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+.pre-default {
+    @apply text-wrap whitespace-break-spaces break-words;
+    font-family: inherit;
+    word-wrap: break-word;
+}

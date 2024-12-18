@@ -4,6 +4,7 @@ namespace App\Filament\Resources\System\CustomerService\CustomerCardResource\Pag
 
 use App\Enums\CustomerServiceCardStatus;
 use App\Filament\Resources\System\CustomerService\CustomerCardResource;
+use App\Filament\Resources\System\CustomerService\CustomerCardResource\Widgets\CustomerCardChat;
 use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Support\Colors\Color;
@@ -42,6 +43,13 @@ class ViewCustomerCard extends ViewRecord
                 ->visible(fn($record): bool => $record->status == CustomerServiceCardStatus::CLOSED->value)
                 ->label(__("keys.reopen"))
                 ->translateLabel(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            CustomerCardChat::class,
         ];
     }
 }
