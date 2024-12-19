@@ -36,5 +36,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DefinedSkillsTableSeeder::class);
         $this->call(AppFeaturesTableSeeder::class);
         $this->call(LoginHistoryTableSeeder::class);
+        $this->call(CustomerCardSeeder::class);
     }
 }

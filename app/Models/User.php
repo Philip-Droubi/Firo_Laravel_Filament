@@ -292,6 +292,11 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar
         return asset($this->getProfileImage($this));
     }
 
+    public function getAvatar(): ?string
+    {
+        return $this->getProfileImage($this);
+    }
+
     //Scopes
     public function scopeSearchName(Builder $query, string|null $search): void
     {

@@ -1,5 +1,8 @@
 <?php
 
+use App\Enums\CustomerServiceCardStatus;
+use App\Enums\CustomerServiceTypes;
+
 return [
 
     /*
@@ -33,6 +36,10 @@ return [
     'device_name' => 'Device name',
     'ip_address' => 'IP address',
     'main_image' => 'Main image',
+    'status info' => 'Status info',
+    'title & description' => 'Title & Description',
+    'your-message' => 'Your message',
+    'send' => 'Send',
     'question' => 'Question',
     'answer' => 'Answer',
     'visible' => 'Visible',
@@ -43,6 +50,15 @@ return [
     'image' => 'Image',
     'all' => 'All',
     'inactive' => 'Inactive',
+    'messages' => 'Messages',
+    'message' => 'Message',
+    'private' => 'Private',
+    'public' => 'Public',
+    'close' => 'Close',
+    'open' => 'Open',
+    'reopen' => 'Reopen',
+    'deleted' => 'Deleted',
+    'deleted_at' => 'Deleted_at',
     'published' => 'Published',
     'published_at' => 'Published at',
     'deactive_at' => 'Deactivated at',
@@ -133,6 +149,7 @@ return [
     'User Account Info' => 'User Account Info',
     'User personal info' => 'User personal info',
     'User Creation Info' => 'User Creation Info',
+    'Creation Info' => 'Creation Info',
     'Account Status' => 'Account Status',
     'Account is active' => 'Account is active',
     'bg_image' => 'Background image',
@@ -183,4 +200,14 @@ return [
     'all time' => 'All Time',
     'new users' => 'New Users',
     'active admins' => 'Active admins',
+
+    //Customer card
+    CustomerServiceCardStatus::PENDING->value => 'Pending',
+    CustomerServiceCardStatus::OPEN->value => 'Open',
+    CustomerServiceCardStatus::CLOSED->value => 'Closed',
+    CustomerServiceTypes::INQUIRY->value => 'Inquiry',
+    CustomerServiceTypes::BUG->value  => 'Technical problem',
+    'customer cards' => 'Customer cards',
+    'customers cards' => 'Customers cards',
+    'customer card' => 'Customer card',
 ];

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\System\Info\Country;
+use App\Models\System\Info\State;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -37,7 +38,7 @@ class UserFactory extends Factory
             'phone_number' => fake()->phoneNumber(),
             'country_id' => $countryID,
             'state_id' => $countryID == 15 ? function () {
-                return Country::inRandomOrder()->first()->id;
+                return State::inRandomOrder()->first()->id;
             } : null,
             'birth_date' => fake()->date(max: '2016-01-01'),
             'img_url' => fake()->imageUrl(),

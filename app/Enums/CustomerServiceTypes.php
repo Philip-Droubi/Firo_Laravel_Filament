@@ -16,8 +16,7 @@ enum CustomerServiceTypes: string
     {
         $types = self::cases();
         foreach ($types as $type) {
-            $data[] = __("messages." . $type->value, [], "en");
-            $data[] = __("messages." . $type->value, [], "ar");
+            $data[] = __("keys." . $type->value);
         }
         return $data;
     }

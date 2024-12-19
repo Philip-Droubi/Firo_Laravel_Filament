@@ -1,9 +1,13 @@
-/** @type {import('tailwindcss').Config} */
+import theme from 'tailwindcss/defaultTheme'
+import preset from '../../../../vendor/filament/filament/tailwind.config.preset'
+
 export default {
+    presets: [preset],
     content: [
-        "./resources/**/*.blade.php",
-        "./resources/**/*.js",
-        "./resources/**/*.vue",
+        './app/Filament/**/*.php',
+        './vendor/filament/**/*.blade.php',
+        './resources/views/filament/**/*.blade.php',
+        './resources/views/components/filament/**/*.blade.php',
     ],
     theme: {
         extend: {
@@ -19,5 +23,4 @@ export default {
             },
         },
     },
-    plugins: [],
 }

@@ -1,5 +1,8 @@
 <?php
 
+use App\Enums\CustomerServiceCardStatus;
+use App\Enums\CustomerServiceTypes;
+
 return [
 
     /*
@@ -33,6 +36,10 @@ return [
     'device_name' => 'الجهاز',
     'ip_address' => 'عنوان ال IP',
     'main_image' => 'الصورة الرئيسية',
+    'status info' => 'معلومات الحالة',
+    'title & description' => 'العنوان والوصف',
+    'your-message' => 'رسالتك',
+    'send' => 'إرسال',
     'question' => 'سؤال',
     'answer' => 'إجابة',
     'visible' => 'مرئي',
@@ -43,6 +50,15 @@ return [
     'inactive' => 'غير فعال',
     'status' => 'الحالة',
     'image' => 'الصورة',
+    'messages' => 'الرسائل',
+    'message' => 'رسالة',
+    'private' => 'خاص',
+    'public' => 'عام',
+    'close' => 'إغلاق',
+    'open' => 'فتح',
+    'reopen' => 'إعادة فتح',
+    'deleted' => 'محذوف',
+    'deleted_at' => 'تاريخ الحذف',
     'published' => 'منشور',
     'published_at' => 'تاريخ النشر',
     'deactive_at' => 'تاريخ إلغاء التفعيل',
@@ -133,6 +149,7 @@ return [
     'User Account Info' => 'معلومات حساب المستخدم',
     'User personal info' => 'معلومات المستخدم الشخصية',
     'User Creation Info' => 'معلومات إنشاء المستخدم',
+    'Creation Info' => 'معلومات الإنشاء',
     'Account Status' => 'حالة الحساب',
     'Account is active' => 'الحساب فعال',
     'bg_image' => 'صورة الغلاف',
@@ -183,4 +200,14 @@ return [
     'all time' => 'في كل الأوقات',
     'new users' => 'المستخدمين الجدد',
     'active admins' => 'المدراء النشطين',
+
+    //Customer card
+    CustomerServiceCardStatus::PENDING->value => 'باللإنتظار',
+    CustomerServiceCardStatus::OPEN->value => 'مفتوح',
+    CustomerServiceCardStatus::CLOSED->value => 'مغلق',
+    CustomerServiceTypes::INQUIRY->value => 'استفسار',
+    CustomerServiceTypes::BUG->value  => 'مشكلة تقنية',
+    'customer cards' => 'بطاقات خدمة العميل',
+    'customers cards' => 'بطاقات خدمة العملا',
+    'customer card' => 'بطاقة خدمة العميل',
 ];

@@ -226,11 +226,8 @@ class ArticleResource extends BaseResource
                                     ->limit(50)
                                     ->tooltip(function (TextColumn $column): ?string {
                                         $state = $column->getState();
-                                        if (strlen($state) <= $column->getCharacterLimit()) {
-                                            return null;
-                                        }
-                                        // Only render the tooltip if the column contents exceeds the length limit.
-                                        return $state;
+                                        return strlen($state) <= $column->getCharacterLimit() ?
+                                            null : $state;
                                     }),
                                 //Category
                                 Tables\Columns\TextColumn::make('category.name')
