@@ -115,7 +115,7 @@ class RoleResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.roles');
+        return ucwords(__('keys.roles'));
     }
 
     public static function getModelLabel(): string

@@ -16,7 +16,6 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Awcodes\FilamentBadgeableColumn\Components\BadgeableColumn;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Contracts\Support\Htmlable;
@@ -319,7 +318,7 @@ class UserResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.users');
+        return ucwords(__('keys.users'));
     }
 
     public static function getModelLabel(): string

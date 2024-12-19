@@ -83,7 +83,7 @@ class CategoryResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.categories');
+        return ucwords(__('keys.categories'));
     }
 
     public static function getModelLabel(): string

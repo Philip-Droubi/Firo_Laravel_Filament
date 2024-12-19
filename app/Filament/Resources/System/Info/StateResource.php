@@ -119,7 +119,7 @@ class StateResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.states');
+        return ucwords(__('keys.states'));
     }
 
     public static function getModelLabel(): string

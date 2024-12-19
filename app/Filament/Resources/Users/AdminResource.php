@@ -368,7 +368,7 @@ class AdminResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.admins');
+        return ucwords(__('keys.admins'));
     }
 
     public static function getModelLabel(): string

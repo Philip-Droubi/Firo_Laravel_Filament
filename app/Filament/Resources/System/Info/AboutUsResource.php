@@ -114,7 +114,7 @@ class AboutUsResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.about us');
+        return ucwords(__('keys.about us'));
     }
 
     public static function getModelLabel(): string

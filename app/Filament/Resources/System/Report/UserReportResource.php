@@ -4,7 +4,6 @@ namespace App\Filament\Resources\System\Report;
 
 use App\Enums\ReportableTypes;
 use App\Filament\Resources\System\Report\UserReportResource\Pages;
-use App\Filament\Resources\System\Report\UserReportResource\RelationManagers;
 use App\Models\System\Report\UserReport;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -169,7 +168,7 @@ class UserReportResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.reports');
+        return ucwords(__('keys.reports'));
     }
 
     public static function getModelLabel(): string

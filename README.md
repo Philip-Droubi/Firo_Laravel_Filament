@@ -9,12 +9,13 @@ Firo is a Laravel-based project designed to serve as the admin panel for a small
 
 ## Table of Contents
 
-- [Firo, Filament Training Project](#firo-filament-training-project)
-  - [Table of Contents](#table-of-contents)
-  - [Key Objectives](#key-objectives)
-  - [Installation](#installation)
-  - [Features](#features)
-  - [License](#license)
+<!-- no toc -->
+- [Table of Contents](#table-of-contents)
+- [Key Objectives](#key-objectives)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [License](#license)
 
 ## Key Objectives
 
@@ -76,7 +77,46 @@ To start the development server, run:
 php artisan serve
 ```
 
+```bash
+npm run dev
+```
+
 ## Features
+
+- Custom login.
+- States overview in dashboard home page.
+- Customized global search, user profile, and `userMenuItems` (log out all devices).
+- Multi lang (AR, EN).
+  
+- **System Users Section** which include:
+  - Users.
+  - Admins.
+  - Customer Service *(With custom `Chat` widget)*.
+  - Reports: A report from one user on another.
+  
+- **System Services Section** which include:
+  - Users Service: which refers to the specific skills and tasks that freelancers offer to clients.
+
+- **System Logs Section** which include:
+  - Ban Log: To keep track of all the users who have been banned from accessing the platform.
+
+- **System Info** which include:
+  - Contact Us.
+  - About Us.
+  - Terms Of Services.
+  - Privacy Policies.
+  - Frequently Asked Questions.
+  - Articles
+
+- **System Management** which include:
+  - Roles: A dynamic role system that relies on the assigned abilities.
+  - System Main Reports: Reports Type.
+  - Countries.
+  - States.
+  - Skills.
+  - Categories.
+  - Sub Categories.
+  - App Features Controller: allows administrators to enable or disable specific features or the entire system. It provides a simple interface where admins can toggle features on or off as needed.
 
 ## License
 

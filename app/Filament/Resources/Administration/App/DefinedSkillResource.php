@@ -87,7 +87,7 @@ class DefinedSkillResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.skills');
+        return ucwords(__('keys.skills'));
     }
 
     public static function getModelLabel(): string

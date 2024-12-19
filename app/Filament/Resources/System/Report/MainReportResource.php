@@ -84,7 +84,7 @@ class MainReportResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.main reports');
+        return ucwords(__('keys.main reports'));
     }
 
     public static function getModelLabel(): string

@@ -156,7 +156,7 @@ class ContactUsResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.contact us');
+        return ucwords(__('keys.contact us'));
     }
 
     public static function getModelLabel(): string

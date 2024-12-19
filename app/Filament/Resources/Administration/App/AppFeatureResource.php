@@ -59,7 +59,7 @@ class AppFeatureResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.app features');
+        return ucwords(__('keys.app features'));
     }
 
     public static function getModelLabel(): string

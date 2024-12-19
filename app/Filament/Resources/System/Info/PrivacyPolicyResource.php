@@ -114,7 +114,7 @@ class PrivacyPolicyResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.privacy policies');
+        return ucwords(__('keys.privacy policies'));
     }
 
     public static function getModelLabel(): string

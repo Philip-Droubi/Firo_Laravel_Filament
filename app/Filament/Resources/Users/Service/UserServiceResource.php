@@ -16,7 +16,6 @@ use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-// use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Support\HtmlString;
 
@@ -184,7 +183,7 @@ class UserServiceResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.users services');
+        return ucwords(__('keys.users services'));
     }
 
     public static function getModelLabel(): string

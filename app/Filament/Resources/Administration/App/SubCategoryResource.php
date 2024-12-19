@@ -109,7 +109,7 @@ class SubCategoryResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.sub categories');
+        return ucwords(__('keys.sub categories'));
     }
 
     public static function getModelLabel(): string

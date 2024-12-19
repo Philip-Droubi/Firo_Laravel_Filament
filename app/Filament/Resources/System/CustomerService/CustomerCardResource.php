@@ -5,7 +5,6 @@ namespace App\Filament\Resources\System\CustomerService;
 use App\Enums\CustomerServiceCardStatus;
 use App\Enums\CustomerServiceTypes;
 use App\Filament\Resources\System\CustomerService\CustomerCardResource\Pages;
-use App\Filament\Resources\System\CustomerService\CustomerCardResource\RelationManagers;
 use App\Models\System\CustomerService\CustomerCard;
 use App\Traits\PublicStyles;
 use Filament\Forms;
@@ -21,7 +20,6 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\HtmlString;
 
 class CustomerCardResource extends BaseResource
@@ -262,7 +260,7 @@ class CustomerCardResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.customer cards');
+        return ucwords(__('keys.customer cards'));
     }
 
     public static function getModelLabel(): string
