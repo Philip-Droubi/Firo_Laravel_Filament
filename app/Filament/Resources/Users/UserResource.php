@@ -8,6 +8,7 @@ use App\Models\Users\Account\UserSkill;
 use Filament\Forms;
 use Filament\Forms\Form;
 use App\Filament\Classes\BaseResource;
+use App\Forms\Components\ImageView;
 use App\Traits\PublicStyles;
 use Filament\Support\Colors\Color;
 use Filament\Tables;
@@ -117,11 +118,15 @@ class UserResource extends BaseResource
                     ])
                     ->columns(3),
                 Section::make("")->schema([
-                    FileUpload::make('img_url')
+                    ImageView::make('img_url')
+                        ->viewData(['for' => "avatar"])
+                        ->visibleOn('view')
                         ->columnSpanFull()
                         ->label(__("keys.main_image"))
                         ->translateLabel(),
-                    FileUpload::make('bg_img_url')
+                    ImageView::make('bg_img_url')
+                        ->viewData(['for' => "bg-image"])
+                        ->visibleOn('view')
                         ->columnSpanFull()
                         ->label(__("keys.bg_image"))
                         ->translateLabel(),

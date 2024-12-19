@@ -158,7 +158,7 @@ class CustomerCardResource extends BaseResource
                     ->color(Color::Blue)
                     ->icon('eos-email-o')
                     ->extraAttributes(["style" => 'display:flex; align-items:center; justify-content:center'])
-                    ->label(__("keys.messages"))
+                    ->label(__("keys.messages count"))
                     ->translateLabel(),
                 //Private
                 Tables\Columns\IconColumn::make('is_private')
