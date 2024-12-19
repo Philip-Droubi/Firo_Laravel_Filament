@@ -28,4 +28,5 @@ Route::get('/admin/logoutAll', [AdminAuthController::class, 'logoutAll']);
 
 Route::prefix('/admin/customer-service')->controller(CustomerServiceController::class)->group(function () {
     Route::post('/', 'store');
+    Route::delete('/{id}', 'destroy');
 });

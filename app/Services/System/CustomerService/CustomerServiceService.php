@@ -13,28 +13,12 @@ use Illuminate\Support\Facades\DB;
  */
 class CustomerServiceService extends MainService
 {
-    public function index($card_id, $limit = 30)
+    public function index()
     {
-        // $data = [];
-        // $items = [];
-        // $limit <= 0 ? $limit = 30 : false;
-        // $user = auth("sanctum")->user();
-        // $messages = CustomerCardMessage::query()->where("card_id", $card_id);
-        // if ($user && $user->role_id == 3)
-        //     $messages->whereHas("card", function ($query) {
-        //         $query->where("is_private", false)
-        //             ->orWhere("user_id", auth('sanctum')->id());
-        //     });
-        // $messages = $messages->with("user")->orderBy("created_at", "desc")->paginate($limit);
-        // foreach ($messages as $message) {
-        //     $items[] = new CustomerCardMessageResource($message);
-        // }
-        // $data["items"] = $items;
-        // $data = $this->setPaginationData($messages, $data);
-        // return $data;
+        //
     }
 
-    public function store($validatedData)
+    public function store($validatedData): void
     {
         DB::beginTransaction();
         $message = CustomerCardMessage::create([
@@ -48,6 +32,10 @@ class CustomerServiceService extends MainService
             $card->save();
         }
         DB::commit();
-        return new CustomerCardMessageResource($message);
+    }
+
+    public function destroy($id): bool
+    {
+        return CustomerCardMessage::findOrFail($id)->delete();
     }
 }

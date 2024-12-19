@@ -17,20 +17,34 @@
         rounded-xl max-w-[250px] xsm:max-w-[320px] sm:max-w-[390px] mdp:max-w-[500px]
         w-fit">
         {{-- User Name --}}
-        <div class="w-fit {{ $message['is_admin'] ? '' : (app()->getLocale() == 'ar' ? 'mr-auto' : '') }}">
-            <a href="/admin/{{ $message['is_admin'] ? 'admin' : 'users' }}/{{ $message['user_id'] }}">
-                <p class="text-purple-800 dark:text-[#ff90f0] font-bold">
-                    {{ $message['user_name'] }} {{ $message['is_admin'] ? ' (Admin)' : '' }}
-                </p>
-            </a>
-        </div>
-        {{-- Message Date --}}
-        <div>
-            <p
-                class="{{ $message['is_admin'] ? '' : 'text-left' }}
-                text-neutral-600 dark:text-neutral-200 text-xs mb-3">
-                {{ $message['created_at'] }}
-            </p>
+        <div
+            class="flex items-center justify-between
+        {{ app()->getLocale() == 'ar' ? 'flex-row-reverse' : '' }}">
+            <div class="w-fit {{ $message['is_admin'] ? '' : (app()->getLocale() == 'ar' ? 'mr-auto' : '') }}">
+                <a href="/admin/{{ $message['is_admin'] ? 'admin' : 'users' }}/{{ $message['user_id'] }}">
+                    <p class="text-purple-800 dark:text-[#ff90f0] font-bold">
+                        {{ $message['user_name'] }} {{ $message['is_admin'] ? ' (Admin)' : '' }}
+                    </p>
+                </a>
+                {{-- Message Date --}}
+                <div>
+                    <p
+                        class="{{ $message['is_admin'] ? '' : 'text-left' }}
+                        text-neutral-600 dark:text-neutral-200 text-xs mb-3">
+                        {{ $message['created_at'] }}
+                    </p>
+                </div>
+            </div>
+            <div class="mx-2 -mt-2">
+                <form method="POST" action="/admin/customer-service/{{ $message['id'] }}">
+                    @csrf
+                    @method('DELETE')
+                    <button
+                        class="size-10 flex items-center justify-center rounded-full transition-all
+                    hover:bg-rose-300"
+                        type="submit"><x-fas-trash class="text-red-400 w-4" /></button>
+                </form>
+            </div>
         </div>
         {{-- Message Body --}}
         <div>
