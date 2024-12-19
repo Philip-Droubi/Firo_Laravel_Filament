@@ -89,11 +89,11 @@ class UsersTableSeeder extends Seeder
             ),
         ));
 
-        User::factory()->count(294)
+        User::factory()->count(562)
             ->has(UserSkill::factory()->count(6), 'skills')
             ->has(UserProfile::factory(), 'profile')
-            ->has(UserPoint::factory()->count(5), 'points')
-            ->has(UserService::factory()->count(5), 'services')
+            ->has(UserPoint::factory()->count(7), 'points')
+            ->has(UserService::factory()->count(12), 'services')
             ->create();
     }
 }

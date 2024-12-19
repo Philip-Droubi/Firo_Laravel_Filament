@@ -21,7 +21,7 @@ class CustomerCardSeeder extends Seeder
         //Card Messages Seeding
         foreach ($cards as $card) {
             $usersArray = [$card->user_id, User::whereNot('role_id', 3)->inRandomOrder()->first()->id];
-            $count = random_int(min: 4, max: 14);
+            $count = random_int(min: 10, max: 20);
             for ($i = 0; $i < $count; $i++) {
                 CustomerCardMessage::factory()->create([
                     'user_id' => $usersArray[array_rand($usersArray)],

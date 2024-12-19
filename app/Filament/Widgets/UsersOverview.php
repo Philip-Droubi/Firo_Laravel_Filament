@@ -36,13 +36,14 @@ class UsersOverview extends BaseWidget
 
         $usersChartArray = $this->getYearUsersChartArray();
 
+
         if ($usersChartArray[count($usersChartArray) - 2] != 0) {
             if ($usersThisMonth < $usersChartArray[count($usersChartArray) - 2]) {
-                $monthDesc = '- ' . round(($usersThisMonth * 100) / $usersChartArray[count($usersChartArray) - 2], 1) . '%';
+                $monthDesc = '- ' . (100 - round(($usersThisMonth * 100) / $usersChartArray[count($usersChartArray) - 2], 1)) . '%';
                 $monthDescIcon = 'heroicon-m-arrow-trending-down';
                 $monthDescColor = 'danger';
             } else {
-                $monthDesc = '+ ' . round(($usersThisMonth * 100) / $usersChartArray[count($usersChartArray) - 2], 1) . '%';
+                $monthDesc = '+ ' . (round(($usersThisMonth * 100) / $usersChartArray[count($usersChartArray) - 2], 1) - 100) . '%';
                 $monthDescIcon = 'heroicon-m-arrow-trending-up';
                 $monthDescColor = 'success';
             }
