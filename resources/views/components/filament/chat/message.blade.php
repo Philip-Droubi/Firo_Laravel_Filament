@@ -17,7 +17,7 @@
         rounded-xl max-w-[250px] xsm:max-w-[320px] sm:max-w-[390px] mdp:max-w-[500px]
         w-fit">
         {{-- User Name --}}
-        <div class="w-fit {{ $message['is_admin'] ? '' : 'text-left' }}">
+        <div class="w-fit {{ $message['is_admin'] ? '' : (app()->getLocale() == 'ar' ? 'mr-auto' : '') }}">
             <a href="/admin/{{ $message['is_admin'] ? 'admin' : 'users' }}/{{ $message['user_id'] }}">
                 <p class="text-purple-800 dark:text-[#ff90f0] font-bold">
                     {{ $message['user_name'] }} {{ $message['is_admin'] ? ' (Admin)' : '' }}
