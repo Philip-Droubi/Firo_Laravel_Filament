@@ -36,14 +36,7 @@
                 </div>
             </div>
             <div class="mx-2 -mt-2">
-                <form method="POST" action="/admin/customer-service/{{ $message['id'] }}">
-                    @csrf
-                    @method('DELETE')
-                    <button
-                        class="size-10 flex items-center justify-center rounded-full transition-all
-                    hover:bg-rose-300"
-                        type="submit"><x-fas-trash class="text-red-400 w-4" /></button>
-                </form>
+                <x-filament.misc.delete-trash :link="'/admin/customer-service/' . $message['id']"></x-filament.misc.delete-trash>
             </div>
         </div>
         {{-- Message Body --}}

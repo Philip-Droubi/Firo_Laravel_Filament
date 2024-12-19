@@ -27,5 +27,5 @@ return [
 
     ":name profile" => ":name profile",
     ":name user service" => "user service: :name",
-    ":name customer service card" => "Customer service card: :name",
+    ":title customer service card" => "Customer service card: :title",
 ];

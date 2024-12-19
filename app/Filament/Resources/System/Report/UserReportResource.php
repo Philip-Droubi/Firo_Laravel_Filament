@@ -4,7 +4,6 @@ namespace App\Filament\Resources\System\Report;
 
 use App\Enums\ReportableTypes;
 use App\Filament\Resources\System\Report\UserReportResource\Pages;
-use App\Filament\Resources\System\Report\UserReportResource\RelationManagers;
 use App\Models\System\Report\UserReport;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -14,6 +13,7 @@ use App\Filament\Resources\Users\Service\UserServiceResource;
 use App\Filament\Resources\Users\UserResource;
 use App\Models\System\Report\MainReport;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -35,7 +35,7 @@ class UserReportResource extends BaseResource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->with(['reportable',]);
+        return parent::getEloquentQuery()->with(['reportable']);
     }
 
     public static function table(Table $table): Table
@@ -80,6 +80,14 @@ class UserReportResource extends BaseResource
                     ->label(__("keys.report case"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('reportable_id')
+                    ->limit(140)
+                    ->lineClamp(4)
+                    ->extraAttributes(["style" => 'width:250px'])
+                    ->tooltip(function (TextColumn $column): ?string {
+                        $state = $column->getState();
+                        return strlen($state) <= $column->getCharacterLimit() ?
+                            null : $state;
+                    })
                     ->getStateUsing(fn($record) => self::getReportableLabel($record))
                     ->url(fn($record) => self::getReportableUrl($record))
                     ->wrap()
@@ -145,7 +153,7 @@ class UserReportResource extends BaseResource
             case ReportableTypes::USER_SERVICE->value:
                 return __("reports.:name user service", ["name" => $record->reportable->title]);
             case ReportableTypes::CUSTOMER_SERVICE_CARD->value:
-                return __("reports.:name customer service card", ["title" => $record->reportable->title]);
+                return __("reports.:title customer service card", ["title" => $record->reportable->title]);
             default:
                 return __("reports.Unknown");
         }
@@ -160,7 +168,7 @@ class UserReportResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.reports');
+        return ucwords(__('keys.reports'));
     }
 
     public static function getModelLabel(): string

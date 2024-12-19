@@ -339,7 +339,7 @@ class ArticleResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.articles');
+        return ucwords(__('keys.articles'));
     }
 
     public static function getModelLabel(): string

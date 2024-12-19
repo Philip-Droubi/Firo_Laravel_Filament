@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Classes\BaseResource;
 use App\Filament\Resources\Users\AdminResource;
 use App\Filament\Resources\Users\UserResource;
-use App\Models\Administration\App\DefinedSkill;
 use App\Models\User;
 use App\Traits\PublicStyles;
 use Carbon\Carbon;
@@ -18,7 +17,6 @@ use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Get;
 use Filament\Tables;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
@@ -184,7 +182,7 @@ class BanLogResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.ban log');
+        return ucwords(__('keys.ban log'));
     }
 
     public static function getModelLabel(): string

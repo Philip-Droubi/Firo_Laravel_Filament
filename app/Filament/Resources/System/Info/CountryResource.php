@@ -121,7 +121,7 @@ class CountryResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.countries');
+        return ucwords(__('keys.countries'));
     }
 
     public static function getModelLabel(): string

@@ -124,7 +124,7 @@ class FAQResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.faq');
+        return ucwords(__('keys.faq'));
     }
 
     public static function getModelLabel(): string

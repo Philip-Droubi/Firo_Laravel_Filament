@@ -28,5 +28,5 @@ return [
 
     ":name profile" => "حساب :name",
     ":name user service" => "خدمة باسم :name",
-    ":name customer service card" => "بطاقة خدمة عملاء بعنوان :title",
+    ":title customer service card" => "بطاقة خدمة عملاء بعنوان :title",
 ];

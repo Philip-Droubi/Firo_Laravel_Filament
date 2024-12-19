@@ -38,11 +38,11 @@ class UsersServicesOverview extends BaseWidget
 
         if ($servicesChartArray[count($servicesChartArray) - 2] != 0) {
             if ($servicesThisMonth < $servicesChartArray[count($servicesChartArray) - 2]) {
-                $monthDesc = '- ' . round(($servicesThisMonth * 100) / $servicesChartArray[count($servicesChartArray) - 2], 1) . '%';
+                $monthDesc = '- ' . (100 - round(($servicesThisMonth * 100) / $servicesChartArray[count($servicesChartArray) - 2], 1)) . '%';
                 $monthDescIcon = 'heroicon-m-arrow-trending-down';
                 $monthDescColor = 'danger';
             } else {
-                $monthDesc = '+ ' . round(($servicesThisMonth * 100) / $servicesChartArray[count($servicesChartArray) - 2], 1) . '%';
+                $monthDesc = '+ ' . (round(($servicesThisMonth * 100) / $servicesChartArray[count($servicesChartArray) - 2], 1) - 100) . '%';
                 $monthDescIcon = 'heroicon-m-arrow-trending-up';
                 $monthDescColor = 'success';
             }

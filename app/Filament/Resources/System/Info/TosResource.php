@@ -114,7 +114,7 @@ class TosResource extends BaseResource
 
     public static function getNavigationLabel(): string
     {
-        return __('keys.term of services');
+        return ucwords(__('keys.term of services'));
     }
 
     public static function getModelLabel(): string
