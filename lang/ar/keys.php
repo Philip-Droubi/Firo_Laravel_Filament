@@ -40,6 +40,7 @@ return [
     'title & description' => 'العنوان والوصف',
     'messages count' => 'عدد الرسائل',
     'your-message' => 'رسالتك',
+    'no messages yet' => 'لا يوجد رسائل بعد!',
     'send' => 'إرسال',
     'question' => 'سؤال',
     'answer' => 'إجابة',

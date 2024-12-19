@@ -39,6 +39,7 @@ return [
     'status info' => 'Status info',
     'title & description' => 'Title & Description',
     'messages count' => 'Messages count',
+    'no messages yet' => 'No messages yet!',
     'your-message' => 'Your message',
     'send' => 'Send',
     'question' => 'Question',
