@@ -12,6 +12,7 @@ Firo is a Laravel-based project designed to serve as the admin panel for a small
 <!-- no toc -->
 - [Table of Contents](#table-of-contents)
 - [Key Objectives](#key-objectives)
+- [Video](#video)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
@@ -22,6 +23,10 @@ Firo is a Laravel-based project designed to serve as the admin panel for a small
 - Admin Panel Development: Create a comprehensive admin panel using Filament to manage users, projects, and other resources.
 - Learn Filament: Gain hands-on experience with Filament and its integration into a Laravel application.
 - Resource Management: Implement CRUD operations for efficient resource management within the admin panel.
+
+## Video
+
+[![Watch the video](https://raw.githubusercontent.com/Philip-Droubi/Firo_Laravel_Filament/main/public/assets/logo/full_logo.png)](https://raw.githubusercontent.com/Philip-Droubi/Firo_Laravel_Filament/main/public/assets/docs/video/Video.mp4)
 
 ## Installation
 
