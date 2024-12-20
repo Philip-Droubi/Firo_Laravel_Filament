@@ -144,6 +144,7 @@ return [
     'first name' => 'First name',
     'middle name' => 'Middle name',
     'last name' => 'Last name',
+    'portfolio' => 'Portfolio',
     'birth date' => 'Birth date',
     'password' => 'Password',
     'password confirmation' => 'Password confirmation',

@@ -145,6 +145,7 @@ return [
     'middle name' => 'الاسم الأوسط',
     'last name' => 'الاسم الأخير',
     'birth date' => 'تاريخ الميلاد',
+    'portfolio' => 'معرض الأعمال',
     'password' => 'كلمة المرور',
     'password confirmation' => 'تأكيد كلمة المرور',
     'User Account Info' => 'معلومات حساب المستخدم',
