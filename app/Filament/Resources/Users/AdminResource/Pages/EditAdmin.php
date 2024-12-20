@@ -38,12 +38,13 @@ class EditAdmin extends EditRecord
         if ($data["img_url"] != $record->img_url && $record->img_url)
             Storage::disk('public')->delete($record->img_url);
 
-        if (!$record->deactive_at && !$data["deactive_at_toggle"])
-            $data["deactive_at"] = Carbon::now()->format('Y-m-d H:i:s');
+        if ($record->role_id != 1 || $record->id != 1) {
+            if (!$record->deactive_at && !$data["deactive_at_toggle"])
+                $data["deactive_at"] = Carbon::now()->format('Y-m-d H:i:s');
 
-        if ($data["deactive_at_toggle"])
-            $data["deactive_at"] = null;
-
+            if ($data["deactive_at_toggle"])
+                $data["deactive_at"] = null;
+        }
         $record->update($data);
         $record->adminProfile->update([
             'about_user' => $data["about_user"],

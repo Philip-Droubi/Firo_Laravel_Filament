@@ -171,6 +171,7 @@ return [
     'reason' => 'السبب',
     'auto ban' => 'حظر آلي',
     'banned_until' => 'حظر لغاية',
+    'banned only' => 'فقط المحظورين',
     'ban user' => 'حظر المستخدم',
     'unban user' => 'إلغاء حظر المستخدم',
     'ban' => 'حظر',

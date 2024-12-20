@@ -37,5 +37,8 @@ class DatabaseSeeder extends Seeder
         $this->call(AppFeaturesTableSeeder::class);
         $this->call(LoginHistoryTableSeeder::class);
         $this->call(CustomerCardSeeder::class);
+        $this->call(ArticlesTableSeeder::class);
+        $this->call(ArticleImagesTableSeeder::class);
+        $this->call(ArticleSkillsTableSeeder::class);
     }
 }
