@@ -8,7 +8,7 @@ trait ImagesHelper
     {
         return strpos($user->img_url, 'http') === 0 ?
             $user->img_url
-            : (is_null($user->img_url) ? config('custom.user_default_image') : "storage/assets/" . $user->img_url);
+            : (is_null($user->img_url) ? config('custom.user_default_image') : "storage/" . $user->img_url);
     }
 
     protected function getBGImage($profile): string

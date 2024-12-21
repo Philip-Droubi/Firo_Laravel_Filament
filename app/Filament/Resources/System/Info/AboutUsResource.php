@@ -64,7 +64,8 @@ class AboutUsResource extends BaseResource
                     }),
                 Tables\Columns\TextColumn::make('text')
                     ->limit(80)
-                    ->lineClamp(2)
+                    ->lineClamp(3)
+                    ->extraAttributes(['style' => 'width:200px'])
                     ->formatStateUsing(fn(string $state): HtmlString => new HtmlString($state))
                     ->label(__("keys.text"))
                     ->translateLabel(),

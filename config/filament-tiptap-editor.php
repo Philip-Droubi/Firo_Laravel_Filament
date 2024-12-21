@@ -142,7 +142,7 @@ return [
     'image_crop_aspect_ratio' => null,
     'image_resize_target_width' => null,
     'image_resize_target_height' => null,
-    'use_relative_paths' => true,
+    'use_relative_paths' => false,
 
     /*
     |--------------------------------------------------------------------------

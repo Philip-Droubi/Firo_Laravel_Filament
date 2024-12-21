@@ -88,6 +88,7 @@ class BanLogResource extends BaseResource
                     })
                     ->optionsLimit(8)
                     ->live(debounce: 500)
+                    ->visibleOn('create')
                     ->label(__("keys.banned_user"))
                     ->translateLabel(),
                 DateTimePicker::make('banned_until')

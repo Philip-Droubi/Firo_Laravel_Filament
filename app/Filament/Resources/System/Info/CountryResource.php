@@ -53,7 +53,6 @@ class CountryResource extends BaseResource
                     ->translateLabel(),
                 Forms\Components\TextInput::make('dial_code')
                     ->required()
-                    ->numeric()
                     ->minValue(1)
                     ->maxValue(9999)
                     ->label(__("keys.dial code"))
