@@ -1,34 +1,34 @@
 <p align="center"><img src="/public/assets/logo/full_logo.png" alt="Firo Logo"></p>
 <p align="center">Logo was generated on <a href="https://myfreelogomaker.com" target="_blank">myfreelogomaker</a></p>
 
-# Firo, Filament Training Project
+# 🔥 Firo, Filament Training Project
 
 This project is a training exercise to learn and implement Filament in a Laravel application, which is a powerful admin panel and form builder for Laravel.
 
 Firo is a Laravel-based project designed to serve as the admin panel for a small freelancing platform. This project leverages Filament, a powerful admin panel and form builder for Laravel, to manage and oversee various aspects of the platform. While Firo focuses solely on the admin panel and does not include API functionalities, it provides a solid foundation for managing the platform’s data and operations.
 
-## Table of Contents
+## 📑 Table of Contents
 
 <!-- no toc -->
-- [Table of Contents](#table-of-contents)
-- [Key Objectives](#key-objectives)
-- [Video](#video)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Features](#features)
-- [License](#license)
+- [Table of Contents](#-table-of-contents)
+- [Key Objectives](#-key-objectives)
+- [Video](#-video)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [Features](#-features)
+- [License](#-license)
 
-## Key Objectives
+## 🔑 Key Objectives
 
 - Admin Panel Development: Create a comprehensive admin panel using Filament to manage users, projects, and other resources.
 - Learn Filament: Gain hands-on experience with Filament and its integration into a Laravel application.
 - Resource Management: Implement CRUD operations for efficient resource management within the admin panel.
 
-## Video
+## 🎥 Video
 
-[![Watch the video](https://raw.githubusercontent.com/Philip-Droubi/Firo_Laravel_Filament/main/public/assets/logo/full_logo.png)](https://raw.githubusercontent.com/Philip-Droubi/Firo_Laravel_Filament/main/public/assets/docs/video/Video.mp4)
+[![Watch the video](https://raw.githubusercontent.com/Philip-Droubi/Firo_Laravel_Filament/main/public/assets/docs/images/Video_Thumb.png.png)](https://hoster-ph.github.io/Firo_docs/Video.mp4)
 
-## Installation
+## ⬇ Installation
 
 1. Clone the repository:
 
@@ -74,7 +74,7 @@ Firo is a Laravel-based project designed to serve as the admin panel for a small
     php artisan storage:link
     ```
 
-## Usage
+## 🛠 Usage
 
 To start the development server, run:
 
@@ -86,7 +86,7 @@ php artisan serve
 npm run dev
 ```
 
-## Features
+## 🚀 Features
 
 - Custom login.
 - States overview in dashboard home page.
@@ -123,6 +123,6 @@ npm run dev
   - Sub Categories.
   - App Features Controller: allows administrators to enable or disable specific features or the entire system. It provides a simple interface where admins can toggle features on or off as needed.
 
-## License
+## 📜 License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
