@@ -9,6 +9,7 @@ use App\Models\Administration\App\Category;
 use App\Models\Administration\App\SubCategory;
 use App\Models\Administration\Article\Article;
 use App\Models\Administration\Log\BanLog;
+use App\Models\System\CustomerService\CustomerCard;
 use App\Models\System\Info\AboutUs;
 use App\Models\System\Info\ContactUs;
 use App\Models\System\Info\Country;
@@ -23,6 +24,7 @@ use App\Models\Users\Service\UserService;
 use App\Policies\Administration\App\AppFeaturePolicy;
 use App\Policies\Administration\Article\ArticlePolicy;
 use App\Policies\Administration\Log\BanLogPolicy;
+use App\Policies\System\CustomerService\CustomerCardPolicy;
 use App\Policies\System\Info\SystemInfoPolicy;
 use App\Policies\System\Report\UserReportPolicy;
 use App\Policies\System\Roles\RolePolicy;
@@ -40,6 +42,7 @@ class AuthServiceProvider extends ServiceProvider
         Article::class => ArticlePolicy::class,
         AppFeature::class => AppFeaturePolicy::class,
         Role::class => RolePolicy::class,
+        CustomerCard::class => CustomerCardPolicy::class,
         //System Info Policies
         ContactUs::class => SystemInfoPolicy::class,
         AboutUs::class => SystemInfoPolicy::class,
