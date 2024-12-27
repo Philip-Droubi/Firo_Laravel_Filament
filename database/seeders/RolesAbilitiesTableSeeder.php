@@ -99,6 +99,14 @@ class RolesAbilitiesTableSeeder extends Seeder
                 'created_at' => '2024-08-26 00:41:52',
                 'updated_at' => '2024-08-26 00:41:52',
             ),
+            10 =>
+            array(
+                'id' => 11,
+                'role_id' => 2,
+                'ability_id' => 12,
+                'created_at' => '2024-08-26 00:41:52',
+                'updated_at' => '2024-08-26 00:41:52',
+            ),
         ));
     }
 }
