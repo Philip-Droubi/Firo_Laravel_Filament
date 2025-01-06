@@ -101,7 +101,8 @@ class UsersServicesOverview extends BaseWidget
         $months = [];
 
         for ($year = $startYear; $year <= $endYear; $year++) {
-            for ($month = 1; $month <= 12; $month++) {
+            $year == now()->year ? $cMonth = now()->month : $cMonth = 12;
+            for ($month = 1; $month <= $cMonth; $month++) {
                 $months["$year-$month"] = 0;
             }
         }

@@ -36,7 +36,6 @@ class UsersOverview extends BaseWidget
 
         $usersChartArray = $this->getYearUsersChartArray();
 
-
         if ($usersChartArray[count($usersChartArray) - 2] != 0) {
             if ($usersThisMonth < $usersChartArray[count($usersChartArray) - 2]) {
                 $monthDesc = '- ' . (100 - round(($usersThisMonth * 100) / $usersChartArray[count($usersChartArray) - 2], 1)) . '%';
@@ -105,7 +104,8 @@ class UsersOverview extends BaseWidget
         $months = [];
 
         for ($year = $startYear; $year <= $endYear; $year++) {
-            for ($month = 1; $month <= 12; $month++) {
+            $year == now()->year ? $cMonth = now()->month : $cMonth = 12;
+            for ($month = 1; $month <= $cMonth; $month++) {
                 $months["$year-$month"] = 0;
             }
         }
